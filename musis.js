@@ -4,9 +4,9 @@ var t = 0;
 
 musis.frame = function (dt, ctx2d, w, h) {
 
-ctx2d.shadowOffsetX = 0; // integer
-ctx2d.shadowOffsetY = 0; // integer
-ctx2d.shadowBlur = 10; // integer
+ctx2d.shadowOffsetX = 0;
+ctx2d.shadowOffsetY = 0;
+ctx2d.shadowBlur = 10;
 
   ctx2d.fillStyle = "rgba(0, 0, 0, 0.05)";
   ctx2d.shadowColor = "black";

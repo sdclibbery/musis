@@ -16,6 +16,41 @@ var frame = function (t) {
   window.requestAnimationFrame(frame);
 }
 window.requestAnimationFrame(frame);
+
+
+
+var context = new AudioContext();
+
+/* VCO */
+var vco = context.createOscillator();
+vco.type = vco.SINE;
+vco.frequency.value = this.frequency;
+vco.start(0);
+
+/* VCA */
+var vca = context.createGain();
+vca.gain.value = 0;
+
+/* Connections */
+vco.connect(vca);
+vca.connect(context.destination);
+
+var f = 110;
+vco.frequency.value = f;
+
+canvas.onmousedown = function () {
+  vco.frequency.value = f;
+  f *= Math.pow(2, 1/12);
+  console.log(f);
+  vca.gain.value = 1;
+};
+
+canvas.onmouseup = function () {
+  vca.gain.value = 0;
+};
+
+
+
   </script>
 </body>
 </html>
