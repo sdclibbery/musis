@@ -1,0 +1,21 @@
+<html>
+<head>
+  <script type="text/javascript" src="musis.js"></script>
+</head>
+<body>
+  <canvas id="canvas" width="960" height="540"></canvas>
+  <script type="text/javascript">
+var canvas = document.getElementById("canvas");
+var ctx2d = canvas.getContext("2d");
+var tLast;
+var frame = function (t) {
+  if (tLast) {
+    musis.frame(t - tLast, ctx2d, canvas.width, canvas.height);
+  }
+  tLast = t;
+  window.requestAnimationFrame(frame);
+}
+window.requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
