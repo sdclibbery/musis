@@ -1,6 +1,7 @@
 <html>
 <head>
   <script type="text/javascript" src="musis.js"></script>
+  <script type="text/javascript" src="triggers.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="960" height="540"></canvas>
@@ -8,13 +9,16 @@
 
 /*
 x Have mouse/touch handling in here and call through to js
-* Make rendered object react to touch
-* Have audio triggered by touch
+x Make rendered object react to touch
+* Have multiple trigger objects
 * Have diatonic notes with correct frequencies
 * Show selected notes linked up with glowing lines
+* Have audio triggered by touch
 * Add a beat
 * 
 */
+
+musis.init();
 
 var canvas = document.getElementById("canvas");
 var ctx2d = canvas.getContext("2d");
