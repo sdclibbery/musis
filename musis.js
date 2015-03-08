@@ -1,6 +1,5 @@
 musis = {}
 
-var t = 0;
 
 var audio = new AudioContext();
 
@@ -21,23 +20,13 @@ vca.connect(audio.destination);
 var f = 110;
 vco.frequency.value = f;
 
-/*
-canvas.onmousedown = function () {
-  vco.frequency.value = f;
-  f *= Math.pow(2, 1/12);
-  console.log(f);
-  vca.gain.value = 1;
-};
-
-canvas.onmouseup = function () {
-  vca.gain.value = 0;
-};
-*/
 
 
-var hue = 120;
-var rx;
-var ry;
+var t = 0;
+var selected = false;
+var rx = 0;
+var ry = 0;
+var rs = 0.04;
 musis.frame = function (dt, cv2d, cw, ch) {
 
   var xcoord = function (x) {
@@ -50,30 +39,43 @@ musis.frame = function (dt, cv2d, cw, ch) {
     return ch * h;
   };
 
+
+  t = t+dt/1000;
+  rx = Math.sin(t*(1+t/100));
+  ry = Math.cos(t*2);
+
+
   cv2d.shadowOffsetX = 0;
   cv2d.shadowOffsetY = 0;
   cv2d.shadowBlur = 10;
+  cv2d.lineWidth = 3;
+
 
   cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
   cv2d.shadowColor = "black";
   cv2d.fillRect(0, 0, cw, ch);
 
-  cv2d.fillStyle = "hsl("+hue+", 100%, 45%)";
-  cv2d.shadowColor = "hsl("+hue+", 100%, 55%)";
-  var x = rx || Math.sin(t*(1+t/100));
-  var y = ry || Math.cos(t*2);
-  cv2d.fillRect(xcoord(x), ycoord(y), hcoord(0.04), hcoord(0.04));
-  t = t+dt/1000;
+  cv2d.fillStyle = "hsl(120, 100%, 45%)";
+  cv2d.shadowColor = "hsl(120, 100%, 55%)";
+  cv2d.fillRect(xcoord(rx), ycoord(ry), hcoord(rs), hcoord(rs));
+  if (selected) {
+    cv2d.shadowColor = "white";
+    cv2d.strokeStyle = "white";
+  } else {
+    cv2d.strokeStyle = "hsl(120, 100%, 55%)";
+  }
+  cv2d.strokeRect(xcoord(rx), ycoord(ry), hcoord(rs), hcoord(rs));
 };
 
 musis.touchstart = function (x, y, cw, ch) {
-  hue += 30;
-  hue %= 360;
 };
 
 musis.touchmove = function (x, y, cw, ch) {
-  rx = 2*x/cw - 1;
-  ry = 2*y/ch - 1;
+  tx = 2*x/cw - 1;
+  ty = 2*y/ch - 1;
+  if (tx >= rx && tx <= rx+rs && ty >= ry && ty <= ry+rs) {
+    selected = true;
+  }
 };
 
 musis.touchend = function (x, y, cw, ch) {
