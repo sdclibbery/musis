@@ -48,12 +48,12 @@ musis.frame = function (dt, cv2d, w, h) {
   cv2d.shadowOffsetY = 0;
   cv2d.shadowBlur = 10;
 
-  cv2d.fillStyle = "rgba(0, 0, 0, 0.05)";
+  cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
   cv2d.shadowColor = "black";
   cv2d.fillRect(0, 0, w, h);
 
-  cv2d.fillStyle = "green";
-  cv2d.shadowColor = "#00ff00";
+  cv2d.fillStyle = "hsl(120, 100%, 50%)";
+  cv2d.shadowColor = "hsl(120, 100%, 70%)";
   cv2d.fillRect(xcoord(Math.sin(t*(1+t/100))), ycoord(Math.cos(t*2)), 10, 10);
   t = t+dt/1000;
 }
