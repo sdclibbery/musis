@@ -35,13 +35,17 @@ canvas.onmouseup = function () {
 */
 
 
-musis.frame = function (dt, cv2d, w, h) {
+var hue = 120;
+musis.frame = function (dt, cv2d, cw, ch) {
 
   var xcoord = function (x) {
-    return 0.5 * w * (1+x);
+    return 0.5 * cw * (1+x);
   };
   var ycoord = function (y) {
-    return 0.5 * h * (1+y);
+    return 0.5 * ch * (1+y);
+  };
+  var hcoord = function (h) {
+    return ch * h;
   };
 
   cv2d.shadowOffsetX = 0;
@@ -50,10 +54,15 @@ musis.frame = function (dt, cv2d, w, h) {
 
   cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
   cv2d.shadowColor = "black";
-  cv2d.fillRect(0, 0, w, h);
+  cv2d.fillRect(0, 0, cw, ch);
 
-  cv2d.fillStyle = "hsl(120, 100%, 50%)";
-  cv2d.shadowColor = "hsl(120, 100%, 70%)";
-  cv2d.fillRect(xcoord(Math.sin(t*(1+t/100))), ycoord(Math.cos(t*2)), 10, 10);
+  cv2d.fillStyle = "hsl("+hue+", 100%, 45%)";
+  cv2d.shadowColor = "hsl("+hue+", 100%, 55%)";
+  cv2d.fillRect(xcoord(Math.sin(t*(1+t/100))), ycoord(Math.cos(t*2)), hcoord(0.04), hcoord(0.04));
   t = t+dt/1000;
-}
+};
+
+musis.dragstart = function (x, y, cw, ch) {
+  hue += 30;
+  hue %= 360;
+};

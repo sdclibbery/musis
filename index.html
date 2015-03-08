@@ -25,8 +25,12 @@ var frame = function (t) {
   }
   tLast = t;
   window.requestAnimationFrame(frame);
-}
+};
 window.requestAnimationFrame(frame);
+
+canvas.onmousedown = function (evt) {
+  musis.dragstart(evt.clientX, evt.clientY, canvas.width, canvas.height);
+};
 
   </script>
 </body>
