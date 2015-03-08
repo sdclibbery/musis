@@ -7,7 +7,7 @@
   <script type="text/javascript">
 
 /*
-* Have mouse down/drag/up handling in here and call through to js
+x Have mouse/touch handling in here and call through to js
 * Make rendered object react to touch
 * Have audio triggered by touch
 * Have diatonic notes with correct frequencies
@@ -28,9 +28,31 @@ var frame = function (t) {
 };
 window.requestAnimationFrame(frame);
 
+var mousedown = false;
 canvas.onmousedown = function (evt) {
-  musis.dragstart(evt.clientX, evt.clientY, canvas.width, canvas.height);
+  mousedown = true;
+  musis.touchstart(evt.clientX, evt.clientY, canvas.width, canvas.height);
 };
+canvas.onmousemove = function (evt) {
+  if (mousedown) {
+    musis.touchmove(evt.clientX, evt.clientY, canvas.width, canvas.height);
+  }
+};
+canvas.onmouseup = function (evt) {
+  musis.touchend(evt.clientX, evt.clientY, canvas.width, canvas.height);
+  mousedown = false;
+};
+
+canvas.addEventListener("touchstart", function (evt) {
+  musis.touchstart(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+});
+canvas.addEventListener("touchmove", function (evt) {
+  musis.touchmove(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+});
+canvas.addEventListener("touchup", function (evt) {
+  musis.touchend(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+});
+
 
   </script>
 </body>
