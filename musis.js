@@ -41,6 +41,24 @@ ctx = {
       this.cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
       this.cv2d.shadowColor = "black";
       this.cv2d.fillRect(0, 0, this.cw, this.ch);
+    },
+    trigger: function (x, y, size, hue, selected) {
+      this.cv2d.shadowOffsetX = 0;
+      this.cv2d.shadowOffsetY = 0;
+      this.cv2d.shadowBlur = 10;
+      this.cv2d.lineWidth = 3;
+
+      this.cv2d.fillStyle = "hsl("+hue+", 100%, 45%)";
+      this.cv2d.shadowColor = "hsl("+hue+", 100%, 55%)";
+      this.cv2d.fillRect(this.xcoord(x), this.ycoord(y), this.hcoord(size), this.hcoord(size));
+
+      if (selected) {
+        this.cv2d.shadowColor = "white";
+        this.cv2d.strokeStyle = "white";
+      } else {
+        this.cv2d.strokeStyle = "hsl("+hue+", 100%, 55%)";
+      }
+      this.cv2d.strokeRect(this.xcoord(x), this.ycoord(y), this.hcoord(size), this.hcoord(size));
     }
   }
 }

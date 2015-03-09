@@ -4,7 +4,7 @@ var trigger = function (hue) {
   this.selected = false;
   this.rx = 0;
   this.ry = 0;
-  this.rs = 0.04;
+  this.size = 0.04;
 };
 
 trigger.prototype.update = function (dt) {
@@ -14,25 +14,11 @@ trigger.prototype.update = function (dt) {
 };
 
 trigger.prototype.render = function (ctx) {
-  ctx.draw.cv2d.shadowOffsetX = 0;
-  ctx.draw.cv2d.shadowOffsetY = 0;
-  ctx.draw.cv2d.shadowBlur = 10;
-  ctx.draw.cv2d.lineWidth = 3;
-
-  ctx.draw.cv2d.fillStyle = "hsl("+this.hue+", 100%, 45%)";
-  ctx.draw.cv2d.shadowColor = "hsl("+this.hue+", 100%, 55%)";
-  ctx.draw.cv2d.fillRect(ctx.draw.xcoord(this.rx), ctx.draw.ycoord(this.ry), ctx.draw.hcoord(this.rs), ctx.draw.hcoord(this.rs));
-  if (this.selected) {
-    ctx.draw.cv2d.shadowColor = "white";
-    ctx.draw.cv2d.strokeStyle = "white";
-  } else {
-    ctx.draw.cv2d.strokeStyle = "hsl("+this.hue+", 100%, 55%)";
-  }
-  ctx.draw.cv2d.strokeRect(ctx.draw.xcoord(this.rx), ctx.draw.ycoord(this.ry), ctx.draw.hcoord(this.rs), ctx.draw.hcoord(this.rs));
+  ctx.draw.trigger(this.rx, this.ry, this.size, this.hue, this.selected);
 };
 
 trigger.prototype.touch = function (tx, ty) {
-  if (tx >= this.rx && tx <= this.rx+this.rs && ty >= this.ry && ty <= this.ry+this.rs) {
+  if (tx >= this.rx && tx <= this.rx+this.size && ty >= this.ry && ty <= this.ry+this.size) {
     this.selected = true;
   }
 };
