@@ -20,7 +20,30 @@ vca.connect(audio.destination);
 var f = 110;
 vco.frequency.value = f;
 
-
+ctx = {
+  draw: {
+    cv2d: null,
+    cw: 100,
+    ch: 100,
+    xcoord: function (x) {
+      return 0.5 * this.cw * (1+x);
+    },
+    ycoord: function (y) {
+      return 0.5 * this.ch * (1+y);
+    },
+    hcoord: function (h) {
+      return this.ch * h;
+    },
+    frameStart: function (cv2d, cw, ch) {
+      this.cv2d = cv2d;
+      this.cw = cw;
+      this.ch = ch;
+      this.cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
+      this.cv2d.shadowColor = "black";
+      this.cv2d.fillRect(0, 0, this.cw, this.ch);
+    }
+  }
+}
 
 var triggers;
 
@@ -33,24 +56,8 @@ musis.frame = function (dt, cv2d, cw, ch) {
   // Update
   triggers.update(dt);
 
-  // Clear
-  cv2d.fillStyle = "rgba(0, 0, 0, 0.2)";
-  cv2d.shadowColor = "black";
-  cv2d.fillRect(0, 0, cw, ch);
-
   // Render
-  ctx = {
-    cv2d: cv2d,
-    xcoord: function (x) {
-      return 0.5 * cw * (1+x);
-    },
-    ycoord: function (y) {
-      return 0.5 * ch * (1+y);
-    },
-    hcoord: function (h) {
-      return ch * h;
-    }
-  }
+  ctx.draw.frameStart(cv2d, cw, ch);
   triggers.render(ctx);
 };
 

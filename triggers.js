@@ -14,21 +14,21 @@ trigger.prototype.update = function (dt) {
 };
 
 trigger.prototype.render = function (ctx) {
-  ctx.cv2d.shadowOffsetX = 0;
-  ctx.cv2d.shadowOffsetY = 0;
-  ctx.cv2d.shadowBlur = 10;
-  ctx.cv2d.lineWidth = 3;
+  ctx.draw.cv2d.shadowOffsetX = 0;
+  ctx.draw.cv2d.shadowOffsetY = 0;
+  ctx.draw.cv2d.shadowBlur = 10;
+  ctx.draw.cv2d.lineWidth = 3;
 
-  ctx.cv2d.fillStyle = "hsl("+this.hue+", 100%, 45%)";
-  ctx.cv2d.shadowColor = "hsl("+this.hue+", 100%, 55%)";
-  ctx.cv2d.fillRect(ctx.xcoord(this.rx), ctx.ycoord(this.ry), ctx.hcoord(this.rs), ctx.hcoord(this.rs));
+  ctx.draw.cv2d.fillStyle = "hsl("+this.hue+", 100%, 45%)";
+  ctx.draw.cv2d.shadowColor = "hsl("+this.hue+", 100%, 55%)";
+  ctx.draw.cv2d.fillRect(ctx.draw.xcoord(this.rx), ctx.draw.ycoord(this.ry), ctx.draw.hcoord(this.rs), ctx.draw.hcoord(this.rs));
   if (this.selected) {
-    ctx.cv2d.shadowColor = "white";
-    ctx.cv2d.strokeStyle = "white";
+    ctx.draw.cv2d.shadowColor = "white";
+    ctx.draw.cv2d.strokeStyle = "white";
   } else {
-    ctx.cv2d.strokeStyle = "hsl("+this.hue+", 100%, 55%)";
+    ctx.draw.cv2d.strokeStyle = "hsl("+this.hue+", 100%, 55%)";
   }
-  ctx.cv2d.strokeRect(ctx.xcoord(this.rx), ctx.ycoord(this.ry), ctx.hcoord(this.rs), ctx.hcoord(this.rs));
+  ctx.draw.cv2d.strokeRect(ctx.draw.xcoord(this.rx), ctx.draw.ycoord(this.ry), ctx.draw.hcoord(this.rs), ctx.draw.hcoord(this.rs));
 };
 
 trigger.prototype.touch = function (tx, ty) {
