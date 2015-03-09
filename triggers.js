@@ -1,6 +1,6 @@
-var trigger = function (hue) {
-  this.hue = hue;
-  this.t = hue/10;
+var trigger = function (note) {
+  this.note = note;
+  this.t = Math.random()*10;
   this.selected = false;
   this.rx = 0;
   this.ry = 0;
@@ -14,7 +14,7 @@ trigger.prototype.update = function (dt) {
 };
 
 trigger.prototype.render = function (ctx) {
-  ctx.draw.trigger(this.rx, this.ry, this.size, this.hue, this.selected);
+  ctx.draw.trigger(this.rx, this.ry, this.size, this.note, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -39,14 +39,13 @@ trigger.prototype.touch = function (s, e) {
 
 musis.triggers = function () {
   this.triggers = [
-    new trigger(0),
-    new trigger(30),
-    new trigger(60),
-    new trigger(120),
-    new trigger(180),
-    new trigger(200),
-    new trigger(240),
-    new trigger(300)
+    new trigger("C"),
+    new trigger("D"),
+    new trigger("E"),
+    new trigger("F"),
+    new trigger("G"),
+    new trigger("A"),
+    new trigger("B")
   ];
 };
 

@@ -48,9 +48,19 @@ ctx = {
       this.cv2d.shadowColor = "black";
       this.cv2d.fillRect(0, 0, this.cw, this.ch);
     },
-    trigger: function (x, y, size, hue, selected) {
+    hues: {
+      C: 240,
+      D: 60,
+      E: 300,
+      F: 120,
+      G: 0,
+      A: 180,
+      B: 30
+    },
+    trigger: function (x, y, size, note, selected) {
       var s = this.hToCanvas(size);
       var hs = s/2;
+      var hue = this.hues[note];
 
       this.cv2d.shadowOffsetX = 0;
       this.cv2d.shadowOffsetY = 0;
