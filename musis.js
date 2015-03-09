@@ -78,17 +78,7 @@ musis.init = function () {
   triggers = new musis.triggers();
 };
 
-musis.frame = function (dt, cv2d, cw, ch) {
-
-  // Update
-  triggers.update(dt);
-
-  // Render
-  ctx.draw.frameStart(cv2d, cw, ch);
-  triggers.render(ctx);
-};
-
-var s;
+var s = null;
 musis.touchstart = function (x, y) {
   s = { x: ctx.draw.xFromCanvas(x), y: ctx.draw.yFromCanvas(y) };
   triggers.touch(s, s);
@@ -103,4 +93,14 @@ musis.touchmove = function (x, y) {
 musis.touchend = function (x, y) {
   var e = { x: ctx.draw.xFromCanvas(x), y: ctx.draw.yFromCanvas(y) };
   triggers.touch(s, e);
+};
+
+musis.frame = function (dt, cv2d, cw, ch) {
+  if (s) {
+    triggers.touch(s, s);
+  }
+  triggers.update(dt);
+
+  ctx.draw.frameStart(cv2d, cw, ch);
+  triggers.render(ctx);
 };
