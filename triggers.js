@@ -1,20 +1,17 @@
-var trigger = function (note) {
+var trigger = function (note, motion) {
   this.note = note;
-  this.t = Math.random()*10;
+  this.motion = motion;
   this.selected = false;
-  this.rx = 0;
-  this.ry = 0;
+  this.p = { x: 0, y: 0 };
   this.size = 0.08;
 };
 
-trigger.prototype.update = function (dt) {
-  this.t += dt/1000;
-  this.rx = 0.3*Math.sin(this.t*(1 + this.t/100));
-  this.ry = 0.3*Math.cos(this.t*2);
+trigger.prototype.update = function (t) {
+  this.p = this.motion(t);
 };
 
 trigger.prototype.render = function (ctx) {
-  ctx.draw.trigger(this.rx, this.ry, this.size, this.note, this.selected);
+  ctx.draw.trigger(this.p.x, this.p.y, this.size, this.note, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -29,35 +26,44 @@ var sqrDistToSegment = function(p, v, w) {
 };
 
 trigger.prototype.touch = function (s, e) {
-  var p = { x: this.rx, y: this.ry };
+  var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.7)) {
     this.selected = true;
   }
 };
 
+//////
 
+var expanding = function (a) {
+  return function (t) {
+    return {
+      x: -Math.pow(t, 0.3)/4*Math.cos(a),
+      y: -Math.pow(t, 0.3)/4*Math.sin(a)
+    };
+  };
+}
+
+var notes = ["A", "C", "E", "G", "B", "D", "F"];
 musis.triggers = function () {
-  this.triggers = [
-    new trigger("C"),
-    new trigger("D"),
-    new trigger("E"),
-    new trigger("F"),
-    new trigger("G"),
-    new trigger("A"),
-    new trigger("B")
-  ];
+  this.t = 0;
+  this.triggers = [];
+  for (var i = 0; i < 7; i++) {
+    this.triggers[i] = new trigger(notes[i], expanding(i*6.28/7));
+  }
 };
 
 musis.triggers.prototype.update = function (dt) {
-  this.triggers.map(function(t) { t.update(dt); });
+  this.t += dt;
+  var t = this.t;
+  this.triggers.map(function(trigger) { trigger.update(t); });
 };
 
 musis.triggers.prototype.render = function (ctx) {
-  this.triggers.map(function(t) { t.render(ctx); });
+  this.triggers.map(function(trigger) { trigger.render(ctx); });
 };
 
 musis.triggers.prototype.touch = function (tx, ty) {
-  this.triggers.map(function(t) { t.touch(tx, ty); });
+  this.triggers.map(function(trigger) { trigger.touch(tx, ty); });
 };
 

@@ -31,7 +31,7 @@ var ctx2d = canvas.getContext("2d");
 var tLast;
 var frame = function (t) {
   if (tLast) {
-    musis.frame(t - tLast, ctx2d, canvas.width, canvas.height);
+    musis.frame((t - tLast)/1000, ctx2d, canvas.width, canvas.height);
   }
   tLast = t;
   window.requestAnimationFrame(frame);
