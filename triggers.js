@@ -4,7 +4,7 @@ var trigger = function (hue) {
   this.selected = false;
   this.rx = 0;
   this.ry = 0;
-  this.size = 0.04;
+  this.size = 0.08;
 };
 
 trigger.prototype.update = function (dt) {
@@ -18,7 +18,8 @@ trigger.prototype.render = function (ctx) {
 };
 
 trigger.prototype.touch = function (tx, ty) {
-  if (tx >= this.rx && tx <= this.rx+this.size && ty >= this.ry && ty <= this.ry+this.size) {
+  var hs = this.size / 2;
+  if (tx >= this.rx-hs && tx <= this.rx+hs && ty >= this.ry-hs && ty <= this.ry+hs) {
     this.selected = true;
   }
 };

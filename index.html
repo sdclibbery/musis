@@ -11,12 +11,14 @@
 x Have mouse/touch handling in here and call through to js
 x Make rendered object react to touch
 x Have multiple trigger objects
-* Fix incorrect offset in hit testing vs drawing
+* Touch-selecting issues
+ x Fix incorrect offset in hit testing vs drawing
+ * Need to select all triggers between last touch point and next (to avoid fast fingers skipping triggers)
+ * Last touch point should still select triggers that pass over (until touchend anyway)
 * Refactor drawing into adapter
  * Move hue into adapter
 * Arrange triggers
 * Show selected triggers linked up with glowing smooth lines
-* Need to select all triggers between last touch point and next (to avoid fast fingers skipping triggers)
 * Have audio triggered by touch
 * Launch groups of triggers
 * Evaluate 
@@ -43,26 +45,26 @@ window.requestAnimationFrame(frame);
 var mousedown = false;
 canvas.onmousedown = function (evt) {
   mousedown = true;
-  musis.touchstart(evt.clientX, evt.clientY, canvas.width, canvas.height);
+  musis.touchstart(evt.clientX, evt.clientY);
 };
 canvas.onmousemove = function (evt) {
   if (mousedown) {
-    musis.touchmove(evt.clientX, evt.clientY, canvas.width, canvas.height);
+    musis.touchmove(evt.clientX, evt.clientY);
   }
 };
 canvas.onmouseup = function (evt) {
-  musis.touchend(evt.clientX, evt.clientY, canvas.width, canvas.height);
+  musis.touchend(evt.clientX, evt.clientY);
   mousedown = false;
 };
 
 canvas.addEventListener("touchstart", function (evt) {
-  musis.touchstart(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+  musis.touchstart(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
 canvas.addEventListener("touchmove", function (evt) {
-  musis.touchmove(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+  musis.touchmove(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
 canvas.addEventListener("touchup", function (evt) {
-  musis.touchend(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY, canvas.width, canvas.height);
+  musis.touchend(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
 
 

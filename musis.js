@@ -25,14 +25,20 @@ ctx = {
     cv2d: null,
     cw: 100,
     ch: 100,
-    xcoord: function (x) {
-      return 0.5 * this.cw * (1+x);
+    xToCanvas: function (x) {
+      return 0.5*(this.cw + this.ch*x);
     },
-    ycoord: function (y) {
+    yToCanvas: function (y) {
       return 0.5 * this.ch * (1+y);
     },
-    hcoord: function (h) {
-      return this.ch * h;
+    xFromCanvas: function (x) {
+      return (x*2 - this.cw) / this.ch;
+    },
+    yFromCanvas: function (y) {
+      return y*2/this.ch - 1;
+    },
+    hToCanvas: function (h) {
+      return 0.5 * this.ch * h;
     },
     frameStart: function (cv2d, cw, ch) {
       this.cv2d = cv2d;
@@ -43,6 +49,9 @@ ctx = {
       this.cv2d.fillRect(0, 0, this.cw, this.ch);
     },
     trigger: function (x, y, size, hue, selected) {
+      var s = this.hToCanvas(size);
+      var hs = s/2;
+
       this.cv2d.shadowOffsetX = 0;
       this.cv2d.shadowOffsetY = 0;
       this.cv2d.shadowBlur = 10;
@@ -50,7 +59,7 @@ ctx = {
 
       this.cv2d.fillStyle = "hsl("+hue+", 100%, 45%)";
       this.cv2d.shadowColor = "hsl("+hue+", 100%, 55%)";
-      this.cv2d.fillRect(this.xcoord(x), this.ycoord(y), this.hcoord(size), this.hcoord(size));
+      this.cv2d.fillRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
 
       if (selected) {
         this.cv2d.shadowColor = "white";
@@ -58,7 +67,7 @@ ctx = {
       } else {
         this.cv2d.strokeStyle = "hsl("+hue+", 100%, 55%)";
       }
-      this.cv2d.strokeRect(this.xcoord(x), this.ycoord(y), this.hcoord(size), this.hcoord(size));
+      this.cv2d.strokeRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
     }
   }
 }
@@ -79,14 +88,14 @@ musis.frame = function (dt, cv2d, cw, ch) {
   triggers.render(ctx);
 };
 
-musis.touchstart = function (x, y, cw, ch) {
+musis.touchstart = function (x, y) {
 };
 
-musis.touchmove = function (x, y, cw, ch) {
-  var tx = 2*x/cw - 1;
-  var ty = 2*y/ch - 1;
+musis.touchmove = function (x, y) {
+  var tx = ctx.draw.xFromCanvas(x);
+  var ty = ctx.draw.yFromCanvas(y);
   triggers.touch(tx, ty);
 };
 
-musis.touchend = function (x, y, cw, ch) {
+musis.touchend = function (x, y) {
 };
