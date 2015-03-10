@@ -2,6 +2,8 @@
 <head>
   <script type="text/javascript" src="musis.js"></script>
   <script type="text/javascript" src="triggers.js"></script>
+  <script type="text/javascript" src="draw.js"></script>
+  <script type="text/javascript" src="play.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="960" height="540"></canvas>
@@ -14,7 +16,9 @@ x Have multiple trigger objects
 x Touch-selecting issues
 x Refactor drawing into adapter
 x Arrange triggers
+* Break draw and play out into own modules
 * Have audio triggered by touchend
+ * create oscillator for each note
  * duration for notes
  * touchend isnt working
  * play multiple notes together
@@ -27,7 +31,7 @@ x Arrange triggers
 * Levels
 */
 
-musis.init();
+musis.begin();
 
 var canvas = document.getElementById("canvas");
 var ctx2d = canvas.getContext("2d");
