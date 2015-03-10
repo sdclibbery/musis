@@ -3,7 +3,7 @@ var trigger = function (note, motion) {
   this.motion = motion;
   this.selected = false;
   this.p = { x: 0, y: 0 };
-  this.size = 0.08;
+  this.size = 0.1;
 };
 
 trigger.prototype.update = function (t) {
@@ -28,7 +28,7 @@ var sqrDistToSegment = function(p, v, w) {
 trigger.prototype.touch = function (s, e) {
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
-  if (sqrDist <= sqr(this.size*0.7)) {
+  if (sqrDist <= sqr(this.size*0.8)) {
     this.selected = true;
   }
 };
@@ -72,6 +72,10 @@ musis.triggers.prototype.render = function (ctx) {
 
 musis.triggers.prototype.touch = function (tx, ty) {
   this.triggers.map(function(trigger) { trigger.touch(tx, ty); });
+};
+
+musis.triggers.prototype.anySelected = function () {
+  return this.triggers.reduce(function (p, trigger) { return trigger.selected || p; }, false);
 };
 
 musis.triggers.prototype.play = function (ctx) {

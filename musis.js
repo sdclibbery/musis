@@ -23,7 +23,10 @@ musis.touchmove = function (x, y) {
 };
 
 musis.touchend = function () {
-  triggers.play(ctx);
+  if (triggers.anySelected()) {
+    triggers.play(ctx);
+    triggers = new musis.triggers();
+  }
 };
 
 musis.frame = function (dt, cv2d, cw, ch) {
