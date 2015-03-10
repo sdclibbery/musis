@@ -14,9 +14,9 @@ var freqs = {
 musis.play.prototype.note = function (note) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
-  vca.gain.value = 0.1;
+  vca.gain.value = 0.15;
   var vco = this.audio.createOscillator();
-  vco.type = 'sawtooth';
+  vco.type = 'triangle';
   vco.frequency.value = freqs[note];
   vco.connect(vca);
   vco.start(this.audio.currentTime);

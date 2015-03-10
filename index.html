@@ -58,7 +58,7 @@ canvas.onmousemove = function (evt) {
   }
 };
 canvas.onmouseup = function (evt) {
-  musis.touchend(evt.clientX, evt.clientY);
+  musis.touchend();
   mousedown = false;
 };
 
@@ -68,7 +68,7 @@ canvas.addEventListener("touchstart", function (evt) {
 canvas.addEventListener("touchmove", function (evt) {
   musis.touchmove(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
-canvas.addEventListener("touchup", function (evt) {
+canvas.addEventListener("touchend", function (evt) {
   musis.touchend();
 });
 
