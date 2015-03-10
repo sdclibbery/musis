@@ -47,22 +47,27 @@ var frame = function (t) {
 };
 window.requestAnimationFrame(frame);
 
+var touched = false;
 var mousedown = false;
 canvas.onmousedown = function (evt) {
+  if (touched) { return; }
   mousedown = true;
   musis.touchstart(evt.clientX, evt.clientY);
 };
 canvas.onmousemove = function (evt) {
+  if (touched) { return; }
   if (mousedown) {
     musis.touchmove(evt.clientX, evt.clientY);
   }
 };
 canvas.onmouseup = function (evt) {
+  if (touched) { return; }
   musis.touchend();
   mousedown = false;
 };
 
 canvas.addEventListener("touchstart", function (evt) {
+  touched = true;
   musis.touchstart(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
 canvas.addEventListener("touchmove", function (evt) {
