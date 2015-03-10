@@ -46,7 +46,7 @@ var expanding = function (a) {
   return function (t) {
     return {
       x: -Math.pow(t, 0.3)/4*Math.cos(a),
-      y: -Math.pow(t, 0.3)/4*Math.sin(a)
+      y: Math.pow(t, 0.3)/4*Math.sin(a)
     };
   };
 }

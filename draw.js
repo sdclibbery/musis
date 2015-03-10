@@ -8,13 +8,13 @@ musis.draw.prototype.xToCanvas = function (x) {
   return 0.5*(this.cw + this.ch*x);
 };
 musis.draw.prototype.yToCanvas = function (y) {
-  return 0.5 * this.ch * (1+y);
+  return 0.5 * this.ch * (1-y);
 };
 musis.draw.prototype.xFromCanvas = function (x) {
   return (x*2 - this.cw) / this.ch;
 };
 musis.draw.prototype.yFromCanvas = function (y) {
-  return y*2/this.ch - 1;
+  return 1 - y*2/this.ch;
 };
 musis.draw.prototype.hToCanvas = function (h) {
   return 0.5 * this.ch * h;
@@ -60,4 +60,14 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
     this.cv2d.strokeStyle = "hsl("+hue+", 100%, 55%)";
   }
   this.cv2d.strokeRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
+};
+
+musis.draw.prototype.star = function (x, y, note, life) {
+  var s = this.hToCanvas(0.015);
+  var hs = s/2;
+  var hue = hues[note];
+  var l = Math.floor(70*(1-life*life)) + "%";
+  this.cv2d.fillStyle = "hsl("+hue+", 100%, "+l+")";
+  this.cv2d.shadowColor = "hsl("+hue+", 100%, "+l+")";
+  this.cv2d.fillRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
 };
