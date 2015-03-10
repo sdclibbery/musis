@@ -4,6 +4,7 @@
   <script type="text/javascript" src="triggers.js"></script>
   <script type="text/javascript" src="draw.js"></script>
   <script type="text/javascript" src="play.js"></script>
+  <script type="text/javascript" src="stars.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="960" height="540"></canvas>
@@ -17,20 +18,20 @@ x Touch-selecting issues
 x Refactor drawing into adapter
 x Arrange triggers
 x Break draw and play out into own modules
-* Have audio triggered by touchend
- x create oscillator for each note
- x duration for notes
- x play multiple notes together
- * touchend isnt working
+x Have audio triggered by touchend
 * When triggers play
- * clear and start new
  * fireworks
+ * clear and start new triggers
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
+* Basic chord voicing
+ * appropriate bass (first selected note?)
+ * sensible spacing of other notes
 * Evaluate quality of chords and progressions
 * Pulse and rhythm
 * Extra notes and melody kick in if make good progressions
+ * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
 * Visual fx: build structures/lights etc
-* Gestures for arpeggio/block chord etc
+* Gestures for arpeggio/block chord/voice leading etc
 */
 
 musis.begin();

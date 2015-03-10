@@ -6,6 +6,7 @@ var triggers;
 musis.begin = function () {
   ctx.draw = new musis.draw();
   ctx.play = new musis.play();
+  ctx.stars = new musis.stars();
   triggers = new musis.triggers();
 };
 
@@ -29,8 +30,10 @@ musis.frame = function (dt, cv2d, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
+  ctx.stars.update(dt);
   triggers.update(dt);
 
   ctx.draw.frameStart(cv2d, cw, ch);
+  ctx.stars.render(ctx);
   triggers.render(ctx);
 };

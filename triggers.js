@@ -33,6 +33,13 @@ trigger.prototype.touch = function (s, e) {
   }
 };
 
+trigger.prototype.play = function (ctx) {
+  if (this.selected) {
+    ctx.play.note(this.note);
+    ctx.stars.burst(this.p.x, this.p.y, this.note);
+  }
+};
+
 //////
 
 var expanding = function (a) {
@@ -68,10 +75,6 @@ musis.triggers.prototype.touch = function (tx, ty) {
 };
 
 musis.triggers.prototype.play = function (ctx) {
-  this.triggers.map(function(trigger) {
-    if (trigger.selected) {
-      ctx.play.note(trigger.note);
-    }
-  });
+  this.triggers.map(function(trigger) { trigger.play(ctx); });
 };
 

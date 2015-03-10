@@ -38,6 +38,7 @@ var hues = {
   A: 180,
   B: 30
 };
+
 musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   var s = this.hToCanvas(size);
   var hs = s/2;
