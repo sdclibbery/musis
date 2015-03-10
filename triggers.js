@@ -67,3 +67,8 @@ musis.triggers.prototype.touch = function (tx, ty) {
   this.triggers.map(function(trigger) { trigger.touch(tx, ty); });
 };
 
+musis.triggers.prototype.play = function (ctx) {
+var note = this.triggers.reduce(function (p, c) { return c.selected ? c.note : p; }, null);
+  ctx.play.note(note);
+};
+

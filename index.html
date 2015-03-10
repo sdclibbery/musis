@@ -13,12 +13,15 @@ x Make rendered object react to touch
 x Have multiple trigger objects
 x Touch-selecting issues
 x Refactor drawing into adapter
-* Arrange triggers
-* Show selected triggers linked up with glowing smooth lines
-* Have audio triggered by touch
+x Arrange triggers
+* Have audio triggered by touchend
+ * duration for notes
+ * touchend isnt working
+ * play multiple notes together
+* Show selected triggers linked up with glowing, pulsing, smooth lines
 * Launch groups of triggers
-* Evaluate 
 * Fireworks/lights/structures when do well
+* Evaluate quality of chords and progressions
 * Add beats
 * Gestures for arpeggio/block chord etc
 * Levels
@@ -60,7 +63,7 @@ canvas.addEventListener("touchmove", function (evt) {
   musis.touchmove(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
 });
 canvas.addEventListener("touchup", function (evt) {
-  musis.touchend(evt.changedTouches[0].clientX, evt.changedTouches[0].clientY);
+  musis.touchend();
 });
 
 
