@@ -16,13 +16,13 @@ musis.draw.prototype.frameStart = function (gl, cw, ch) {
 };
 
 var colours = {
-  C: new Float32Array([0, 0, 1, 1]),
-  D: new Float32Array([1, 1, 0, 1]),
-  E: new Float32Array([0.8, 0, 1, 1]),
-  F: new Float32Array([0, 1, 0, 1]),
-  G: new Float32Array([1, 0, 0, 1]),
-  A: new Float32Array([0, 1, 1, 1]),
-  B: new Float32Array([1, 0.5, 0, 1])
+  C: [0, 0, 1],
+  D: [1, 1, 0],
+  E: [0.7, 0, 1],
+  F: [0, 1, 0],
+  G: [1, 0, 0],
+  A: [0, 1, 1],
+  B: [1, 0.5, 0]
 };
 
 musis.draw.prototype.trigger = function (x, y, size, note, selected) {
@@ -37,8 +37,9 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.gl.enableVertexAttribArray(posAttr);
   this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
 
+  var col = colours[note];
   var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
-  this.gl.uniform4fv(colAttr, colours[note]);
+  this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
 
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 
@@ -76,10 +77,15 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.gl.enableVertexAttribArray(posAttr);
   this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
 
+  var col = colours[note];
+  var a = 1 - life*life;
   var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
-  this.gl.uniform4fv(colAttr, colours[note]);
+  this.gl.uniform4f(colAttr, col[0]*a, col[1]*a, col[2]*a, 1);
 
+  this.gl.blendFunc(this.gl.GL_ONE, this.gl.GL_ONE);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+
+  // shape, sparkle, gloe, trail
 
 
 /*
