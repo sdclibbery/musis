@@ -22,14 +22,22 @@ x Have audio triggered by touchend
 x When triggers play
  x fireworks
  x clear and start new triggers
-* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
+* Use webgl canvas context
+ * clear using webgl
+ * draw star using webgl
+ * entire star lifetime should be in vertex shader
+  * have more stars :-)
+* Pulse and rhythm
+ ! experiment with noise from custom oscillator type...
+ * closed hihat metronome
+  * plus visual indication
 * Basic chord voicing
  * appropriate bass (first selected note?)
  * sensible spacing of other notes
 * Evaluate quality of chords and progressions
-* Pulse and rhythm
 * Extra notes and melody kick in if make good progressions
  * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
+* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 * Visual fx: build structures/lights etc
 * Gestures for arpeggio/block chord/voice leading etc
 */
@@ -37,11 +45,12 @@ x When triggers play
 musis.begin();
 
 var canvas = document.getElementById("canvas");
-var ctx2d = canvas.getContext("2d");
+var ctxGl = canvas.getContext("webgl");
+if (!ctxGl) { ctxGl = canvas.getContext("experimental-webgl"); }
 var tLast;
 var frame = function (t) {
   if (tLast) {
-    musis.frame((t - tLast)/1000, ctx2d, canvas.width, canvas.height);
+    musis.frame((t - tLast)/1000, ctxGl, canvas.width, canvas.height);
   }
   tLast = t;
   window.requestAnimationFrame(frame);

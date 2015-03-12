@@ -29,14 +29,14 @@ musis.touchend = function () {
   }
 };
 
-musis.frame = function (dt, cv2d, cw, ch) {
+musis.frame = function (dt, gl, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
   ctx.stars.update(dt);
   triggers.update(dt);
 
-  ctx.draw.frameStart(cv2d, cw, ch);
+  ctx.draw.frameStart(gl, cw, ch);
   ctx.stars.render(ctx);
   triggers.render(ctx);
 };
