@@ -22,7 +22,7 @@ var colours = {
   F: new Float32Array([0, 1, 0, 1]),
   G: new Float32Array([1, 0, 0, 1]),
   A: new Float32Array([0, 1, 1, 1]),
-  B: new Float32Array([1, 1, 0, 1])
+  B: new Float32Array([1, 0.5, 0, 1])
 };
 
 musis.draw.prototype.trigger = function (x, y, size, note, selected) {
@@ -42,7 +42,7 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
 
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 
-  // Need glow, selection and trail
+  // Need glow, selection and trail, and rounded corners?
 
 /*
   this.cv2d.shadowOffsetX = 0;
@@ -65,6 +65,23 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
 };
 
 musis.draw.prototype.star = function (x, y, note, life) {
+  this.gl.useProgram(this.prg2d);
+
+  var buffer = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
+  var vtxs = this.squareVtxs(x, y, 0.01);
+  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxs, this.gl.STATIC_DRAW);
+
+  var posAttr = this.gl.getAttribLocation(this.prg2d, "pos");
+  this.gl.enableVertexAttribArray(posAttr);
+  this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
+
+  var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
+  this.gl.uniform4fv(colAttr, colours[note]);
+
+  this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
+
+
 /*
   var s = this.hToCanvas(0.015);
   var hs = s/2;
