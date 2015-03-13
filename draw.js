@@ -45,25 +45,6 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 
   // Need glow, selection and trail, and rounded corners?
-
-/*
-  this.cv2d.shadowOffsetX = 0;
-  this.cv2d.shadowOffsetY = 0;
-  this.cv2d.shadowBlur = 10;
-  this.cv2d.lineWidth = 3;
-
-  this.cv2d.fillStyle = "hsl("+hue+", 100%, 45%)";
-  this.cv2d.shadowColor = "hsl("+hue+", 100%, 55%)";
-  this.cv2d.fillRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
-
-  if (selected) {
-    this.cv2d.shadowColor = "white";
-    this.cv2d.strokeStyle = "white";
-  } else {
-    this.cv2d.strokeStyle = "hsl("+hue+", 100%, 55%)";
-  }
-  this.cv2d.strokeRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
-*/
 };
 
 musis.draw.prototype.star = function (x, y, note, life) {
@@ -88,17 +69,6 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 
   // shape, sparkle, glow, trail
-
-
-/*
-  var s = this.hToCanvas(0.015);
-  var hs = s/2;
-  var hue = hues[note];
-  var l = 1 - life*life;
-  this.cv2d.fillStyle = "hsla("+hue+", 100%, 50%, "+l+")";
-  this.cv2d.shadowColor = "hsla("+hue+", 100%, 45%, "+l+")";
-  this.cv2d.fillRect(this.xToCanvas(x)-hs, this.yToCanvas(y)-hs, s, s);
-*/
 };
 
 //////
@@ -107,7 +77,7 @@ musis.draw.prototype.init = function(gl, cw, ch) {
   this.gl = gl;
   this.cw = cw;
   this.ch = ch;
-  this.prg2d = createPrg2d(gl, cw, ch);
+  this.prg2d = this.createPrg2d(gl, cw, ch);
 };
 
 musis.draw.prototype.xFromCanvas = function (x) {
@@ -135,17 +105,17 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
     r, b]);
 };
 
-var createPrg2d = function(gl, cw, ch) {
+musis.draw.prototype.createPrg2d = function(gl, cw, ch) {
   var vtxShader2d = "attribute vec2 pos; void main() { gl_Position = vec4(pos, 0, 1); }";
-  vertexShader = loadShader(gl, vtxShader2d, gl.VERTEX_SHADER);
+  vertexShader = this.loadShader(gl, vtxShader2d, gl.VERTEX_SHADER);
 
   var frgShader2d = "precision mediump float; uniform vec4 col; void main() { gl_FragColor = col; }";
-  fragmentShader = loadShader(gl, frgShader2d, gl.FRAGMENT_SHADER);
+  fragmentShader = this.loadShader(gl, frgShader2d, gl.FRAGMENT_SHADER);
 
-  return loadProgram(gl, [vertexShader, fragmentShader]);
-}
+  return this.loadProgram(gl, [vertexShader, fragmentShader]);
+};
 
-var loadShader = function(gl, shaderSource, shaderType) {
+musis.draw.prototype.loadShader = function(gl, shaderSource, shaderType) {
   var shader = gl.createShader(shaderType);
 
   gl.shaderSource(shader, shaderSource);
@@ -159,9 +129,9 @@ var loadShader = function(gl, shaderSource, shaderType) {
   }
 
   return shader;
-}
+};
 
-var loadProgram = function(gl, shaders, opt_attribs, opt_locations) {
+musis.draw.prototype.loadProgram = function(gl, shaders, opt_attribs, opt_locations) {
   var program = gl.createProgram();
   for (var ii = 0; ii < shaders.length; ++ii) {
     gl.attachShader(program, shaders[ii]);
