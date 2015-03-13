@@ -27,6 +27,7 @@ musis.touchend = function () {
     triggers.play(ctx);
     triggers = new musis.triggers();
   }
+  s = null;
 };
 
 musis.frame = function (dt, gl, cw, ch) {

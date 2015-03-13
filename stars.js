@@ -45,7 +45,7 @@ musis.stars.prototype.render = function (ctx) {
 };
 
 musis.stars.prototype.burst = function (x, y, note) {
-  for (var i=0; i < 20; i++) {
+  for (var i=0; i < 10; i++) {
     this.stars.push(new star(x, y, note));
   }
 };
