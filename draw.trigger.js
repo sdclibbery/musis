@@ -10,9 +10,10 @@ var vtxShader2d = ""
 var frgShader2d = ""
 +"  precision mediump float;"
 +"  uniform vec4 col;"
++"  uniform bool selected;"
 +"  "
 +"  void main() {"
-+"    gl_FragColor = col;"
++"    gl_FragColor = selected ? vec4(1,1,1,1) : col;"
 +"  }";
 
 // Todo: glow, selection and trail, and rounded corners?
@@ -40,7 +41,9 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   var colAttr = this.gl.getUniformLocation(program, "col");
   this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
 
+  var selAttr = this.gl.getUniformLocation(program, "selected");
+  this.gl.uniform1i(selAttr, selected);
+
   this.gl.disable(this.gl.BLEND);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-
 };
