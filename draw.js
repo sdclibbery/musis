@@ -4,17 +4,6 @@ musis.draw = function () {
   this.ch = 1;
 };
 
-musis.draw.prototype.frameStart = function (gl, cw, ch) {
-  if (!this.gl) {
-    this.init(gl, cw, ch);
-  }
-
-  this.gl.clearColor(0, 0, 0, 1);
-  this.gl.enable(this.gl.DEPTH_TEST);
-  this.gl.depthFunc(this.gl.LEQUAL);
-  this.gl.clear(this.gl.COLOR_BUFFER_BIT|this.gl.DEPTH_BUFFER_BIT);
-};
-
 musis.draw.prototype.colours = {
   C: [0, 0, 1],
   D: [1, 1, 0],
@@ -25,35 +14,17 @@ musis.draw.prototype.colours = {
   B: [1, 0.5, 0]
 };
 
-musis.draw.prototype.trigger = function (x, y, size, note, selected) {
-  this.gl.useProgram(this.prg2d);
+musis.draw.prototype.frameStart = function (gl, cw, ch) {
+  if (!this.gl) {
+    this.gl = gl;
+    this.cw = cw;
+    this.ch = ch;
+  }
 
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  var vtxs = this.squareVtxs(x, y, size);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxs, this.gl.STATIC_DRAW);
-
-  var posAttr = this.gl.getAttribLocation(this.prg2d, "pos");
-  this.gl.enableVertexAttribArray(posAttr);
-  this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
-
-  var col = this.colours[note];
-  var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
-  this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
-
-  this.gl.disable(this.gl.BLEND);
-  this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-
-  // Need glow, selection and trail, and rounded corners?
-};
-
-//////
-
-musis.draw.prototype.init = function(gl, cw, ch) {
-  this.gl = gl;
-  this.cw = cw;
-  this.ch = ch;
-  this.prg2d = this.createPrg2d(gl, cw, ch);
+  this.gl.clearColor(0, 0, 0, 1);
+  this.gl.enable(this.gl.DEPTH_TEST);
+  this.gl.depthFunc(this.gl.LEQUAL);
+  this.gl.clear(this.gl.COLOR_BUFFER_BIT|this.gl.DEPTH_BUFFER_BIT);
 };
 
 musis.draw.prototype.xFromCanvas = function (x) {
@@ -79,16 +50,6 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
     l, b,
     r, t,
     r, b]);
-};
-
-musis.draw.prototype.createPrg2d = function(gl, cw, ch) {
-  var vtxShader2d = "attribute vec2 pos; void main() { gl_Position = vec4(pos, 0, 1); }";
-  vertexShader = this.loadShader(gl, vtxShader2d, gl.VERTEX_SHADER);
-
-  var frgShader2d = "precision mediump float; uniform vec4 col; void main() { gl_FragColor = col; }";
-  fragmentShader = this.loadShader(gl, frgShader2d, gl.FRAGMENT_SHADER);
-
-  return this.loadProgram(gl, [vertexShader, fragmentShader]);
 };
 
 musis.draw.prototype.loadShader = function(gl, shaderSource, shaderType) {
