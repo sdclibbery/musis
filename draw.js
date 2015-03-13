@@ -15,7 +15,7 @@ musis.draw.prototype.frameStart = function (gl, cw, ch) {
   this.gl.clear(this.gl.COLOR_BUFFER_BIT|this.gl.DEPTH_BUFFER_BIT);
 };
 
-var colours = {
+musis.draw.prototype.colours = {
   C: [0, 0, 1],
   D: [1, 1, 0],
   E: [0.7, 0, 1],
@@ -37,7 +37,7 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.gl.enableVertexAttribArray(posAttr);
   this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
 
-  var col = colours[note];
+  var col = this.colours[note];
   var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
   this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
 
@@ -45,30 +45,6 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 
   // Need glow, selection and trail, and rounded corners?
-};
-
-musis.draw.prototype.star = function (x, y, note, life) {
-  this.gl.useProgram(this.prg2d);
-
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  var vtxs = this.squareVtxs(x, y, 0.015);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxs, this.gl.STATIC_DRAW);
-
-  var posAttr = this.gl.getAttribLocation(this.prg2d, "pos");
-  this.gl.enableVertexAttribArray(posAttr);
-  this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
-
-  var col = colours[note];
-  var a = 1 - life*life + 0.2*Math.sin(life*(1+x*y)*100);
-  var colAttr = this.gl.getUniformLocation(this.prg2d, "col");
-  this.gl.uniform4f(colAttr, col[0]*a, col[1]*a, col[2]*a, 1);
-
-  this.gl.blendFuncSeparate(this.gl.ONE, this.gl.ONE, this.gl.ZERO, this.gl.ONE);
-  this.gl.enable(this.gl.BLEND);
-  this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-
-  // shape, sparkle, glow, trail
 };
 
 //////
