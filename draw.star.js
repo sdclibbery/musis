@@ -1,14 +1,28 @@
 var program = null;
 
+var vtxShader2d = ""
++"  attribute vec2 pos;"
++"  "
++"  void main() {"
++"    gl_Position = vec4(pos, 0, 1);"
++"  }";
+
+var frgShader2d = ""
++"  precision mediump float;"
++"  uniform vec4 col;"
++"  "
++"  void main() {"
++"    gl_FragColor = col;"
++"  }";
+
+// Todo: shape, sparkle, glow, trail
+
 musis.draw.prototype.star = function (x, y, note, life) {
   if (!program) {
-    var vtxShader2d = "attribute vec2 pos; void main() { gl_Position = vec4(pos, 0, 1); }";
-    vertexShader = this.loadShader(this.gl, vtxShader2d, this.gl.VERTEX_SHADER);
-
-    var frgShader2d = "precision mediump float; uniform vec4 col; void main() { gl_FragColor = col; }";
-    fragmentShader = this.loadShader(this.gl, frgShader2d, this.gl.FRAGMENT_SHADER);
-
-    program = this.loadProgram(this.gl, [vertexShader, fragmentShader]);
+    program = this.loadProgram(this.gl, [
+      this.loadShader(this.gl, vtxShader2d, this.gl.VERTEX_SHADER),
+      this.loadShader(this.gl, frgShader2d, this.gl.FRAGMENT_SHADER)
+    ]);
   }
 
   this.gl.useProgram(program);
@@ -30,6 +44,4 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.gl.blendFuncSeparate(this.gl.ONE, this.gl.ONE, this.gl.ZERO, this.gl.ONE);
   this.gl.enable(this.gl.BLEND);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
-
-  // shape, sparkle, glow, trail
 };
