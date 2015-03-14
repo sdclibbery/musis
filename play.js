@@ -1,6 +1,5 @@
 musis.play = function () {
   this.audio = new AudioContext();
-  this.nextBeatAt = 0;
 };
 
 musis.play.prototype.freqs = {
@@ -25,13 +24,8 @@ musis.play.prototype.note = function (note) {
   vco.stop(this.audio.currentTime + 1);
 };
 
-musis.play.prototype.nextBeatTime = function (bpm) {
-  var now = this.audio.currentTime;
-  var interval = 60/bpm;
-  if (now + interval >= this.nextBeatAt) {
-    this.nextBeatAt += interval;
-  }
-  return this.nextBeatAt;
+musis.play.prototype.timeNow = function () {
+  return this.audio.currentTime;
 };
 
 musis.play.prototype.tick = function (time) {
