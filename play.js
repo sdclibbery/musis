@@ -14,7 +14,7 @@ musis.play.prototype.freqs = {
   B: 440*Math.pow(2, 2/12)
 };
 
-musis.play.prototype.note = function (note) {
+musis.play.prototype.note = function (time, note, duration) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
   vca.gain.value = 0.15;
@@ -22,8 +22,8 @@ musis.play.prototype.note = function (note) {
   vco.frequency.value = this.freqs[note];
   vco.type = "triangle";
   vco.connect(vca);
-  vco.start(this.audio.currentTime);
-  vco.stop(this.audio.currentTime + 1);
+  vco.start(time);
+  vco.stop(time + duration);
 };
 
 musis.play.prototype.timeNow = function () {

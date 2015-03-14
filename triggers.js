@@ -37,9 +37,9 @@ trigger.prototype.touch = function (s, e) {
   }
 };
 
-trigger.prototype.play = function (ctx) {
+trigger.prototype.play = function (ctx, time, duration) {
   if (this.selected) {
-    ctx.play.note(this.note);
+    ctx.play.note(time, this.note, duration);
     ctx.stars.burst(this.p.x, this.p.y, this.note);
   }
 };
@@ -83,7 +83,9 @@ musis.triggers.prototype.anySelected = function () {
 };
 
 musis.triggers.prototype.play = function (ctx) {
-  this.triggers.map(function(trigger) { trigger.play(ctx); });
+  var time = ctx.metronome.nextBeatAt();
+  var duration = ctx.metronome.beatDuration();
+  this.triggers.map(function(trigger) { trigger.play(ctx, time, duration); });
 };
 
 })();
