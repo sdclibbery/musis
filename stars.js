@@ -1,3 +1,5 @@
+(function () {
+
 var star = function (x, y, note) {
   this.x = x;
   this.y = y;
@@ -49,3 +51,5 @@ musis.stars.prototype.burst = function (x, y, note) {
     this.stars.push(new star(x, y, note));
   }
 };
+
+})();

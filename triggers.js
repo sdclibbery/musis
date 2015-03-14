@@ -1,3 +1,5 @@
+(function () {
+
 var trigger = function (note, motion) {
   this.note = note;
   this.motion = motion;
@@ -82,3 +84,4 @@ musis.triggers.prototype.play = function (ctx) {
   this.triggers.map(function(trigger) { trigger.play(ctx); });
 };
 
+})();

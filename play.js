@@ -1,8 +1,9 @@
 musis.play = function () {
   this.audio = new AudioContext();
+  this.nextBeatAt = 0;
 };
 
-var freqs = {
+musis.play.prototype.freqs = {
   C: 440*Math.pow(2, -9/12),
   D: 440*Math.pow(2, -7/12),
   E: 440*Math.pow(2, -5/12),
@@ -11,22 +12,35 @@ var freqs = {
   A: 440*Math.pow(2, 0/12),
   B: 440*Math.pow(2, 2/12)
 };
+
 musis.play.prototype.note = function (note) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
   vca.gain.value = 0.15;
   var vco = this.audio.createOscillator();
-  vco.frequency.value = freqs[note];
+  vco.frequency.value = this.freqs[note];
   vco.type = "triangle";
   vco.connect(vca);
   vco.start(this.audio.currentTime);
   vco.stop(this.audio.currentTime + 1);
 };
 
-musis.play.prototype.tick = function () {
+musis.play.prototype.nextBeatTime = function (bpm) {
+  var now = this.audio.currentTime;
+  var interval = 60/bpm;
+  if (now + interval >= this.nextBeatAt) {
+    this.nextBeatAt += interval;
+  }
+  return this.nextBeatAt;
+};
+
+musis.play.prototype.tick = function (time) {
+  var attack = 0.03;
+  var decay = 0.07;
+  var duration = attack + decay;
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
-  vca.gain.value = 0.15;
+  vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
   var real = [0];
   var imag = [0];
@@ -36,13 +50,10 @@ musis.play.prototype.tick = function () {
   }
   var noiseTable = this.audio.createPeriodicWave(new Float32Array(real), new Float32Array(imag));
   vco.setPeriodicWave(noiseTable);
-  vco.frequency.value = 10;
+  vco.frequency.value = 1/duration;
   vco.connect(vca);
-  var now = this.audio.currentTime;
-  vca.gain.setValueAtTime(0, now);
-  vca.gain.linearRampToValueAtTime(1, now + 0.03);
-  vca.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
-  vco.start(now);
-  vco.stop(now + 0.1);
-
+  vco.start(time);
+  vca.gain.linearRampToValueAtTime(1, time + attack);
+  vca.gain.exponentialRampToValueAtTime(0.001, time + duration);
+  vco.stop(time + duration);
 };

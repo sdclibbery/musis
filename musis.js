@@ -1,13 +1,17 @@
+(function () {
+
 musis = {}
 
 var ctx = {}
 var triggers;
+var metronome;
 
 musis.begin = function () {
   ctx.draw = new musis.draw();
   ctx.play = new musis.play();
   ctx.stars = new musis.stars();
   triggers = new musis.triggers();
+  metronome = new musis.metronome();
 };
 
 var s = null;
@@ -34,6 +38,7 @@ musis.frame = function (dt, gl, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
+  metronome.update(dt, ctx);
   ctx.stars.update(dt);
   triggers.update(dt);
 
@@ -41,3 +46,5 @@ musis.frame = function (dt, gl, cw, ch) {
   ctx.stars.render(ctx);
   triggers.render(ctx);
 };
+
+})();
