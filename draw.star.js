@@ -19,9 +19,10 @@ var frgShader2d = ""
 +"  varying vec2 tex;"
 +"  "
 +"  void main() {"
-+"    vec2 texWide = tex*2.0 - 1.0;"
-+"    float r = 1.0 - smoothstep(0.3, 1.0, length(texWide));"
-+"    gl_FragColor = col*vec4(r,r,r, 1);"
++"    vec2 texFull = tex*2.0 - 1.0;" // tex coords in range -1 to 1
++"    float d = length(texFull);" // distance field value at this fragment
++"    float b = 1.0 - smoothstep(0.3, 1.0, d);" // brightness at this fragment
++"    gl_FragColor = col * vec4(b,b,b, 1);" // modulate color with the brightness
 +"  }";
 
 musis.draw.prototype.star = function (x, y, note, life) {
