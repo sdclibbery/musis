@@ -1,3 +1,5 @@
+// Adapter for visual rendering
+
 musis.draw = function () {
   this.gl = null;
   this.cw = 1;

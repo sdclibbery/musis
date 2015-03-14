@@ -1,5 +1,7 @@
 (function () {
 
+// Domain
+
 var trigger = function (note, motion) {
   this.note = note;
   this.motion = motion;

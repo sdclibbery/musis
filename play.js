@@ -1,3 +1,5 @@
+// Adapter for audio playback
+
 musis.play = function () {
   this.audio = new AudioContext();
 };

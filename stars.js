@@ -1,5 +1,7 @@
 (function () {
 
+// Domain
+
 var star = function (x, y, note) {
   this.x = x;
   this.y = y;

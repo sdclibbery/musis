@@ -1,5 +1,7 @@
 (function () {
 
+// Domain
+
 musis.metronome = function () {
   this.bpm = 100;
   this.nextBeatAt = 0;

@@ -1,4 +1,7 @@
 (function () {
+
+// Adapter for drawing stars
+
 var program = null;
 
 var vtxShader2d = ""
