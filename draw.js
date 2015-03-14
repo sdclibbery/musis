@@ -43,16 +43,26 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
   var r = this.toX(x + hs);
   var b = y - hs;
   var t = y + hs;
-  return new Float32Array([
-    l, t,
-    r, t,
-    l, b,
-    l, b,
-    r, t,
-    r, b]);
+  return {
+    vtx: new Float32Array([
+      l, t,
+      r, t,
+      l, b,
+      l, b,
+      r, t,
+      r, b]),
+    tex: new Float32Array([
+      0.0, 0.0,
+      1.0, 0.0,
+      0.0, 1.0,
+      0.0, 1.0,
+      1.0, 0.0,
+      1.0, 1.0
+    ])};
 };
 
-musis.draw.prototype.loadShader = function(gl, shaderSource, shaderType) {
+musis.draw.prototype.loadShader = function(shaderSource, shaderType) {
+  var gl = this.gl;
   var shader = gl.createShader(shaderType);
 
   gl.shaderSource(shader, shaderSource);
@@ -68,7 +78,8 @@ musis.draw.prototype.loadShader = function(gl, shaderSource, shaderType) {
   return shader;
 };
 
-musis.draw.prototype.loadProgram = function(gl, shaders, opt_attribs, opt_locations) {
+musis.draw.prototype.loadProgram = function(shaders, opt_attribs, opt_locations) {
+  var gl = this.gl;
   var program = gl.createProgram();
   for (var ii = 0; ii < shaders.length; ++ii) {
     gl.attachShader(program, shaders[ii]);
