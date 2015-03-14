@@ -61,6 +61,15 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
     ])};
 };
 
+musis.draw.prototype.loadVertexAttrib = function (program, data, attr, stride) {
+  var buffer = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
+  this.gl.bufferData(this.gl.ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
+  var attrLoc = this.gl.getAttribLocation(program, attr);
+  this.gl.enableVertexAttribArray(attrLoc);
+  this.gl.vertexAttribPointer(attrLoc, stride, this.gl.FLOAT, false, 0, 0);
+};
+
 musis.draw.prototype.loadShader = function(shaderSource, shaderType) {
   var gl = this.gl;
   var shader = gl.createShader(shaderType);

@@ -31,8 +31,6 @@ var frgShader2d = ""
 +"    }"
 +"  }";
 
-// Todo: glow, selection and trail, and rounded corners?
-
 musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   if (!program) {
     program = this.loadProgram([
@@ -44,19 +42,8 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.gl.useProgram(program);
 
   var vtxData = this.squareVtxs(x, y, size);
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxData.vtx, this.gl.STATIC_DRAW);
-  var posAttr = this.gl.getAttribLocation(program, "pos");
-  this.gl.enableVertexAttribArray(posAttr);
-  this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
-
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxData.tex, this.gl.STATIC_DRAW);
-  var texAttr = this.gl.getAttribLocation(program, "texIn");
-  this.gl.enableVertexAttribArray(texAttr);
-  this.gl.vertexAttribPointer(texAttr, 2, this.gl.FLOAT, false, 0, 0);
+  this.loadVertexAttrib(program, vtxData.vtx, "pos", 2);
+  this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
 
   var col = this.colours[note];
   var colAttr = this.gl.getUniformLocation(program, "col");

@@ -24,8 +24,6 @@ var frgShader2d = ""
 +"    gl_FragColor = col*vec4(r,r,r, 1);"
 +"  }";
 
-// Todo: shape, sparkle, glow, trail
-
 musis.draw.prototype.star = function (x, y, note, life) {
   if (program === null) {
     program = this.loadProgram([
@@ -37,19 +35,8 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.gl.useProgram(program);
 
   var vtxData = this.squareVtxs(x, y, 0.015);
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxData.vtx, this.gl.STATIC_DRAW);
-  var posAttr = this.gl.getAttribLocation(program, "pos");
-  this.gl.enableVertexAttribArray(posAttr);
-  this.gl.vertexAttribPointer(posAttr, 2, this.gl.FLOAT, false, 0, 0);
-
-  var buffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
-  this.gl.bufferData(this.gl.ARRAY_BUFFER, vtxData.tex, this.gl.STATIC_DRAW);
-  var texAttr = this.gl.getAttribLocation(program, "texIn");
-  this.gl.enableVertexAttribArray(texAttr);
-  this.gl.vertexAttribPointer(texAttr, 2, this.gl.FLOAT, false, 0, 0);
+  this.loadVertexAttrib(program, vtxData.vtx, "pos", 2);
+  this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
 
   var col = this.colours[note];
   var a = 1 - life*life + 0.2*Math.sin(life*(1+x*y)*100);
@@ -60,4 +47,5 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.gl.enable(this.gl.BLEND);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 };
+
 })();
