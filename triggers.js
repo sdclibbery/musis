@@ -14,8 +14,8 @@ trigger.prototype.update = function (t) {
   this.p = this.motion(t);
 };
 
-trigger.prototype.render = function (ctx) {
-  ctx.draw.trigger(this.p.x, this.p.y, this.size, this.note, this.selected);
+trigger.prototype.render = function (draw) {
+  draw.trigger(this.p.x, this.p.y, this.size, this.note, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -37,10 +37,10 @@ trigger.prototype.touch = function (s, e) {
   }
 };
 
-trigger.prototype.play = function (ctx, time, duration) {
+trigger.prototype.play = function (play, stars, time, duration) {
   if (this.selected) {
-    ctx.play.note(time, this.note, duration);
-    ctx.stars.burst(this.p.x, this.p.y, this.note);
+    play.note(time, this.note, duration);
+    stars.burst(this.p.x, this.p.y, this.note);
   }
 };
 
@@ -70,8 +70,8 @@ musis.triggers.prototype.update = function (dt) {
   this.triggers.map(function(trigger) { trigger.update(t); });
 };
 
-musis.triggers.prototype.render = function (ctx) {
-  this.triggers.map(function(trigger) { trigger.render(ctx); });
+musis.triggers.prototype.render = function (draw) {
+  this.triggers.map(function(trigger) { trigger.render(draw); });
 };
 
 musis.triggers.prototype.touch = function (tx, ty) {
@@ -82,10 +82,10 @@ musis.triggers.prototype.anySelected = function () {
   return this.triggers.reduce(function (p, trigger) { return trigger.selected || p; }, false);
 };
 
-musis.triggers.prototype.play = function (ctx) {
-  var time = ctx.metronome.nextBeatAt();
-  var duration = ctx.metronome.beatDuration();
-  this.triggers.map(function(trigger) { trigger.play(ctx, time, duration); });
+musis.triggers.prototype.play = function (play, stars, metronome) {
+  var time = metronome.nextBeatAt();
+  var duration = metronome.beatDuration()*4;
+  this.triggers.map(function(trigger) { trigger.play(play, stars, time, duration); });
 };
 
 })();

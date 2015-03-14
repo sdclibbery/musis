@@ -15,11 +15,11 @@ musis.metronome.prototype.beatDuration = function () {
   return 60 / this.bpm;
 };
 
-musis.metronome.prototype.update = function (dt, ctx) {
-  var now = ctx.play.timeNow();
+musis.metronome.prototype.update = function (play) {
+  var now = play.timeNow();
   if (now > this.nextBeat) {
     this.nextBeat += this.beatDuration();
-    ctx.play.tick(this.nextBeat);
+    play.tick(this.nextBeat);
   }
 };
 

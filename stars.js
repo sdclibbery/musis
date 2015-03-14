@@ -24,8 +24,8 @@ star.prototype.update = function (dt) {
   return this.l < 1;
 };
 
-star.prototype.render = function (ctx) {
-  ctx.draw.star(this.x, this.y, this.note, this.l);
+star.prototype.render = function (draw) {
+  draw.star(this.x, this.y, this.note, this.l);
 };
 
 //////
@@ -44,8 +44,8 @@ musis.stars.prototype.update = function (dt) {
   this.stars = nextStars;
 };
 
-musis.stars.prototype.render = function (ctx) {
-  this.stars.map(function (star) { star.render(ctx); } );
+musis.stars.prototype.render = function (draw) {
+  this.stars.map(function (star) { star.render(draw); } );
 };
 
 musis.stars.prototype.burst = function (x, y, note) {
