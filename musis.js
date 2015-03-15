@@ -7,6 +7,7 @@ musis = {}
 var stars;
 var metronome;
 var triggers;
+var voicing;
 
 musis.begin = function () {
   draw = new musis.draw();
@@ -14,6 +15,7 @@ musis.begin = function () {
   stars = new musis.stars();
   metronome = new musis.metronome();
   triggers = new musis.triggers();
+  voicing = new musis.voicing();
 };
 
 var s = null;
@@ -30,7 +32,7 @@ musis.touchmove = function (x, y) {
 
 musis.touchend = function () {
   if (triggers.anySelected()) {
-    triggers.play(play, stars, metronome);
+    triggers.play(voicing, stars);
     triggers = new musis.triggers();
   }
   s = null;
@@ -40,7 +42,9 @@ musis.frame = function (dt, gl, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
+  
   metronome.update(play);
+  voicing.update(metronome, play);
   stars.update(dt);
   triggers.update(dt);
 
