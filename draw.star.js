@@ -28,7 +28,7 @@ var frgShader2d = ""
 +"    gl_FragColor = col * vec4(b,b,b, 1);" // modulate color with the brightness
 +"  }";
 
-musis.draw.prototype.star = function (x, y, note, life) {
+musis.draw.prototype.star = function (x, y, pitchClass, life) {
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -42,7 +42,7 @@ musis.draw.prototype.star = function (x, y, note, life) {
   this.loadVertexAttrib(program, vtxData.vtx, "pos", 2);
   this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
 
-  var col = this.colours[note];
+  var col = this.colours[pitchClass];
   var a = 1 - life*life + 0.2*Math.sin(life*(1+x*y)*100);
   var colAttr = this.gl.getUniformLocation(program, "col");
   this.gl.uniform4f(colAttr, col[0]*a, col[1]*a, col[2]*a, 1);

@@ -4,22 +4,12 @@ musis.play = function () {
   this.audio = new AudioContext();
 };
 
-musis.play.prototype.freqs = {
-  C: 440*Math.pow(2, -9/12),
-  D: 440*Math.pow(2, -7/12),
-  E: 440*Math.pow(2, -5/12),
-  F: 440*Math.pow(2, -4/12),
-  G: 440*Math.pow(2, -2/12),
-  A: 440*Math.pow(2, 0/12),
-  B: 440*Math.pow(2, 2/12)
-};
-
-musis.play.prototype.note = function (time, note, duration) {
+musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
   vca.gain.value = 0.15;
   var vco = this.audio.createOscillator();
-  vco.frequency.value = this.freqs[note];
+  vco.frequency.value = freq;
   vco.type = "triangle";
   vco.connect(vca);
   vco.start(time);

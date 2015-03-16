@@ -2,8 +2,8 @@
 
 // Domain
 
-var trigger = function (note, motion) {
-  this.note = note;
+var trigger = function (pitchClass, motion) {
+  this.pitchClass = pitchClass;
   this.motion = motion;
   this.selected = false;
   this.p = { x: 0, y: 0 };
@@ -15,7 +15,7 @@ trigger.prototype.update = function (t) {
 };
 
 trigger.prototype.render = function (draw) {
-  draw.trigger(this.p.x, this.p.y, this.size, this.note, this.selected);
+  draw.trigger(this.p.x, this.p.y, this.size, this.pitchClass, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -39,8 +39,8 @@ trigger.prototype.touch = function (s, e) {
 
 trigger.prototype.play = function (voicing, stars) {
   if (this.selected) {
-    voicing.add(this.note);
-    stars.burst(this.p.x, this.p.y, this.note);
+    voicing.add(this.pitchClass);
+    stars.burst(this.p.x, this.p.y, this.pitchClass);
   }
 };
 
@@ -55,12 +55,13 @@ var expanding = function (a) {
   };
 }
 
-var notes = ["A", "C", "E", "G", "B", "D", "F"];
+var pitchClasses = ["A", "C", "E", "G", "B", "D", "F"];
 musis.triggers = function () {
   this.t = 0;
   this.triggers = [];
-  for (var i = 0; i < 7; i++) {
-    this.triggers[i] = new trigger(notes[i], expanding(i*6.28/7));
+  var num = pitchClasses.length;
+  for (var i = 0; i < num; i++) {
+    this.triggers[i] = new trigger(pitchClasses[i], expanding(i*6.28/num));
   }
 };
 

@@ -34,7 +34,7 @@ var frgShader2d = ""
 +"    }"
 +"  }";
 
-musis.draw.prototype.trigger = function (x, y, size, note, selected) {
+musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -48,7 +48,7 @@ musis.draw.prototype.trigger = function (x, y, size, note, selected) {
   this.loadVertexAttrib(program, vtxData.vtx, "pos", 2);
   this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
 
-  var col = this.colours[note];
+  var col = this.colours[pitchClass];
   var colAttr = this.gl.getUniformLocation(program, "col");
   this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
 
