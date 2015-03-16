@@ -37,10 +37,9 @@ trigger.prototype.touch = function (s, e) {
   }
 };
 
-trigger.prototype.play = function (voicing, stars) {
+trigger.prototype.play = function (voicing) {
   if (this.selected) {
     voicing.add(this.pitchClass);
-    stars.burst(this.p.x, this.p.y, this.pitchClass);
   }
 };
 
@@ -83,8 +82,8 @@ musis.triggers.prototype.anySelected = function () {
   return this.triggers.reduce(function (p, trigger) { return trigger.selected || p; }, false);
 };
 
-musis.triggers.prototype.play = function (voicing, stars) {
-  this.triggers.map(function(trigger) { trigger.play(voicing, stars); });
+musis.triggers.prototype.play = function (voicing) {
+  this.triggers.map(function(trigger) { trigger.play(voicing); });
 };
 
 })();

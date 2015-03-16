@@ -32,7 +32,7 @@ musis.touchmove = function (x, y) {
 
 musis.touchend = function () {
   if (triggers.anySelected()) {
-    triggers.play(voicing, stars);
+    triggers.play(voicing);
     triggers = new musis.triggers();
   }
   s = null;
@@ -44,7 +44,7 @@ musis.frame = function (dt, gl, cw, ch) {
   }
   
   metronome.update(play);
-  voicing.update(metronome, play, musis.note);
+  voicing.update(metronome, play, musis.note, stars);
   stars.update(dt);
   triggers.update(dt);
 

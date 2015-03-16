@@ -10,7 +10,7 @@ var star = function (x, y, note) {
   var theta = Math.random()*6.28;
   this.vx = speed*Math.cos(theta);
   this.vy = 0.2 + speed*Math.sin(theta);
-  this.vl = 0.5+0.3*Math.random();
+  this.vl = 1.4+0.3*Math.random();
   this.note = note;
 };
 
@@ -48,7 +48,9 @@ musis.stars.prototype.render = function (draw) {
   this.stars.map(function (star) { star.render(draw); } );
 };
 
-musis.stars.prototype.burst = function (x, y, note) {
+musis.stars.prototype.burst = function (note) {
+  var x = Math.random()*1.8-0.9;
+  var y = Math.random()*1.3-0.4;
   for (var i=0; i < 10; i++) {
     this.stars.push(new star(x, y, note));
   }

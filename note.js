@@ -15,7 +15,7 @@ var freqs = {
 };
 
 musis.note.freq = function (pc, octave) {
-  return freqs[pc];
+  return freqs[pc] * Math.pow(2, octave-4);
 };
 
 })();

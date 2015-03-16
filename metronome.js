@@ -3,7 +3,7 @@
 // Domain
 
 musis.metronome = function () {
-  this.bpm = 100;
+  this.bpm = 110;
   this.nextBeat = 0;
 };
 
