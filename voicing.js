@@ -1,6 +1,18 @@
 (function () {
 
 // Domain
+/*
+var ranges = {
+  bass:    { low: note("E", 2), high: note("E", 4) },
+  tenor:   { low: note("C", 3), high: note("C", 5) },
+  alto:    { low: note("G", 3), high: note("F", 5) },
+  soprano: { low: note("C", 4), high: note("C", 6) }
+};
+
+var assignNote = function (voice, pitchClass) {
+  var note = ranges[voice].low;
+};
+*/
 
 var makeChordComposer = function (metronome, play, note, stars, pitchClasses) {
   var notes = [];
