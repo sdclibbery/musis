@@ -3,10 +3,10 @@
 // Domain
 /*
 var ranges = {
-  bass:    { low: note("E", 2), high: note("E", 4) },
-  tenor:   { low: note("C", 3), high: note("C", 5) },
-  alto:    { low: note("G", 3), high: note("F", 5) },
-  soprano: { low: note("C", 4), high: note("C", 6) }
+  bass:    { low: musis.note("E", 2), high: musis.note("E", 4) },
+  tenor:   { low: musis.note("C", 3), high: musis.note("C", 5) },
+  alto:    { low: musis.note("G", 3), high: musis.note("F", 5) },
+  soprano: { low: musis.note("C", 4), high: musis.note("C", 6) }
 };
 
 var assignNote = function (voice, pitchClass) {
@@ -16,24 +16,16 @@ var assignNote = function (voice, pitchClass) {
 
 var makeChordComposer = function (metronome, play, note, stars, pitchClasses) {
   var notes = [];
-  var octave = 3;
-  var lastFreq = 0;
   for (i = 0; i < pitchClasses.length; i++) {
     var pc = pitchClasses[i];
-    var freq = note.freq(pc, octave);
-    if (freq/lastFreq < Math.pow(2, 3/12)) {
-      octave++;
-      freq = note.freq(pc, octave);
-    }
-    notes.push({freq: freq, pitchClass: pc});
-    lastFreq = freq;
+    notes.push(new note(pc, 4));
   }
 
   return function () {
     var time = metronome.nextBeatAt();
     var duration = metronome.beatDuration();
     notes.map(function (note) {
-      play.note(time, note.freq, duration);
+      play.note(time, note.freq(), duration);
       stars.burst(note.pitchClass);
     });
   };

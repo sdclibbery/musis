@@ -2,8 +2,6 @@
 
 // Domain
 
-musis.note = {};
-
 var freqs = {
   C: 440*Math.pow(2, -9/12),
   D: 440*Math.pow(2, -7/12),
@@ -14,8 +12,13 @@ var freqs = {
   B: 440*Math.pow(2, 2/12)
 };
 
-musis.note.freq = function (pc, octave) {
-  return freqs[pc] * Math.pow(2, octave-4);
+musis.note = function (pitchClass, octave) {
+  this.pitchClass = pitchClass;
+  this.octave = octave;
+};
+
+musis.note.prototype.freq = function () {
+  return freqs[this.pitchClass] * Math.pow(2, this.octave-4);
 };
 
 })();
