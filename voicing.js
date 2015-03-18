@@ -16,7 +16,6 @@ var voiceNote = function (voice, pitchClass) {
   while (note.isLowerThan(ranges[voice].low)) {
     note = new musis.note(pitchClass, note.octave+1);
   }
-console.log("Note: "+note.pitchClass+"-"+note.octave);
   return note;
 };
 

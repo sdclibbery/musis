@@ -7,7 +7,7 @@ musis.play = function () {
 musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
-  vca.gain.value = 0;
+  vca.gain.value = 0.0;
   vca.gain.linearRampToValueAtTime(0.15, time + 0.04);
   vca.gain.linearRampToValueAtTime(0.1, time + 0.1);
   vca.gain.linearRampToValueAtTime(0.1, time + duration);

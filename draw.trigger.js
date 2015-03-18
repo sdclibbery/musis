@@ -5,13 +5,13 @@
 var program = null;
 
 var vtxShader2d = ""
-+"  attribute vec2 pos;"
++"  attribute vec2 posIn;"
 +"  attribute vec2 texIn;"
 +"  "
 +"  varying vec2 tex;"
 +"  "
 +"  void main() {"
-+"    gl_Position = vec4(pos, 0, 1);"
++"    gl_Position = vec4(posIn, 0, 1);"
 +"    tex = texIn;"
 +"  }";
 
@@ -40,20 +40,20 @@ musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
+    this.colAttr = this.gl.getUniformLocation(program, "col");
+    this.selAttr = this.gl.getUniformLocation(program, "selected");
   }
 
   this.gl.useProgram(program);
 
   var vtxData = this.squareVtxs(x, y, size);
-  this.loadVertexAttrib(program, vtxData.vtx, "pos", 2);
+  this.loadVertexAttrib(program, vtxData.vtx, "posIn", 2);
   this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
 
   var col = this.colours[pitchClass];
-  var colAttr = this.gl.getUniformLocation(program, "col");
-  this.gl.uniform4f(colAttr, col[0], col[1], col[2], 1);
+  this.gl.uniform4f(this.colAttr, col[0], col[1], col[2], 1);
 
-  var selAttr = this.gl.getUniformLocation(program, "selected");
-  this.gl.uniform1i(selAttr, selected);
+  this.gl.uniform1i(this.selAttr, selected);
 
   this.gl.disable(this.gl.BLEND);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
