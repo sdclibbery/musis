@@ -11,10 +11,6 @@ musis.metronome.prototype.nextBeatAt = function () {
   return this.nextBeat;
 };
 
-musis.metronome.prototype.timeToNextBeat = function () {
-	return this.nextBeatAt() - play.timeNow();
-};
-
 musis.metronome.prototype.beatDuration = function () {
   return 60 / this.bpm;
 };

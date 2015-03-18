@@ -54,7 +54,7 @@ musis.voicing.prototype.update = function (metronome, play, stars) {
   }
 
   var nextBeatAt = metronome.nextBeatAt();
-  var timeToNextBeat = metronome.timeToNextBeat();
+  var timeToNextBeat = nextBeatAt - play.timeNow();
   var duration = metronome.beatDuration();
   if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
     if (this.composer) { this.composer(nextBeatAt, duration); }
