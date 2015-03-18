@@ -7,7 +7,11 @@ musis.play = function () {
 musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
-  vca.gain.value = 0.15;
+  vca.gain.value = 0;
+  vca.gain.linearRampToValueAtTime(0.15, time + 0.04);
+  vca.gain.linearRampToValueAtTime(0.1, time + 0.1);
+  vca.gain.linearRampToValueAtTime(0.1, time + duration);
+  vca.gain.exponentialRampToValueAtTime(0.001, time + duration+0.2);
   var vco = this.audio.createOscillator();
   vco.frequency.value = freq;
   vco.type = "triangle";
@@ -39,7 +43,7 @@ musis.play.prototype.tick = function (time) {
   vco.frequency.value = 1/duration;
   vco.connect(vca);
   vco.start(time);
-  vca.gain.linearRampToValueAtTime(1, time + attack);
+  vca.gain.linearRampToValueAtTime(0.3, time + attack);
   vca.gain.exponentialRampToValueAtTime(0.001, time + duration);
   vco.stop(time + duration);
 };
