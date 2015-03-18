@@ -45,7 +45,6 @@ musis.frame = function (dt, gl, cw, ch) {
   
   metronome.update(play);
   voicing.update(metronome, play, stars);
-  stars.update(dt);
   triggers.update(dt);
 
   draw.frameStart(gl, cw, ch);

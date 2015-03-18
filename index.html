@@ -42,12 +42,14 @@ x pass notes through to another module for voicing
  x voicing uses a composer to keep composing until next triggers are activated
  x first selected note is the bass
  x sensible spacing of other notes
-* Optimise stars: entire star lifetime should be in vertex shader
-* Play notes on next beat, not the one after
- * need to cancel the already-composed notes for the next beat in that case
+x Play notes on next beat, not the one after
+* Optimise stars: entire star lifetime should be in vertex shader; suggest ring buffer of star vertices; point sprites
+ * setup shader uniform time and give each star a start time
+ * velocity/gravity/fade/flicker/size
 * Better voicing/composition
  x assign notes according to voice ranges
- * tidy chord composer
+ * may be worth unit testing the voicing/composition stuff
+ * tidy chord composer: build a pipeline of functions for assigning notes to voices
  * voice all notes together: avoid unisons
  * voice considering previous notes in voices
   * avoid large jumps in each voice
