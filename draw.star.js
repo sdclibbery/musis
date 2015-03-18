@@ -61,21 +61,19 @@ musis.draw.prototype.addStar = function (star) {
 };
 
 musis.draw.prototype.stars = function () {
-  if (vtxPosns === null) { return; }
-
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
+    this.sizeAttr = this.gl.getUniformLocation(program, "size");
+    this.timeAttr = this.gl.getUniformLocation(program, "time");
   }
 
   this.gl.useProgram(program);
 
-  var timeAttr = this.gl.getUniformLocation(program, "time");
-  this.gl.uniform1f(timeAttr, this.time);
-  var sizeAttr = this.gl.getUniformLocation(program, "size");
-  this.gl.uniform1f(sizeAttr, size*this.ch);
+  this.gl.uniform1f(this.timeAttr, this.time);
+  this.gl.uniform1f(this.sizeAttr, size*this.ch);
 
   this.loadVertexAttrib(program, vtxTimes, "timeIn", 1);
   this.loadVertexAttrib(program, vtxPosns, "posIn", 2);
