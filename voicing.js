@@ -20,7 +20,7 @@ console.log("Note: "+note.pitchClass+"-"+note.octave);
   return note;
 };
 
-var makeChordComposer = function (metronome, play, stars, pitchClasses) {
+var makeChordComposer = function (play, stars, pitchClasses) {
   var num = pitchClasses.length;
   for (var i = num; i < voices.length; i++) {
     pitchClasses[i] = pitchClasses[i-num];
@@ -32,9 +32,7 @@ var makeChordComposer = function (metronome, play, stars, pitchClasses) {
     notes.push(voiceNote(voices[i % voices.length], pc));
   }
 
-  return function () {
-    var time = metronome.nextBeatAt();
-    var duration = metronome.beatDuration();
+  return function (time, duration) {
     notes.map(function (note) {
       play.note(time, note.freq(), duration);
       stars.burst(note.pitchClass);
@@ -46,20 +44,21 @@ var makeChordComposer = function (metronome, play, stars, pitchClasses) {
 
 musis.voicing = function () {
   this.nextPitchClasses = [];
-  this.lastPlayedTime = 0;
+  this.lastBeatAt = 0;
 };
 
 musis.voicing.prototype.update = function (metronome, play, stars) {
   if (this.nextPitchClasses.length > 0) {
-    this.composer = makeChordComposer(metronome, play, stars, this.nextPitchClasses);
+    this.composer = makeChordComposer(play, stars, this.nextPitchClasses);
     this.nextPitchClasses = [];
   }
 
-  var time = metronome.nextBeatAt();
+  var nextBeatAt = metronome.nextBeatAt();
+  var timeToNextBeat = metronome.timeToNextBeat();
   var duration = metronome.beatDuration();
-  if (this.lastPlayedTime + duration - 0.05 <= time) {
-    this.lastPlayedTime = time;
-    if (this.composer) { this.composer(); }
+  if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
+    if (this.composer) { this.composer(nextBeatAt, duration); }
+    this.lastBeatAt = nextBeatAt;
   }
 };
 

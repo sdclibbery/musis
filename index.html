@@ -42,6 +42,9 @@ x pass notes through to another module for voicing
  x voicing uses a composer to keep composing until next triggers are activated
  x first selected note is the bass
  x sensible spacing of other notes
+* Optimise stars: entire star lifetime should be in vertex shader
+* Play notes on next beat, not the one after
+ * need to cancel the already-composed notes for the next beat in that case
 * Better voicing/composition
  x assign notes according to voice ranges
  * tidy chord composer
@@ -58,8 +61,6 @@ x pass notes through to another module for voicing
 * Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
 * visual metronome indication
 * tick sound when select a trigger
-* Entire star lifetime should be in vertex shader
- * so have more stars :-)
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
 */
 
