@@ -38,7 +38,7 @@ musis.touchend = function () {
   s = null;
 };
 
-musis.frame = function (dt, gl, cw, ch) {
+musis.frame = function (t, dt, gl, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
@@ -47,7 +47,7 @@ musis.frame = function (dt, gl, cw, ch) {
   voicing.update(metronome, play, stars);
   triggers.update(dt);
 
-  draw.frameStart(gl, cw, ch);
+  draw.frameStart(t, gl, cw, ch);
   stars.render(draw);
   triggers.render(draw);
 };

@@ -1,6 +1,7 @@
 // Adapter for visual rendering
 
 musis.draw = function () {
+  this.time = 0;
   this.gl = null;
   this.cw = 1;
   this.ch = 1;
@@ -16,7 +17,8 @@ musis.draw.prototype.colours = {
   B: [1, 0.5, 0]
 };
 
-musis.draw.prototype.frameStart = function (gl, cw, ch) {
+musis.draw.prototype.frameStart = function (t, gl, cw, ch) {
+  this.time = t;
   if (!this.gl) {
     this.gl = gl;
     this.cw = cw;

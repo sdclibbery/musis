@@ -43,9 +43,10 @@ x pass notes through to another module for voicing
  x first selected note is the bass
  x sensible spacing of other notes
 x Play notes on next beat, not the one after
-* Optimise stars: entire star lifetime should be in vertex shader; suggest ring buffer of star vertices; point sprites
- * setup shader uniform time and give each star a start time
- * velocity/gravity/fade/flicker/size
+x Optimise stars: entire star lifetime should be in vertex shader; suggest ring buffer of star vertices; point sprites
+ x setup shader uniform time and give each star a start time
+ x velocity/gravity/fade/flicker/size
+* Optimise audio
 * Better voicing/composition
  x assign notes according to voice ranges
  * may be worth unit testing the voicing/composition stuff
@@ -74,7 +75,7 @@ if (!ctxGl) { ctxGl = canvas.getContext("experimental-webgl"); }
 var tLast;
 var frame = function (t) {
   if (tLast) {
-    musis.frame((t - tLast)/1000, ctxGl, canvas.width, canvas.height);
+    musis.frame(t, (t - tLast)/1000, ctxGl, canvas.width, canvas.height);
   }
   tLast = t;
   window.requestAnimationFrame(frame);
