@@ -8,8 +8,8 @@
   <script type="text/javascript" src="triggers.js"></script>
   <script type="text/javascript" src="draw.trigger.js"></script>
   <script type="text/javascript" src="metronome.js"></script>
-  <script type="text/javascript" src="voicing.js"></script>
   <script type="text/javascript" src="note.js"></script>
+  <script type="text/javascript" src="voicing.js"></script>
 </head>
 <body>
   <canvas id="canvas" width="960" height="540"></canvas>
@@ -43,6 +43,12 @@ x pass notes through to another module for voicing
  x first selected note is the bass
  x sensible spacing of other notes
 * Better voicing/composition
+ x assign notes according to voice ranges
+ * tidy chord composer
+ * voice all notes together: avoid unisons
+ * voice considering previous notes in voices
+  * avoid large jumps in each voice
+  * avoid consecutive fifths
 * Visual fx: build structures/lights etc
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 * Evaluate quality of chords and progressions

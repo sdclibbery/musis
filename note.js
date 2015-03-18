@@ -12,9 +12,27 @@ var freqs = {
   B: 440*Math.pow(2, 2/12)
 };
 
+var chromatic = {
+  C: 0,
+  D: 2,
+  E: 4,
+  F: 5,
+  G: 7,
+  A: 9,
+  B: 11
+};
+
 musis.note = function (pitchClass, octave) {
   this.pitchClass = pitchClass;
   this.octave = octave;
+};
+
+musis.note.prototype.absChromatic = function () {
+  return chromatic[this.pitchClass] + this.octave*12;
+};
+
+musis.note.prototype.isLowerThan = function (rhs) {
+  return this.absChromatic() < rhs.absChromatic();
 };
 
 musis.note.prototype.freq = function () {
