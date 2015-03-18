@@ -42,6 +42,8 @@ musis.frame = function (t, dt, gl, cw, ch) {
   if (s) {
     triggers.touch(s, s);
   }
+
+  if (dt > 0.1) { console.log("Long frame: "+dt); }
   
   metronome.update(play);
   voicing.update(metronome, play, stars);
