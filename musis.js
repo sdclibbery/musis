@@ -32,8 +32,11 @@ musis.touchmove = function (x, y) {
 
 musis.touchend = function () {
   if (triggers.anySelected()) {
-    triggers.play(voicing);
+    var nextHarmony = triggers.activate();
     triggers = new musis.triggers();
+    nextHarmony.map(function (pitchClass) {
+      voicing.add(pitchClass);
+    });
   }
   s = null;
 };
