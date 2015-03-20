@@ -69,8 +69,8 @@ musis.voicing.prototype.update = function (metronome, play, stars) {
   }
 };
 
-musis.voicing.prototype.add = function (pitchClass) {
-  this.nextPitchClasses.push(pitchClass);
+musis.voicing.prototype.next = function (pitchClasses) {
+  this.nextPitchClasses = pitchClasses;
 };
 
 })();

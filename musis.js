@@ -34,9 +34,7 @@ musis.touchend = function () {
   if (triggers.anySelected()) {
     var nextHarmony = triggers.activate();
     triggers = new musis.triggers();
-    nextHarmony.map(function (pitchClass) {
-      voicing.add(pitchClass);
-    });
+    voicing.next(nextHarmony);
   }
   s = null;
 };
