@@ -2,8 +2,6 @@
 
 // Domain
 
-var compose = new musis.compose();
-
 musis.music = function () {
   this.nextPitchClasses = [];
   this.lastBeatAt = 0;
@@ -11,7 +9,7 @@ musis.music = function () {
 
 musis.music.prototype.update = function (metronome, play, stars) {
   if (this.nextPitchClasses.length > 0) {
-    this.composer = compose.blockChords(play, stars, this.nextPitchClasses);
+    this.composer = musis.compose.blockChords(play, stars, this.nextPitchClasses);
     this.nextPitchClasses = [];
   }
 

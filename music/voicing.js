@@ -21,10 +21,9 @@ var voiceNote = function (voice, pitchClass) {
 
 //////
 
-musis.voicing = function () {
-};
+musis.voicing = {};
 
-musis.voicing.prototype.assignToVoices = function (pitchClasses) {
+musis.voicing.assignToVoices = function (pitchClasses) {
   var notes = [];
   for (var i = 0; i < pitchClasses.length; i++) {
     var pc = pitchClasses[i];
