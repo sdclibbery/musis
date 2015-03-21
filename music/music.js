@@ -2,7 +2,7 @@
 
 // Domain
 
-var voicing = new musis.voicing();
+var compose = new musis.compose();
 
 musis.music = function () {
   this.nextPitchClasses = [];
@@ -11,7 +11,7 @@ musis.music = function () {
 
 musis.music.prototype.update = function (metronome, play, stars) {
   if (this.nextPitchClasses.length > 0) {
-    this.composer = voicing.makeChordComposer(play, stars, this.nextPitchClasses);
+    this.composer = compose.blockChords(play, stars, this.nextPitchClasses);
     this.nextPitchClasses = [];
   }
 
