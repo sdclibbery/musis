@@ -7,6 +7,7 @@
   <script type="text/javascript" src="adapters/draw.star.js"></script>
   <script type="text/javascript" src="music/note.js"></script>
   <script type="text/javascript" src="music/voicing.js"></script>
+  <script type="text/javascript" src="music/music.js"></script>
   <script type="text/javascript" src="metronome.js"></script>
   <script type="text/javascript" src="triggers.js"></script>
   <script type="text/javascript" src="stars.js"></script>
@@ -52,8 +53,9 @@ x Put adapters into an adapters folder
  x tidy chord composer: build a pipeline of functions for assigning notes to voices
  x put music stuff into a music folder
  * split music stuff up much better
-  * triggers dont call voicing direct, instead they return the new harmony when activated
-  * 
+  x triggers dont call voicing direct, instead they return the new harmony when activated
+  x music module coordinates composing and playing music
+  * seperate composition module with helpers like voicing...
  * try to assign to note near centre of voice
  * voice all notes together: avoid unisons
  * voice considering previous notes in voices

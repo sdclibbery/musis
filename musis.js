@@ -7,7 +7,7 @@ musis = {}
 var stars;
 var metronome;
 var triggers;
-var voicing;
+var music;
 
 musis.begin = function () {
   draw = new musis.draw();
@@ -15,7 +15,7 @@ musis.begin = function () {
   stars = new musis.stars();
   metronome = new musis.metronome();
   triggers = new musis.triggers();
-  voicing = new musis.voicing();
+  music = new musis.music();
 };
 
 var s = null;
@@ -34,7 +34,7 @@ musis.touchend = function () {
   if (triggers.anySelected()) {
     var nextHarmony = triggers.activate();
     triggers = new musis.triggers();
-    voicing.next(nextHarmony);
+    music.nextHarmony(nextHarmony);
   }
   s = null;
 };
@@ -47,7 +47,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
   if (dt > 0.1) { console.log("Long frame: "+dt); }
   
   metronome.update(play);
-  voicing.update(metronome, play, stars);
+  music.update(metronome, play, stars);
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);

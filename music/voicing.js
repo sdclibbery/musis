@@ -11,17 +11,6 @@ var ranges = {
   soprano: { low: new musis.note("C", 4), high: new musis.note("C", 6) }
 };
 
-var makeChordComposer = function (play, stars, pitchClasses) {
-  pitchClasses = expandPCs(pitchClasses);
-  var notes = assignToVoices(pitchClasses);
-  return function (time, duration) {
-    notes.map(function (note) {
-      play.note(time, note.freq(), duration);
-      stars.burst(note.pitchClass);
-    });
-  };
-};
-
 var expandPCs = function (pitchClasses) {
   var num = pitchClasses.length;
   for (var i = num; i < voices.length; i++) {
@@ -50,27 +39,18 @@ var voiceNote = function (voice, pitchClass) {
 //////
 
 musis.voicing = function () {
-  this.nextPitchClasses = [];
-  this.lastBeatAt = 0;
 };
 
-musis.voicing.prototype.update = function (metronome, play, stars) {
-  if (this.nextPitchClasses.length > 0) {
-    this.composer = makeChordComposer(play, stars, this.nextPitchClasses);
-    this.nextPitchClasses = [];
-  }
-
-  var nextBeatAt = metronome.nextBeatAt();
-  var timeToNextBeat = nextBeatAt - play.timeNow();
-  var duration = metronome.beatDuration();
-  if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
-    if (this.composer) { this.composer(nextBeatAt, duration); }
-    this.lastBeatAt = nextBeatAt;
-  }
+musis.voicing.prototype.makeChordComposer = function (play, stars, pitchClasses) {
+  pitchClasses = expandPCs(pitchClasses);
+  var notes = assignToVoices(pitchClasses);
+  return function (time, duration) {
+    notes.map(function (note) {
+      play.note(time, note.freq(), duration);
+      stars.burst(note.pitchClass);
+    });
+  };
 };
 
-musis.voicing.prototype.next = function (pitchClasses) {
-  this.nextPitchClasses = pitchClasses;
-};
 
 })();
