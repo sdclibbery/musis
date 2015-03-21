@@ -1,5 +1,7 @@
 (function () {
 
+var perform = new musis.perform();
+
 // Domain
 
 musis.music = function () {
@@ -23,7 +25,10 @@ musis.music.prototype.update = function (metronome, play, stars) {
   var timeToNextBeat = nextBeatAt - play.timeNow();
   var duration = metronome.beatDuration();
   if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
-    if (this.composer) { this.composer(nextBeatAt, duration); }
+    if (this.composer) { // Compose and perform for the next beat
+      var events = this.composer(nextBeatAt, duration);
+      perform.beat(play, stars, events);
+    }
     this.lastBeatAt = nextBeatAt;
   }
 };

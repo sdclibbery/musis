@@ -6,10 +6,15 @@ musis.compose = {};
 
 musis.compose.blockChords = function (play, stars, notes) {
   return function (time, duration) {
+    var events = [];
     notes.map(function (note) {
-      play.note(time, note.freq(), duration);
-      stars.burst(note.pitchClass);
+      events.push({
+        time: time,
+        duration: duration,
+        note: note
+      });
     });
+    return events;
   };
 };
 

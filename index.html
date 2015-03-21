@@ -8,6 +8,7 @@
   <script type="text/javascript" src="music/note.js"></script>
   <script type="text/javascript" src="music/voicing.js"></script>
   <script type="text/javascript" src="music/compose.js"></script>
+  <script type="text/javascript" src="music/perform.js"></script>
   <script type="text/javascript" src="music/music.js"></script>
   <script type="text/javascript" src="metronome.js"></script>
   <script type="text/javascript" src="triggers.js"></script>
@@ -57,8 +58,9 @@ x Put adapters into an adapters folder
   x triggers dont call voicing direct, instead they return the new harmony when activated
   x music module coordinates composing and playing music
   x seperate composition module with helpers like voicing...
-  * move expandPCs and assignvoices back into music module
+  x move expandPCs and assignvoices back into music module
   * rename compose to perform
+  ! when queuing up notes to play later, should queue up starbursts etc too
  * try to assign to note near centre of voice
  * voice all notes together: avoid unisons
  * voice considering previous notes in voices
