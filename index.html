@@ -61,6 +61,10 @@ x Split music stuff up much better
  x move expandPCs and assignvoices back into music module
  x rename compose to perform
 * First pc selected should be first reported and therefore the bass
+* Note class
+ * validate on construction
+ * allow single string constructor eg: "C4"
+ * toString function, and use it to output chosen voicing
 * Better voice assignment
  x assign bass first
  * assign others ascending and fitting to voice ranges
@@ -68,9 +72,9 @@ x Split music stuff up much better
  * voice considering previous notes in voices
   * avoid large jumps in each voice
   * avoid consecutive fifths/octaves
-* Note class
- * validate on construction
- * allow single string constructor eg: "C4"
+* Consider how to manage composition: eg stopping playing notes when the harmony changes
+ * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
+* Consider downbeats: tell composition about downbeats so it can do things like ensure the bass changes on a downbeat etc
 ! when queuing up notes to play later, should queue up starbursts etc too
 * Visual fx: build structures/lights etc
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
