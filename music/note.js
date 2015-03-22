@@ -39,4 +39,12 @@ musis.note.prototype.freq = function () {
   return freqs[this.pitchClass] * Math.pow(2, this.octave-4);
 };
 
+musis.note.prototype.above = function (cmp) {
+  var ret = new musis.note(this.pitchClass, this.octave);
+  while (ret.isLowerThan(cmp)) {
+    ret = new musis.note(ret.pitchClass, ret.octave+1);
+  }
+  return ret;
+};
+
 })();

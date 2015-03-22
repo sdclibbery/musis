@@ -11,25 +11,20 @@ var ranges = {
   soprano: { low: new musis.note("C", 4), high: new musis.note("C", 6) }
 };
 
-var voiceNote = function (voice, pitchClass) {
-  var note = new musis.note(pitchClass, 1);
-  while (note.isLowerThan(ranges[voice].low)) {
-    note = new musis.note(pitchClass, note.octave+1);
-  }
-  return note;
-};
-
 //////
 
 musis.voicing = {};
 
 musis.voicing.assignToVoices = function (pitchClasses) {
   var notes = [];
-  for (var i = 0; i < pitchClasses.length; i++) {
-    var pc = pitchClasses[i];
-    notes.push(voiceNote(voices[i % voices.length], pc));
-  }
+  assignBass(notes, pitchClasses[0]);
+  // then a gap then other voices ascending and within their ranges
   return notes;
 };
+
+var assignBass = function (notes, pc) {
+  var bass = new musis.note(pc, 2);
+  notes.push(bass.above(ranges.bass.low));
+}
 
 })();

@@ -50,22 +50,28 @@ x Optimise stars: entire star lifetime should be in vertex shader; suggest ring 
  x setup shader uniform time and give each star a start time
  x velocity/gravity/fade/flicker/size
 x Put adapters into an adapters folder
-* Better voicing/composition
+x Better voicing/composition
  x assign notes according to voice ranges
  x tidy chord composer: build a pipeline of functions for assigning notes to voices
  x put music stuff into a music folder
- * split music stuff up much better
-  x triggers dont call voicing direct, instead they return the new harmony when activated
-  x music module coordinates composing and playing music
-  x seperate composition module with helpers like voicing...
-  x move expandPCs and assignvoices back into music module
-  * rename compose to perform
-  ! when queuing up notes to play later, should queue up starbursts etc too
- * try to assign to note near centre of voice
- * voice all notes together: avoid unisons
+x Split music stuff up much better
+ x triggers dont call voicing direct, instead they return the new harmony when activated
+ x music module coordinates composing and playing music
+ x seperate composition module with helpers like voicing...
+ x move expandPCs and assignvoices back into music module
+ x rename compose to perform
+* First pc selected should be first reported and therefore the bass
+* Better voice assignment
+ x assign bass first
+ * assign others ascending and fitting to voice ranges
+ * avoid unisons
  * voice considering previous notes in voices
   * avoid large jumps in each voice
-  * avoid consecutive fifths
+  * avoid consecutive fifths/octaves
+* Note class
+ * validate on construction
+ * allow single string constructor eg: "C4"
+! when queuing up notes to play later, should queue up starbursts etc too
 * Visual fx: build structures/lights etc
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 * Evaluate quality of chords and progressions
