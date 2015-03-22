@@ -18,7 +18,9 @@ musis.voicing = {};
 musis.voicing.assignToVoices = function (pitchClasses) {
   var notes = [];
   assignBass(notes, pitchClasses[0]);
+
   // then a gap then other voices ascending and within their ranges
+  
   return notes;
 };
 

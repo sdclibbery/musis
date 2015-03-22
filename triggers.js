@@ -29,17 +29,12 @@ var sqrDistToSegment = function(p, v, w) {
   return dist2(p, { x: v.x + t*(w.x - v.x), y: v.y + t*(w.y - v.y) });
 };
 
-trigger.prototype.touch = function (s, e) {
+trigger.prototype.touch = function (sel, s, e) {
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
     this.selected = true;
-  }
-};
-
-trigger.prototype.activate = function (pcs) {
-  if (this.selected) {
-    pcs.push(this.pitchClass);
+    sel.push(this.pitchClass);
   }
 };
 
@@ -58,6 +53,7 @@ var pitchClasses = ["A", "C", "E", "G", "B", "D", "F"];
 musis.triggers = function () {
   this.t = 0;
   this.triggers = [];
+  this.selected = [];
   var num = pitchClasses.length;
   for (var i = 0; i < num; i++) {
     this.triggers[i] = new trigger(pitchClasses[i], expanding(i*6.28/num));
@@ -75,17 +71,12 @@ musis.triggers.prototype.render = function (draw) {
 };
 
 musis.triggers.prototype.touch = function (tx, ty) {
-  this.triggers.map(function(trigger) { trigger.touch(tx, ty); });
+  var sel = this.selected;
+  this.triggers.map(function(trigger) { trigger.touch(sel, tx, ty); });
 };
 
-musis.triggers.prototype.anySelected = function () {
-  return this.triggers.reduce(function (p, trigger) { return trigger.selected || p; }, false);
-};
-
-musis.triggers.prototype.activate = function () {
-  var pcs = [];
-  this.triggers.map(function(trigger) { trigger.activate(pcs); });
-  return pcs;
+musis.triggers.prototype.nextHarmony = function () {
+  return this.selected;
 };
 
 })();

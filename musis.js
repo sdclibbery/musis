@@ -31,10 +31,10 @@ musis.touchmove = function (x, y) {
 };
 
 musis.touchend = function () {
-  if (triggers.anySelected()) {
-    var nextHarmony = triggers.activate();
-    triggers = new musis.triggers();
+  var nextHarmony = triggers.nextHarmony();
+  if (nextHarmony.length > 0) {
     music.nextHarmony(nextHarmony);
+    triggers = new musis.triggers();
   }
   s = null;
 };
