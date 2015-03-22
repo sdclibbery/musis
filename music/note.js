@@ -34,6 +34,9 @@ musis.note.prototype.absChromatic = function () {
 musis.note.prototype.isLowerThan = function (rhs) {
   return this.absChromatic() < rhs.absChromatic();
 };
+musis.note.prototype.isHigherThan = function (rhs) {
+  return this.absChromatic() > rhs.absChromatic();
+};
 
 musis.note.prototype.freq = function () {
   return freqs[this.pitchClass] * Math.pow(2, this.octave-4);
@@ -41,7 +44,7 @@ musis.note.prototype.freq = function () {
 
 musis.note.prototype.above = function (cmp) {
   var ret = new musis.note(this.pitchClass, this.octave);
-  while (ret.isLowerThan(cmp)) {
+  while (!ret.isHigherThan(cmp)) {
     ret = new musis.note(ret.pitchClass, ret.octave+1);
   }
   return ret;
