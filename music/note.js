@@ -27,6 +27,10 @@ musis.note = function (pitchClass, octave) {
   this.octave = octave;
 };
 
+musis.note.prototype.toString = function () {
+  return this.pitchClass + this.octave;
+};
+
 musis.note.prototype.absChromatic = function () {
   return chromatic[this.pitchClass] + this.octave*12;
 };

@@ -36,6 +36,7 @@ musis.music.prototype.update = function (metronome, play, stars) {
 musis.music.prototype.compose = function (play, stars) {
   var pitchClasses = expandPCs(this.nextPitchClasses);
   var notes = musis.voicing.assignToVoices(pitchClasses);
+  console.log("Next Harmony: "+notes);
   this.composer = musis.compose.blockChords(play, stars, notes);
 };
 
