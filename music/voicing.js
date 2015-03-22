@@ -5,10 +5,10 @@
 var voices = ["bass", "tenor", "alto", "soprano"];
 
 var ranges = {
-  bass:    { low: new musis.note("E", 2), high: new musis.note("E", 4) },
-  tenor:   { low: new musis.note("C", 3), high: new musis.note("C", 5) },
-  alto:    { low: new musis.note("G", 3), high: new musis.note("F", 5) },
-  soprano: { low: new musis.note("C", 4), high: new musis.note("C", 6) }
+  bass:    { low: new musis.note("E2"), high: new musis.note("E4") },
+  tenor:   { low: new musis.note("C3"), high: new musis.note("C5") },
+  alto:    { low: new musis.note("G3"), high: new musis.note("F5") },
+  soprano: { low: new musis.note("C4"), high: new musis.note("C6") }
 };
 
 //////

@@ -23,6 +23,12 @@ var chromatic = {
 };
 
 musis.note = function (pitchClass, octave) {
+  if (octave === undefined) {
+    // Single arg constructor
+    var ident = pitchClass;
+    pitchClass = ident.slice(0, -1);
+    octave = parseInt(ident.slice(-1), 10);
+  }
   if (octave < 1) { throw("Invalid note: "+pitchClass+"-"+octave); }
   if (octave > 6) { throw("Invalid note: "+pitchClass+"-"+octave); }
   if (!freqs.hasOwnProperty(pitchClass)) { throw("Invalid note: "+pitchClass+"-"+octave); }
