@@ -30,6 +30,7 @@ var sqrDistToSegment = function(p, v, w) {
 };
 
 trigger.prototype.touch = function (sel, s, e) {
+  if (this.selected) { return; }
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {

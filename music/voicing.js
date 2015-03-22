@@ -17,11 +17,28 @@ musis.voicing = {};
 
 musis.voicing.assignToVoices = function (pitchClasses) {
   var notes = [];
+  pitchClasses = expandPCs(pitchClasses);
   assignBass(notes, pitchClasses[0]);
 
-  // then a gap then other voices ascending and within their ranges
-  
+  var last = notes[0];
+  for (var i = 1; i < pitchClasses.length; i++) {
+    var note = new musis.note(pitchClasses[i], 2);
+    note = note.above(ranges[voices[Math.min(i, 3)]].low); // in range for voice
+    note = note.above(last); // higher than prev
+    notes.push(note);
+    last = note;
+  }
+
   return notes;
+};
+
+var expandPCs = function (pitchClasses) {
+  var num = pitchClasses.length;
+  var newPCs = [];
+  for (var i = 0; i < Math.max(4, num); i++) { // at least 4 parts
+    newPCs[i] = pitchClasses[i%num];
+  }
+  return newPCs;
 };
 
 var assignBass = function (notes, pc) {

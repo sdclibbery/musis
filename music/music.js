@@ -18,7 +18,7 @@ musis.music.prototype.update = function (metronome, play, stars) {
 
 musis.music.prototype.update = function (metronome, play, stars) {
   if (this.nextPitchClasses.length > 0) {
-    this.compose(play, stars);
+    this.toNextHarmony(play, stars);
     this.nextPitchClasses = [];
   }
   var nextBeatAt = metronome.nextBeatAt();
@@ -33,19 +33,10 @@ musis.music.prototype.update = function (metronome, play, stars) {
   }
 };
 
-musis.music.prototype.compose = function (play, stars) {
-  var pitchClasses = expandPCs(this.nextPitchClasses);
-  var notes = musis.voicing.assignToVoices(pitchClasses);
+musis.music.prototype.toNextHarmony = function (play, stars) {
+  var notes = musis.voicing.assignToVoices(this.nextPitchClasses);
   console.log("Next Harmony: "+notes);
   this.composer = musis.compose.blockChords(play, stars, notes);
-};
-
-var expandPCs = function (pitchClasses) {
-  var num = pitchClasses.length;
-  for (var i = num; i < 4; i++) { // at least 4 parts
-    pitchClasses[i] = pitchClasses[i-num];
-  }
-  return pitchClasses;
 };
 
 })();

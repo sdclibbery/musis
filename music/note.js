@@ -49,7 +49,7 @@ musis.note.prototype.freq = function () {
 musis.note.prototype.above = function (cmp) {
   var ret = new musis.note(this.pitchClass, this.octave);
   while (!ret.isHigherThan(cmp)) {
-    ret = new musis.note(ret.pitchClass, ret.octave+1);
+    ret.octave++;
   }
   return ret;
 };
