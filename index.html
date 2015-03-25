@@ -61,18 +61,21 @@ x Split music stuff up much better
  x move expandPCs and assignvoices back into music module
  x rename compose to perform
 x First pc selected should be first reported and therefore the bass
-* Note class
+x Note class
  x validate on construction
- * allow single string constructor eg: "C4"
+ x allow single string constructor eg: "C4"
  x toString function, and use it to output chosen voicing
 * Better voice assignment
  x assign bass first
  x assign others ascending and fitting to voice ranges
- * try to space nicely; reorder upper voices if required
- * avoid unisons
- * voice considering previous notes in voices
-  * avoid large jumps in each voice
-  * avoid consecutive fifths/octaves
+ * generate all permutations of pc-to-voice
+ * filter unacceptable ones
+  * all PCs must be represented
+ * generate further permutations of assigning PCs to notes within the voice range
+ * score each
+  * proximity to last note in same voice is good
+  * consecutive fifths or octaves are bad
+ * choose the best
 * Consider how to manage composition: eg stopping playing notes when the harmony changes
  * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
 * Consider downbeats: tell composition about downbeats so it can do things like ensure the bass changes on a downbeat etc
