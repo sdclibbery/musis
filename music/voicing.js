@@ -23,21 +23,22 @@ musis.voicing.assignToVoices = function (pitchClasses) {
       return comb.indexOf(pc) >= 0;
     });
   }
+  var addScore = function (comb) { return { voices: comb, score: 0 }; }
   var combs = combinations(pcs, 3) // get combinations for the upper three voices
     .map(insertBass)
     .filter(allPCsPresent)
+    .map(addScore)
+
+    // pc-to-note, picking the octave in the voices range that is closest to the voices last note
+
+    // score each
+      // proximity to last note in same voice is good
+      // consecutive fifths or octaves are bad
+
+    // choose the best
+
   ;
   console.log(combs);
-
-  // expand to include a score
-
-  // generate further combinations of assigning PCs to notes within the voice range
-
-  // score each
-    // proximity to last note in same voice is good
-    // consecutive fifths or octaves are bad
-
-  // choose the best
 
   // return voicing but also left-over PCs
 
