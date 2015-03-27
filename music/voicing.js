@@ -17,20 +17,26 @@ musis.voicing = {};
 
 musis.voicing.assignToVoices = function (pitchClasses) {
   var pcs = pitchClasses.slice(0,4); // get the first four notes and ignore the rest
-  var insertBass = function (comb) { comb.unshift(pitchClasses[0]); return comb; }
+  var insertBass = function (comb) { comb.unshift(pcs[0]); return comb; };
   var allPCsPresent = function (comb) {
     return pcs.every(function (pc) {
       return comb.indexOf(pc) >= 0;
     });
-  }
-  var addScore = function (comb) { return { voices: comb, score: 0 }; }
+  };
+  var toNotes = function (comb, res) {
+    // pc-to-note, expanding combinations to include all octaves within each voices range
+    //res.push(comb.map);
+    return res;
+  };
+  var addScore = function (comb) { return { voices: comb, score: 0 }; };
   var combs = combinations(pcs, 3) // get combinations for the upper three voices
     .map(insertBass)
     .filter(allPCsPresent)
-    .map(addScore)
+    .reduce(toNotes, [])
 
-    // pc-to-note, picking the octave in the voices range that is closest to the voices last note
+    // filter out crossed voices
 
+//    .map(addScore)
     // score each
       // proximity to last note in same voice is good
       // consecutive fifths or octaves are bad
