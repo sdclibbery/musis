@@ -16,34 +16,56 @@ var ranges = {
 musis.voicing = {};
 
 musis.voicing.assignToVoices = function (pitchClasses) {
-  var notes = [];
-  pitchClasses = expandPCs(pitchClasses);
-  assignBass(notes, pitchClasses[0]);
-
-  var last = notes[0];
-  for (var i = 1; i < pitchClasses.length; i++) {
-    var note = new musis.note(pitchClasses[i], 2);
-    note = note.above(ranges[voices[Math.min(i, 3)]].low); // in range for voice
-    note = note.above(last); // higher than prev
-    notes.push(note);
-    last = note;
+  var pcs = pitchClasses.slice(0,4); // get the first four notes and ignore the rest
+  var insertBass = function (comb) { comb.unshift(pitchClasses[0]); return comb; }
+  var allPCsPresent = function (comb) {
+    return pcs.every(function (pc) {
+      return comb.indexOf(pc) >= 0;
+    });
   }
+  var combs = combinations(pcs, 3) // get combinations for the upper three voices
+    .map(insertBass)
+    .filter(allPCsPresent)
+  ;
+  console.log(combs);
 
-  return notes;
+  // expand to include a score
+
+  // generate further combinations of assigning PCs to notes within the voice range
+
+  // score each
+    // proximity to last note in same voice is good
+    // consecutive fifths or octaves are bad
+
+  // choose the best
+
+  // return voicing but also left-over PCs
+
+  return [];
 };
 
-var expandPCs = function (pitchClasses) {
-  var num = pitchClasses.length;
-  var newPCs = [];
-  for (var i = 0; i < Math.max(4, num); i++) { // at least 4 parts
-    newPCs[i] = pitchClasses[i%num];
+var combinations = function (xs, n) {
+  var num = xs.length;
+  var combs = [];
+  var idxs = [];
+  for (var i = 0; i < n; i++) { idxs[i] = 0; }
+  while (true) {
+    var perm = [];
+    for (var j = 0; j < n; j++) {
+      perm[j] = xs[idxs[j]];
+    }
+    combs.push(perm);
+    var increment = function (k) {
+      idxs[k]++;
+      if (idxs[k] >= num) {
+        idxs[k] = 0;
+        if (k+1 === n) { return true; }
+        return increment(k+1);
+      }
+    }
+    if (increment(0)) { break; }
   }
-  return newPCs;
+  return combs;
 };
-
-var assignBass = function (notes, pc) {
-  var bass = new musis.note(pc, 2);
-  notes.push(bass.above(ranges.bass.low));
-}
 
 })();
