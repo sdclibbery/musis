@@ -31,15 +31,20 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     combinations([bs, ts, as, ss]).map(function (notes) { res.push(notes); });
     return res;
   };
-  var addScore = function (comb) { return { voices: comb, score: 0 }; };
+  var notCrossed = function (notes) {
+    for (var i = 1; i < 4; i++) {
+      if (!notes[i-1].isLowerThan(notes[i])) { return false; }
+    }
+    return true;
+  };
+  var addScore = function (notes) { return { voices: notes, score: 0 }; };
+
   var combs = combinations([pcs, pcs, pcs]) // get combinations for the upper three voices; bass is always first
     .map(insertBass)
     .filter(allPCsPresent)
     .reduce(toNotes, [])
-
-    // filter out crossed voices
-
-//    .map(addScore)
+    .filter(notCrossed) // by this point we have all possible valid voicings; now lets pick the best
+    .map(addScore)
     // score each
       // proximity to last note in same voice is good
       // consecutive fifths or octaves are bad
@@ -59,7 +64,7 @@ var notesWithinRange = function (pc, range) {
   var res = [];
   while (!note.isHigherThan(range.high)) {
     res.push(note);
-    note.octave++;
+    note = note.above(note);
   }
   return res;
 };
