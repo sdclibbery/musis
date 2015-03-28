@@ -14,6 +14,12 @@ var ranges = {
 //////
 
 musis.voicing = {};
+musis.voicing.previous = [
+  new musis.note("E3"),
+  new musis.note("C4"),
+  new musis.note("G4"),
+  new musis.note("C5")
+];
 
 musis.voicing.assignToVoices = function (pitchClasses) {
   var pcs = pitchClasses.slice(0,4); // get the first four notes and ignore the rest
@@ -38,7 +44,14 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     return true;
   };
   var addScore = function (notes) { notes.score = 0; return notes; };
-  var cmpScore = function (a, b) { return a.score - b.score; }
+  var scoreSmoothness = function (notes) {
+    notes.map(function (note, idx) {
+      var diff = note.absChromatic() - musis.voicing.previous[idx].absChromatic();
+      notes.score += Math.max(7 - Math.abs(diff), 0);
+    });
+    return notes;
+  };
+  var cmpScore = function (a, b) { return b.score - a.score; }
 
   var combs = combinations([pcs, pcs, pcs]) // get combinations for the upper three voices; bass is always first
     .map(insertBass)
@@ -46,13 +59,13 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .reduce(toNotes, [])
     .filter(notCrossed) // by this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
-    // score each
-      // proximity to last note in same voice is good
-      // consecutive fifths or octaves are bad
+    .map(scoreSmoothness)
+    // consecutive fifths or octaves are bad
     .sort(cmpScore)
   ;
   var voicing = combs[0];  // choose the best
-  console.log(voicing);
+console.log(voicing);
+  musis.voicing.previous = voicing;
 
   // todo:return voicing but also left-over PCs!
   return voicing;
