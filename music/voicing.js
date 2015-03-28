@@ -37,7 +37,8 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     }
     return true;
   };
-  var addScore = function (notes) { return { voices: notes, score: 0 }; };
+  var addScore = function (notes) { notes.score = 0; return notes; };
+  var cmpScore = function (a, b) { return a.score - b.score; }
 
   var combs = combinations([pcs, pcs, pcs]) // get combinations for the upper three voices; bass is always first
     .map(insertBass)
@@ -48,15 +49,13 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     // score each
       // proximity to last note in same voice is good
       // consecutive fifths or octaves are bad
-
-    // choose the best
-
+    .sort(cmpScore)
   ;
-  console.log(combs);
+  var voicing = combs[0];  // choose the best
+  console.log(voicing);
 
-  // return voicing but also left-over PCs
-
-  return [];
+  // todo:return voicing but also left-over PCs!
+  return voicing;
 };
 
 var notesWithinRange = function (pc, range) {
