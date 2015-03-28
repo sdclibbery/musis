@@ -65,6 +65,7 @@ x Note class
  x validate on construction
  x allow single string constructor eg: "C4"
  x toString function, and use it to output chosen voicing
+* Switch from PCs to movable do solfege
 * Better voice assignment
  x assign bass first
  x assign others ascending and fitting to voice ranges
@@ -79,6 +80,11 @@ x Note class
 * Optimisation: pre-allocate all resources required for trigger drawing
 * Consider how to manage composition: eg stopping playing notes when the harmony changes
  * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
+* Analysis of new harmony as well as voicing
+ * evaluate tension level as avg of tensions of individual notes
+  ? or should be the max of the individual notes
+  * in order: 1-5-3-6-2-4-7
+ * chord root
 * Consider downbeats: tell composition about downbeats so it can do things like ensure the bass changes on a downbeat etc
 ! when queuing up notes to play later, should queue up starbursts etc too
 * Visual fx: build structures/lights etc
