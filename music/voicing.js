@@ -5,21 +5,16 @@
 var voices = ["bass", "tenor", "alto", "soprano"];
 
 var ranges = {
-  bass:    { low: new musis.note("E2"), high: new musis.note("E4") },
-  tenor:   { low: new musis.note("C3"), high: new musis.note("C5") },
-  alto:    { low: new musis.note("G3"), high: new musis.note("F5") },
-  soprano: { low: new musis.note("C4"), high: new musis.note("C6") }
+  bass:    { low: new musis.note("E2"), mid: new musis.note("E3"), high: new musis.note("E4") },
+  tenor:   { low: new musis.note("C3"), mid: new musis.note("C4"), high: new musis.note("C5") },
+  alto:    { low: new musis.note("G3"), mid: new musis.note("G4"), high: new musis.note("F5") },
+  soprano: { low: new musis.note("C4"), mid: new musis.note("C5"), high: new musis.note("C6") }
 };
 
 //////
 
 musis.voicing = {};
-musis.voicing.previous = [
-  new musis.note("E3"),
-  new musis.note("C4"),
-  new musis.note("G4"),
-  new musis.note("C5")
-];
+musis.voicing.previous = [ ranges.bass.mid, ranges.tenor.mid, ranges.alto.mid, ranges.soprano.mid ];
 
 musis.voicing.assignToVoices = function (pitchClasses) {
   var pcs = pitchClasses.slice(0,4); // get the first four notes and ignore the rest
@@ -44,6 +39,13 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     return true;
   };
   var addScore = function (notes) { notes.score = 0; return notes; };
+  var scoreRange = function (notes) {
+    notes.map(function (note, idx) {
+      var diff = note.chromaticDiff(ranges[voices[idx]].mid);
+      notes.score += Math.abs(diff) / 2;
+    });
+    return notes;
+  };
   var scoreSmoothness = function (notes) {
     notes.map(function (note, idx) {
       var diff = note.chromaticDiff(musis.voicing.previous[idx]);
@@ -67,8 +69,9 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .reduce(toNotes, [])
     .filter(notCrossed) // by this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
-    .map(scoreSmoothness)
+    .map(scoreRange)
     .map(scoreSpacing)
+    .map(scoreSmoothness)
     // consecutive fifths or octaves are bad
     .sort(cmpScore)
   ;
