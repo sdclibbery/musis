@@ -44,8 +44,8 @@ trigger.prototype.touch = function (sel, s, e) {
 var expanding = function (a) {
   return function (t) {
     return {
-      x: -Math.pow(t, 0.3)/4*Math.cos(a),
-      y: Math.pow(t, 0.3)/4*Math.sin(a)
+      x: Math.pow(t, 0.3)/4*Math.sin(a),
+      y: Math.pow(t, 0.3)/4*Math.cos(a)
     };
   };
 }
@@ -57,7 +57,7 @@ musis.triggers = function () {
   this.selected = [];
   var num = pitchClasses.length;
   for (var i = 0; i < num; i++) {
-    this.triggers[i] = new trigger(pitchClasses[i], expanding(i*6.28/num));
+    this.triggers[i] = new trigger(pitchClasses[i], expanding((i-2)*6.28/num));
   }
 };
 
