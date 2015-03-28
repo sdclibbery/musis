@@ -44,6 +44,10 @@ musis.note.prototype.absChromatic = function () {
   return chromatic[this.pitchClass] + this.octave*12;
 };
 
+musis.note.prototype.chromaticDiff = function (rhs) {
+  return this.absChromatic() - rhs.absChromatic();
+};
+
 musis.note.prototype.isLowerThan = function (rhs) {
   return this.absChromatic() < rhs.absChromatic();
 };

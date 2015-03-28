@@ -46,9 +46,17 @@ musis.voicing.assignToVoices = function (pitchClasses) {
   var addScore = function (notes) { notes.score = 0; return notes; };
   var scoreSmoothness = function (notes) {
     notes.map(function (note, idx) {
-      var diff = note.absChromatic() - musis.voicing.previous[idx].absChromatic();
+      var diff = note.chromaticDiff(musis.voicing.previous[idx]);
       notes.score += Math.max(7 - Math.abs(diff), 0);
     });
+    return notes;
+  };
+  var scoreSpacing = function (notes) {
+    for (var i = 1; i < 4; i++) {
+      var diff = notes[i].chromaticDiff(notes[i-1]);
+      var limit = (i === 1) ? 12 : 7
+      notes.score += limit - Math.max(Math.abs(diff), limit);
+    }
     return notes;
   };
   var cmpScore = function (a, b) { return b.score - a.score; }
@@ -60,6 +68,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .filter(notCrossed) // by this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
     .map(scoreSmoothness)
+    .map(scoreSpacing)
     // consecutive fifths or octaves are bad
     .sort(cmpScore)
   ;
