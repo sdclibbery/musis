@@ -65,18 +65,16 @@ x Note class
  x validate on construction
  x allow single string constructor eg: "C4"
  x toString function, and use it to output chosen voicing
-* Better voice assignment
+x Better voice assignment
  x assign bass first
  x assign others ascending and fitting to voice ranges
  x generate all permutations of pc-to-voice
  x filter unacceptable ones
   x all PCs must be represented
  x generate further permutations of assigning PCs to notes within the voice range
- * score each
-  x proximity to last note in same voice is good
-  * consecutive fifths or octaves are bad
+ x score for proximity to last note in same voice is good
  x choose the best
- * refactor and tidy
+ x refactor and tidy
 * Consider how to manage composition: eg stopping playing notes when the harmony changes
  * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
 * Generate analysis of next harmony for use later when composing melody etc
@@ -95,10 +93,11 @@ x Note class
 * Extra notes and melody kick in if make good progressions
  * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
 * Gestures for arpeggio/block chord/voice leading etc
-* Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
+* Voicing: score for parallel fifths/octaves
 * visual metronome indication
 * tick sound when select a trigger
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
+* Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
 */
 
 musis.begin();

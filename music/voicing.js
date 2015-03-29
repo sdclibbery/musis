@@ -34,7 +34,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .map(scoreRange)
     .map(scoreSpacing)
     .map(scoreSmoothness)
-    // consecutive fifths or octaves are bad
+//    .map(scoreParallels)
     .sort(cmpScore)
   ;
   var voicing = combs[0];  // choose the best
@@ -51,6 +51,16 @@ var toNotes = function (res, comb) {
   var as = notesWithinRange(comb[2], ranges.alto);
   var ss = notesWithinRange(comb[3], ranges.soprano);
   combinations([bs, ts, as, ss]).map(function (notes) { res.push(notes); });
+  return res;
+};
+
+var notesWithinRange = function (pc, range) {
+  var note = new musis.note(pc, range.low.octave).above(range.low);
+  var res = [];
+  while (!note.isHigherThan(range.high)) {
+    res.push(note);
+    note = note.above(note);
+  }
   return res;
 };
 
@@ -71,14 +81,6 @@ var scoreRange = function (notes) {
   return notes;
 };
 
-var scoreSmoothness = function (notes) {
-  notes.map(function (note, idx) {
-    var diff = note.chromaticDiff(musis.voicing.previous[idx]);
-    notes.score += Math.max(7 - Math.abs(diff), 0);
-  });
-  return notes;
-};
-
 var scoreSpacing = function (notes) {
   for (var i = 1; i < 4; i++) {
     var diff = notes[i].chromaticDiff(notes[i-1]);
@@ -88,17 +90,15 @@ var scoreSpacing = function (notes) {
   return notes;
 };
 
-var cmpScore = function (a, b) { return b.score - a.score; }
-
-var notesWithinRange = function (pc, range) {
-  var note = new musis.note(pc, range.low.octave).above(range.low);
-  var res = [];
-  while (!note.isHigherThan(range.high)) {
-    res.push(note);
-    note = note.above(note);
-  }
-  return res;
+var scoreSmoothness = function (notes) {
+  notes.map(function (note, idx) {
+    var diff = note.chromaticDiff(musis.voicing.previous[idx]);
+    notes.score += Math.max(7 - Math.abs(diff), 0);
+  });
+  return notes;
 };
+
+var cmpScore = function (a, b) { return b.score - a.score; }
 
 var combinations = function (xss) { // Takes an array with one entry per slot in the output. Each entry is another array of possible values that could go in that slot.
   var n = xss.length;
