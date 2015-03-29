@@ -5,7 +5,7 @@
 var voices = ["bass", "tenor", "alto", "soprano"];
 
 var ranges = {
-  bass:    { low: new musis.note("E2"), mid: new musis.note("E3"), high: new musis.note("E4") },
+  bass:    { low: new musis.note("E2"), mid: new musis.note("C3"), high: new musis.note("E4") },
   tenor:   { low: new musis.note("C3"), mid: new musis.note("C4"), high: new musis.note("C5") },
   alto:    { low: new musis.note("G3"), mid: new musis.note("G4"), high: new musis.note("F5") },
   soprano: { low: new musis.note("C4"), mid: new musis.note("C5"), high: new musis.note("C6") }
@@ -42,7 +42,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
   var scoreRange = function (notes) {
     notes.map(function (note, idx) {
       var diff = note.chromaticDiff(ranges[voices[idx]].mid);
-      notes.score += Math.abs(diff) / 2;
+      notes.score -= Math.abs(diff) / 2;
     });
     return notes;
   };
