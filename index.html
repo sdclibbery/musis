@@ -77,9 +77,6 @@ x Note class
   * consecutive fifths or octaves are bad
  x choose the best
  * refactor and tidy
-* Switch from PCs to movable do solfege for triggers
- * set up a key class which can turn solfege into pitchclass in a given key
-* Optimisation: pre-allocate all resources required for trigger drawing
 * Consider how to manage composition: eg stopping playing notes when the harmony changes
  * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
 * Generate analysis of next harmony for use later when composing melody etc
@@ -89,8 +86,11 @@ x Note class
  * chord root
 * Consider downbeats: tell composition about downbeats so it can do things like ensure the bass changes on a downbeat etc
 ! when queuing up notes to play later, should queue up starbursts etc too
+* Optimisation: pre-allocate all resources required for trigger drawing, and use only one draw call
 * Visual fx: build structures/lights etc
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
+* Switch from PCs to movable do solfege for triggers
+ * set up a key class which can turn solfege into pitchclass in a given key
 * Evaluate quality of chords and progressions
 * Extra notes and melody kick in if make good progressions
  * when hit tonic after perfect cadence, fill out the tonic chord for richer sound

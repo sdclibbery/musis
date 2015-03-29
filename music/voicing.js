@@ -24,44 +24,6 @@ musis.voicing.assignToVoices = function (pitchClasses) {
       return comb.indexOf(pc) >= 0;
     });
   };
-  var toNotes = function (res, comb) {
-    var bs = notesWithinRange(comb[0], ranges.bass);
-    var ts = notesWithinRange(comb[1], ranges.tenor);
-    var as = notesWithinRange(comb[2], ranges.alto);
-    var ss = notesWithinRange(comb[3], ranges.soprano);
-    combinations([bs, ts, as, ss]).map(function (notes) { res.push(notes); });
-    return res;
-  };
-  var notCrossed = function (notes) {
-    for (var i = 1; i < 4; i++) {
-      if (!notes[i-1].isLowerThan(notes[i])) { return false; }
-    }
-    return true;
-  };
-  var addScore = function (notes) { notes.score = 0; return notes; };
-  var scoreRange = function (notes) {
-    notes.map(function (note, idx) {
-      var diff = note.chromaticDiff(ranges[voices[idx]].mid);
-      notes.score -= Math.abs(diff) / 2;
-    });
-    return notes;
-  };
-  var scoreSmoothness = function (notes) {
-    notes.map(function (note, idx) {
-      var diff = note.chromaticDiff(musis.voicing.previous[idx]);
-      notes.score += Math.max(7 - Math.abs(diff), 0);
-    });
-    return notes;
-  };
-  var scoreSpacing = function (notes) {
-    for (var i = 1; i < 4; i++) {
-      var diff = notes[i].chromaticDiff(notes[i-1]);
-      var limit = (i === 1) ? 12 : 7
-      notes.score += limit - Math.max(Math.abs(diff), limit);
-    }
-    return notes;
-  };
-  var cmpScore = function (a, b) { return b.score - a.score; }
 
   var combs = combinations([pcs, pcs, pcs]) // get combinations for the upper three voices; bass is always first
     .map(insertBass)
@@ -82,6 +44,51 @@ console.log(voicing);
   // todo:return voicing but also left-over PCs!
   return voicing;
 };
+
+var toNotes = function (res, comb) {
+  var bs = notesWithinRange(comb[0], ranges.bass);
+  var ts = notesWithinRange(comb[1], ranges.tenor);
+  var as = notesWithinRange(comb[2], ranges.alto);
+  var ss = notesWithinRange(comb[3], ranges.soprano);
+  combinations([bs, ts, as, ss]).map(function (notes) { res.push(notes); });
+  return res;
+};
+
+var notCrossed = function (notes) {
+  for (var i = 1; i < 4; i++) {
+    if (!notes[i-1].isLowerThan(notes[i])) { return false; }
+  }
+  return true;
+};
+
+var addScore = function (notes) { notes.score = 0; return notes; };
+
+var scoreRange = function (notes) {
+  notes.map(function (note, idx) {
+    var diff = note.chromaticDiff(ranges[voices[idx]].mid);
+    notes.score -= Math.abs(diff) / 2;
+  });
+  return notes;
+};
+
+var scoreSmoothness = function (notes) {
+  notes.map(function (note, idx) {
+    var diff = note.chromaticDiff(musis.voicing.previous[idx]);
+    notes.score += Math.max(7 - Math.abs(diff), 0);
+  });
+  return notes;
+};
+
+var scoreSpacing = function (notes) {
+  for (var i = 1; i < 4; i++) {
+    var diff = notes[i].chromaticDiff(notes[i-1]);
+    var limit = (i === 1) ? 12 : 7
+    notes.score += limit - Math.max(Math.abs(diff), limit);
+  }
+  return notes;
+};
+
+var cmpScore = function (a, b) { return b.score - a.score; }
 
 var notesWithinRange = function (pc, range) {
   var note = new musis.note(pc, range.low.octave).above(range.low);
