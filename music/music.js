@@ -18,25 +18,25 @@ musis.music.prototype.update = function (metronome, play, stars) {
 
 musis.music.prototype.update = function (metronome, play, stars) {
   if (this.nextPitchClasses.length > 0) {
-    this.toNextHarmony(play, stars);
+    this.toNextHarmony();
     this.nextPitchClasses = [];
   }
   var nextBeatAt = metronome.nextBeatAt();
   var timeToNextBeat = nextBeatAt - play.timeNow();
-  var duration = metronome.beatDuration();
+  var beatDuration = metronome.beatDuration();
   if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
     if (this.composer) { // Compose and perform for the next beat
-      var events = this.composer(nextBeatAt, duration);
+      var events = this.composer(nextBeatAt, beatDuration);
       perform.beat(play, stars, events);
     }
     this.lastBeatAt = nextBeatAt;
   }
 };
 
-musis.music.prototype.toNextHarmony = function (play, stars) {
+musis.music.prototype.toNextHarmony = function () {
   var notes = musis.voicing.assignToVoices(this.nextPitchClasses);
   console.log("Next Harmony: "+notes);
-  this.composer = musis.compose.blockChords(play, stars, notes);
+  this.composer = musis.compose.blockChords(notes);
 };
 
 })();
