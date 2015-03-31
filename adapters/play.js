@@ -4,20 +4,22 @@ musis.play = function () {
   this.audio = new AudioContext();
 };
 
+var fadeInOut = [0, 0.309, 0.588, 0.809, 0.951, 1, 0.951, 0.809, 0.588, 0.309, 0];
+
 musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
   vca.connect(this.audio.destination);
   vca.gain.value = 0.0;
-  vca.gain.linearRampToValueAtTime(0.15, time + 0.04);
-  vca.gain.linearRampToValueAtTime(0.1, time + 0.1);
-  vca.gain.linearRampToValueAtTime(0.1, time + duration);
-  vca.gain.exponentialRampToValueAtTime(0.001, time + duration+0.2);
+  fadeInOut.map(function (g,i,a) {
+    var f = i / a.length;
+    vca.gain.linearRampToValueAtTime(0.12*g, time + f*duration*2);
+  });
   var vco = this.audio.createOscillator();
   vco.frequency.value = freq;
   vco.type = "triangle";
   vco.connect(vca);
   vco.start(time);
-  vco.stop(time + duration);
+  vco.stop(time + duration*2);
 };
 
 musis.play.prototype.timeNow = function () {
