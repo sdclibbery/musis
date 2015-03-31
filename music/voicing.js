@@ -93,7 +93,7 @@ var scoreSpacing = function (notes) {
 var scoreSmoothness = function (notes) {
   notes.map(function (note, idx) {
     var diff = note.chromaticDiff(musis.voicing.previous[idx]);
-    notes.score += Math.max(7 - Math.abs(diff), 0);
+    notes.score -= Math.abs(diff);
   });
   return notes;
 };
