@@ -75,30 +75,42 @@ x Better voice assignment
  x score for proximity to last note in same voice is good
  x choose the best
  x refactor and tidy
-* Consider how to manage composition: eg stopping playing notes when the harmony changes
- * So instead of blockChord composer playing chords on every beat, it can play per-bar or even held chords
- * How to keep track of played notes to allow cancelling on composer end() call..??
+x Play notes with an envelope so they sound continuous
+* Basic environment
+ * flat terrain square underneath with camera
+ * tessellated moving terrain underneath
+ * colours match current harmony
+ * detail testure
+* Voicing
+ * score for parallel fifths/octaves
+ * score to encourage leading note to tonic resolution and tritone resolution
+* when queuing up notes to play later, should queue up starbursts etc too
+* Some actual composition of some sort...
+* Consider downbeats
+ * define measures and downbeats
+ * use harmony notes on downbeats
+ * ensure the bass changes on a downbeat
+* Switch from PCs to movable do solfege for triggers
+ * set up a key class which can turn solfege into pitchclass in a given key
 * Generate analysis of next harmony for use later when composing melody etc
  * evaluate tension level as avg of tensions of individual notes
   ? or should be the max of the individual notes
   * in order: 1-5-3-6-2-4-7
  * chord root
-* Consider downbeats: tell composition about downbeats so it can do things like ensure the bass changes on a downbeat etc
-! when queuing up notes to play later, should queue up starbursts etc too
-* Optimisation: pre-allocate all resources required for trigger drawing, and use only one draw call
-* Visual fx: build structures/lights etc
-* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
-* Switch from PCs to movable do solfege for triggers
- * set up a key class which can turn solfege into pitchclass in a given key
-* Evaluate quality of chords and progressions
-* Extra notes and melody kick in if make good progressions
- * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
+ * evaluate quality of chords and progressions
+  * functional T/S/D evaluation
+  * look for cadences
+  * extra notes and melody kick in if make good progressions
+* when hit tonic after perfect cadence, fill out the tonic chord for richer sound
+* more interesting terrain when doing well
 * Gestures for arpeggio/block chord/voice leading etc
-* Voicing: score for parallel fifths/octaves
 * visual metronome indication
 * tick sound when select a trigger
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
 * Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
+* Bangs for fireworks going off..?
+* Optimisation: pre-allocate all resources required for trigger drawing, and use only one draw call
+* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 */
 
 musis.begin();
