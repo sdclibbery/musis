@@ -89,6 +89,13 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
     ])};
 };
 
+musis.draw.prototype.createIndexBuffer = function (indexes) {
+  var indexBuffer = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, indexes, this.gl.STATIC_DRAW);
+  return indexBuffer;
+};
+
 musis.draw.prototype.loadVertexAttrib = function (attr, data, stride) {
   var buffer = this.gl.createBuffer();
   this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);

@@ -55,7 +55,7 @@ musis.draw.prototype.terrain = function () {
     ]);
     posAttr = this.gl.getAttribLocation(program, "posIn");
     perspUnif = this.gl.getUniformLocation(program, "perspIn");
-    indexBuffer = this.gl.createBuffer();
+    indexBuffer = this.createIndexBuffer(indexes);
   }
 
   this.gl.useProgram(program);
@@ -66,7 +66,6 @@ musis.draw.prototype.terrain = function () {
   this.loadVertexAttrib(posAttr, vtxPosns, 3);
 
   this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
-  this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, indexes, this.gl.STATIC_DRAW);
 
   this.gl.disable(this.gl.BLEND);
   this.gl.drawElements(this.gl.TRIANGLES, numIndices, this.gl.UNSIGNED_SHORT, 0);
