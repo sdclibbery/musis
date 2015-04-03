@@ -22,29 +22,44 @@ var posAttr = null;
 var perspUnif = null;
 
 
-var numVtxs = 4;
+var resX = 50;
+var resY = 50;
+var vtxResX = resX+1;
+var vtxResY = resY+1;
+var size = 200;
+
+var numVtxs = vtxResX*vtxResY;
 var vtxPosns = new Float32Array(numVtxs*3);
-
-vtxPosns[0] = -10;
-vtxPosns[1] = -1;
-vtxPosns[2] = 0;
-
-vtxPosns[3] = -10;
-vtxPosns[4] = -1;
-vtxPosns[5] = -20;
-
-vtxPosns[6] = 10;
-vtxPosns[7] = -1;
-vtxPosns[8] = 0;
-
-vtxPosns[9] = 10;
-vtxPosns[10] = -1;
-vtxPosns[11] = -20;
+for (var y = 0; y < vtxResY; y++) {
+  for (var x = 0; x < vtxResX; x++) {
+    var v = (x + y*vtxResX) * 3;
+    vtxPosns[v+0] = (x - vtxResX/2)*size/vtxResX;
+    vtxPosns[v+1] = -10;
+    vtxPosns[v+2] = -y*size/vtxResY;
+  }
+}
 
 
-var numIndices = 6;
+var numIndices = resX*resY*6;
 var indexBuffer = null;
-var indexes = new Uint16Array([ 0,1,2, 1,2,3 ]);
+var indexes = new Uint16Array(numIndices);
+for (var y = 0; y < resY; y++) {
+  for (var x = 0; x < resX; x++) {
+    var i = (x + y*resX) * 6;
+    var v = x + y*vtxResX;
+    indexes[i+0] = v;
+    indexes[i+1] = v+vtxResX;
+    indexes[i+2] = v+1;
+//    indexes[i+3] = v+vtxResX;
+//    indexes[i+4] = v+1;
+//    indexes[i+5] = v+vtxResX+1;
+  }
+}
+
+console.log("numVtxs: "+numVtxs);
+console.log("vtxPosns: "+vtxPosns);
+console.log("numIndices: "+numIndices);
+console.log("indexes: "+indexes);
 
 
 musis.draw.prototype.terrain = function () {
