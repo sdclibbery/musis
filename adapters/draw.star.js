@@ -6,7 +6,7 @@ var vtxShader2d = ""
 +"  uniform float time;"
 +"  uniform float size;"
 +"  "
-+"  attribute float timeIn;"
++"  attribute float startTimeIn;"
 +"  attribute vec2 posIn;"
 +"  attribute vec2 velIn;"
 +"  attribute vec3 colIn;"
@@ -14,7 +14,7 @@ var vtxShader2d = ""
 +"  varying vec4 col;"
 +"  "
 +"  void main() {"
-+"    float age = (time - timeIn)/1000.0;" // age of star in seconds
++"    float age = (time - startTimeIn)/1000.0;" // age of star in seconds
 +"    vec2 vel = velIn + vec2(0, -0.1*age);" // velocity of star including gravity but not drag
 +"    float drag = 1.0 - 0.1*age;" // drag factor
 +"    vel *= vec2(drag, drag);" // velocity with drag
@@ -46,6 +46,12 @@ var vtxPosns = new Float32Array(numVtxs*2);
 var vtxVels = new Float32Array(numVtxs*2);
 var vtxCols = new Float32Array(numVtxs*3);
 var lastVtxIdx = 0;
+var posAttr = null;
+var velAttr = null;
+var colAttr = null;
+var startTimeAttr = null;
+var sizeUnif = null;
+var timeUnif = null;
 
 musis.draw.prototype.addStar = function (star) {
   var col = this.colours[star.pitchClass];
@@ -66,19 +72,23 @@ musis.draw.prototype.stars = function () {
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
-    this.sizeAttr = this.gl.getUniformLocation(program, "size");
-    this.timeAttr = this.gl.getUniformLocation(program, "time");
+    posAttr = this.gl.getAttribLocation(program, "posIn");
+    velAttr = this.gl.getAttribLocation(program, "velIn");
+    colAttr = this.gl.getAttribLocation(program, "colIn");
+    startTimeAttr = this.gl.getAttribLocation(program, "startTimeIn");
+    sizeUnif = this.gl.getUniformLocation(program, "size");
+    timeUnif = this.gl.getUniformLocation(program, "time");
   }
 
   this.gl.useProgram(program);
 
-  this.gl.uniform1f(this.timeAttr, this.time);
-  this.gl.uniform1f(this.sizeAttr, size*this.ch);
+  this.gl.uniform1f(timeUnif, this.time);
+  this.gl.uniform1f(sizeUnif, size*this.ch);
 
-  this.loadVertexAttrib(program, vtxTimes, "timeIn", 1);
-  this.loadVertexAttrib(program, vtxPosns, "posIn", 2);
-  this.loadVertexAttrib(program, vtxVels, "velIn", 2);
-  this.loadVertexAttrib(program, vtxCols, "colIn", 3);
+  this.loadVertexAttrib(startTimeAttr, vtxTimes, 1);
+  this.loadVertexAttrib(posAttr, vtxPosns, 2);
+  this.loadVertexAttrib(velAttr, vtxVels, 2);
+  this.loadVertexAttrib(colAttr, vtxCols, 3);
 
   this.gl.blendFuncSeparate(this.gl.ONE, this.gl.ONE, this.gl.ZERO, this.gl.ONE);
   this.gl.enable(this.gl.BLEND);

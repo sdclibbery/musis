@@ -41,6 +41,30 @@ musis.draw.prototype.toX = function (x) {
   return x * this.ch / this.cw;
 };
 
+musis.draw.prototype.perspectiveMatrix = function (fovy, near, far) {
+    var aspect = this.cw / this.cy;
+    var f = 1.0 / Math.tan(fovy / 2);
+    var nf = 1 / (near - far);
+    var out = new Float32Array(16);
+    out[0] = f / aspect;
+    out[1] = 0;
+    out[2] = 0;
+    out[3] = 0;
+    out[4] = 0;
+    out[5] = f;
+    out[6] = 0;
+    out[7] = 0;
+    out[8] = 0;
+    out[9] = 0;
+    out[10] = (far + near) * nf;
+    out[11] = -1;
+    out[12] = 0;
+    out[13] = 0;
+    out[14] = (2 * far * near) * nf;
+    out[15] = 0;
+    return out;
+};
+
 musis.draw.prototype.squareVtxs = function (x, y, size) {
   var hs = size/2;
   var l = this.toX(x - hs);
@@ -65,13 +89,12 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
     ])};
 };
 
-musis.draw.prototype.loadVertexAttrib = function (program, data, attr, stride) {
+musis.draw.prototype.loadVertexAttrib = function (attr, data, stride) {
   var buffer = this.gl.createBuffer();
   this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
   this.gl.bufferData(this.gl.ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
-  var attrLoc = this.gl.getAttribLocation(program, attr);
-  this.gl.enableVertexAttribArray(attrLoc);
-  this.gl.vertexAttribPointer(attrLoc, stride, this.gl.FLOAT, false, 0, 0);
+  this.gl.enableVertexAttribArray(attr);
+  this.gl.vertexAttribPointer(attr, stride, this.gl.FLOAT, false, 0, 0);
 };
 
 musis.draw.prototype.loadShader = function(shaderSource, shaderType) {

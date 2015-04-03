@@ -34,26 +34,33 @@ var frgShader2d = ""
 +"    }"
 +"  }";
 
+var posAttr = null;
+var texAttr = null;
+var colUnif = null;
+var selUnif = null;
+
 musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
-    this.colAttr = this.gl.getUniformLocation(program, "col");
-    this.selAttr = this.gl.getUniformLocation(program, "selected");
+    posAttr = this.gl.getAttribLocation(program, "posIn");
+    texAttr = this.gl.getAttribLocation(program, "texIn");
+    colUnif = this.gl.getUniformLocation(program, "col");
+    selUnif = this.gl.getUniformLocation(program, "selected");
   }
 
   this.gl.useProgram(program);
 
   var vtxData = this.squareVtxs(x, y, size);
-  this.loadVertexAttrib(program, vtxData.vtx, "posIn", 2);
-  this.loadVertexAttrib(program, vtxData.tex, "texIn", 2);
+  this.loadVertexAttrib(posAttr, vtxData.vtx, 2);
+  this.loadVertexAttrib(texAttr, vtxData.tex, 2);
 
   var col = this.colours[pitchClass];
-  this.gl.uniform4f(this.colAttr, col[0], col[1], col[2], 1);
+  this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
 
-  this.gl.uniform1i(this.selAttr, selected);
+  this.gl.uniform1i(selUnif, selected);
 
   this.gl.disable(this.gl.BLEND);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);

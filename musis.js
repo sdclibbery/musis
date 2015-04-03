@@ -8,6 +8,7 @@ var stars;
 var metronome;
 var triggers;
 var music;
+var terrain;
 
 musis.begin = function () {
   draw = new musis.draw();
@@ -16,6 +17,7 @@ musis.begin = function () {
   metronome = new musis.metronome();
   triggers = new musis.triggers();
   music = new musis.music();
+  terrain = new musis.terrain();
 };
 
 var s = null;
@@ -51,6 +53,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);
+//  terrain.render(draw);
   stars.render(draw);
   triggers.render(draw);
 };
