@@ -11,7 +11,7 @@ musis.stars = function () {
 musis.stars.prototype.render = function (draw) {
   this.bursts.map(function (burst) {
     var x = Math.random()*1.8-0.9;
-    var y = Math.random()*1.3-0.4;
+    var y = Math.random()*0.5;
     for (var i = 0; i < numStarInBurst; i++) {
       var speed = 0.3*Math.pow(Math.random(), 0.25);
       var theta = Math.random()*6.28;
