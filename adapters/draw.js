@@ -90,10 +90,10 @@ musis.draw.prototype.squareVtxs = function (x, y, size) {
 };
 
 musis.draw.prototype.createIndexBuffer = function (indexes) {
-  var indexBuffer = this.gl.createBuffer();
-  this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  var buffer = this.gl.createBuffer();
+  this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, buffer);
   this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, indexes, this.gl.STATIC_DRAW);
-  return indexBuffer;
+  return buffer;
 };
 
 musis.draw.prototype.loadVertexAttrib = function (attr, data, stride) {
