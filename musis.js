@@ -53,7 +53,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);
-//  terrain.render(draw);
+  terrain.render(draw);
   stars.render(draw);
   triggers.render(draw);
 };

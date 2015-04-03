@@ -42,7 +42,7 @@ musis.draw.prototype.toX = function (x) {
 };
 
 musis.draw.prototype.perspectiveMatrix = function (fovy, near, far) {
-    var aspect = this.cw / this.cy;
+    var aspect = this.cw / this.ch;
     var f = 1.0 / Math.tan(fovy / 2);
     var nf = 1 / (near - far);
     var out = new Float32Array(16);

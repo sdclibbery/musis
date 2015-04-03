@@ -18,10 +18,34 @@ var frgShader = ""
 +"  }";
 
 var program = null;
-var numVtxs = 3;
-var vtxPosns = new Float32Array(numVtxs*3);
 var posAttr = null;
 var perspUnif = null;
+
+
+var numVtxs = 4;
+var vtxPosns = new Float32Array(numVtxs*3);
+
+vtxPosns[0] = -10;
+vtxPosns[1] = -1;
+vtxPosns[2] = 0;
+
+vtxPosns[3] = -10;
+vtxPosns[4] = -1;
+vtxPosns[5] = -20;
+
+vtxPosns[6] = 10;
+vtxPosns[7] = -1;
+vtxPosns[8] = 0;
+
+vtxPosns[9] = 10;
+vtxPosns[10] = -1;
+vtxPosns[11] = -20;
+
+
+var numIndices = 6;
+var indexBuffer = null;
+var indexes = new Uint16Array([ 0,1,2, 1,2,3 ]);
+
 
 musis.draw.prototype.terrain = function () {
   if (program === null) {
@@ -31,29 +55,21 @@ musis.draw.prototype.terrain = function () {
     ]);
     posAttr = this.gl.getAttribLocation(program, "posIn");
     perspUnif = this.gl.getUniformLocation(program, "perspIn");
+    indexBuffer = this.gl.createBuffer();
   }
 
   this.gl.useProgram(program);
 
-  var perspectiveMatrix = this.perspectiveMatrix(3.14/2, 0.001, 100);
-  this.gl.uniformMatrix4fv(this.perspUnif, false, perspectiveMatrix);
-
-  vtxPosns[0] = -10;
-  vtxPosns[1] = -10;
-  vtxPosns[2] = 0;
-
-  vtxPosns[3] = -10;
-  vtxPosns[4] = -10;
-  vtxPosns[5] = -20;
-
-  vtxPosns[6] = 10;
-  vtxPosns[7] = -10;
-  vtxPosns[8] = -20;
+  var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);
+  this.gl.uniformMatrix4fv(perspUnif, false, perspectiveMatrix);
 
   this.loadVertexAttrib(posAttr, vtxPosns, 3);
 
+  this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
+  this.gl.bufferData(this.gl.ELEMENT_ARRAY_BUFFER, indexes, this.gl.STATIC_DRAW);
+
   this.gl.disable(this.gl.BLEND);
-  this.gl.drawArrays(this.gl.TRIANGLES, 0, numVtxs);
+  this.gl.drawElements(this.gl.TRIANGLES, numIndices, this.gl.UNSIGNED_SHORT, 0);
 };
 
 })();
