@@ -30,7 +30,7 @@ var frgShader2d = ""
 +"      gl_FragColor = (selected ? vec4(1,1,1,b) : col) * vec4(b,b,b,b);" // border color: white if trigger is selected
 +"    } else {"
 +"      float b = 0.5 + 0.5*smoothstep(0.5, 0.35, d);" // interior brightness
-+"      gl_FragColor = col * vec4(b,b,b,b);" // interior color
++"      gl_FragColor = col * vec4(b,b,b,0.8);" // interior color
 +"    }"
 +"  }";
 

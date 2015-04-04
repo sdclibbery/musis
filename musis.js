@@ -36,6 +36,7 @@ musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
     music.nextHarmony(nextHarmony);
+    terrain.nextHarmony(nextHarmony);
     triggers = new musis.triggers();
   }
   s = null;

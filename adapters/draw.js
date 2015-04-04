@@ -8,6 +8,7 @@ musis.draw = function () {
 };
 
 musis.draw.prototype.colours = {
+  none: [0.5, 0.5, 0.5],
   C: [0, 0, 1],
   D: [1, 1, 0],
   E: [0.7, 0, 1],

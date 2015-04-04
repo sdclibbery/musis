@@ -6,6 +6,7 @@ var vtxShader = ""
 +"  uniform float timeIn;"
 +"  uniform float bpsIn;"
 +"  uniform mat4 perspIn;"
++"  uniform vec3 colsIn[4];"
 +"  "
 +"  attribute vec3 posIn;"
 +"  "
@@ -18,8 +19,8 @@ var vtxShader = ""
 +"    float delta = mod(distance, repeatSize);" // amount to move the drawn grid so it lines up with where the grid should be
 +"    float index = distance-posIn.z-delta;" // value to use that moves with the grid without snapping back on the repeat
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y, posIn.z + delta, 1);" // apply the delta to give the sense of motion
-+"float b = sin((posIn.x + index) / 3.0) / 2.0 + 0.5;"
-+"    colour = vec3(b,b,b);"
++"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
++"    colour = colsIn[ int(b)%4 ] * 0.7;"
 +"  }";
 
 var frgShader = ""
@@ -30,13 +31,6 @@ var frgShader = ""
 +"  void main() {"
 +"    gl_FragColor = vec4(colour, 1);"
 +"  }";
-
-var program = null;
-var posAttr = null;
-var perspUnif = null;
-var timeUnif = null;
-var bpsUnif = null;
-
 
 var resX = 50;
 var resY = 50;
@@ -73,7 +67,15 @@ for (var y = 0; y < resY; y++) {
 }
 
 
-musis.draw.prototype.terrain = function (bpm) {
+var program = null;
+var posAttr = null;
+var perspUnif = null;
+var timeUnif = null;
+var bpsUnif = null;
+var colsUnif = null;
+
+
+musis.draw.prototype.terrain = function (bpm, harmony) {
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader, this.gl.VERTEX_SHADER),
@@ -83,6 +85,7 @@ musis.draw.prototype.terrain = function (bpm) {
     perspUnif = this.gl.getUniformLocation(program, "perspIn");
     timeUnif = this.gl.getUniformLocation(program, "timeIn");
     bpsUnif = this.gl.getUniformLocation(program, "bpsIn");
+    colsUnif = this.gl.getUniformLocation(program, "colsIn");
     indexBuffer = this.createIndexBuffer(indexes);
   }
 
@@ -90,6 +93,16 @@ musis.draw.prototype.terrain = function (bpm) {
 
   this.gl.uniform1f(timeUnif, this.time/1000);
   this.gl.uniform1f(bpsUnif, bpm/60);
+
+  var cols = [];
+  var colours = this.colours;
+  harmony.map(function (harmony) {
+    var col = colours[harmony];
+    cols.push(col[0]);
+    cols.push(col[1]);
+    cols.push(col[2]);
+  });
+  this.gl.uniform3fv(colsUnif, new Float32Array(cols));
 
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);
   this.gl.uniformMatrix4fv(perspUnif, false, perspectiveMatrix);
