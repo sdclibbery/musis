@@ -48,6 +48,9 @@ musis.note.prototype.chromaticDiff = function (rhs) {
   return this.absChromatic() - rhs.absChromatic();
 };
 
+musis.note.prototype.isSamePitchAs = function (rhs) {
+  return this.absChromatic() === rhs.absChromatic();
+};
 musis.note.prototype.isLowerThan = function (rhs) {
   return this.absChromatic() < rhs.absChromatic();
 };

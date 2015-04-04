@@ -28,8 +28,8 @@ musis.voicing.assignToVoices = function (pitchClasses) {
   var combs = combinations([pcs, pcs, pcs]) // get combinations for the upper three voices; bass is always first
     .map(insertBass)
     .filter(allPCsPresent)
-    .reduce(toNotes, [])
-    .filter(notCrossed) // by this point we have all possible valid voicings; now lets pick the best
+    .reduce(toNotesInRange, [])
+    .filter(notCrossed) // after this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
     .map(scoreRange)
     .map(scoreSpacing)
@@ -45,7 +45,7 @@ console.log(voicing);
   return voicing;
 };
 
-var toNotes = function (res, comb) {
+var toNotesInRange = function (res, comb) {
   var bs = notesWithinRange(comb[0], ranges.bass);
   var ts = notesWithinRange(comb[1], ranges.tenor);
   var as = notesWithinRange(comb[2], ranges.alto);
@@ -66,6 +66,7 @@ var notesWithinRange = function (pc, range) {
 
 var notCrossed = function (notes) {
   for (var i = 1; i < 4; i++) {
+    if (notes[i-1].isSamePitchAs(notes[i])) { continue; }
     if (!notes[i-1].isLowerThan(notes[i])) { return false; }
   }
   return true;
