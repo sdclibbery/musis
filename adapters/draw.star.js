@@ -22,7 +22,8 @@ var vtxShader2d = ""
 +"    gl_Position = vec4(pos, 0, 1);"
 +"    gl_PointSize = size;"
 +"    float life = age/1.5;" // life fraction for star
-+"    float brightness = 1.0 - life*life + 0.2*sin(life*(1.0+pos.x*pos.y)*100.0);" // brightness of star given lifetime
++"    float flicker = 0.4*sin(life*(1.0+pos.x*pos.y)*1000.0);" // flickering
++"    float brightness = 1.0 - life*life + flicker;" // brightness of star given lifetime
 +"    col = vec4(colIn*brightness, 1);"
 +"  }";
 
