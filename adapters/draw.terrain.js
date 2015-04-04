@@ -9,18 +9,26 @@ var vtxShader = ""
 +"  "
 +"  attribute vec3 posIn;"
 +"  "
++"  varying vec3 colour;"
++"  "
 +"  void main() {"
-+"    float repeatSize = 4.0;"
-+"    float speed = repeatSize * bpsIn;"
-+"    float delta = mod(timeIn/1000.0 * speed, repeatSize);"
-+"    gl_Position = perspIn * vec4(posIn.x, posIn.y, posIn.z + delta, 1);"
++"    float repeatSize = 4.0;" // size of one square in the terrain grid
++"    float speed = repeatSize * bpsIn;" // speed of terrain motion in metres per second
++"    float distance = timeIn * speed;" // current distance the grid origin should have reached
++"    float delta = mod(distance, repeatSize);" // amount to move the drawn grid so it lines up with where the grid should be
++"    float index = distance-posIn.z-delta;" // value to use that moves with the grid without snapping back on the repeat
++"    gl_Position = perspIn * vec4(posIn.x, posIn.y, posIn.z + delta, 1);" // apply the delta to give the sense of motion
++"float b = sin((posIn.x + index) / 3.0) / 2.0 + 0.5;"
++"    colour = vec3(b,b,b);"
 +"  }";
 
 var frgShader = ""
 +"  precision mediump float;"
 +"  "
++"  varying vec3 colour;"
++"  "
 +"  void main() {"
-+"    gl_FragColor = vec4(0.2, 0.4, 0.6, 1);"
++"    gl_FragColor = vec4(colour, 1);"
 +"  }";
 
 var program = null;
@@ -58,7 +66,7 @@ for (var y = 0; y < resY; y++) {
     indexes[i+0] = v;
     indexes[i+1] = v+vtxResX;
     indexes[i+2] = v+1;
-    indexes[i+3] = v;
+    indexes[i+3] = v;//+vtxResX;
     indexes[i+4] = v+1;
     indexes[i+5] = v+vtxResX+1;
   }
@@ -80,7 +88,7 @@ musis.draw.prototype.terrain = function (bpm) {
 
   this.gl.useProgram(program);
 
-  this.gl.uniform1f(timeUnif, this.time);
+  this.gl.uniform1f(timeUnif, this.time/1000);
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);
