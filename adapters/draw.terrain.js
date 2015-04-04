@@ -3,11 +3,17 @@
 // Adapter for drawing stars
 
 var vtxShader = ""
-+"  attribute vec3 posIn;"
++"  uniform float timeIn;"
++"  uniform float bpsIn;"
 +"  uniform mat4 perspIn;"
 +"  "
++"  attribute vec3 posIn;"
++"  "
 +"  void main() {"
-+"    gl_Position = perspIn * vec4(posIn, 1);"
++"    float repeatSize = 4.0;"
++"    float speed = repeatSize * bpsIn;"
++"    float delta = mod(timeIn/1000.0 * speed, repeatSize);"
++"    gl_Position = perspIn * vec4(posIn.x, posIn.y, posIn.z + delta, 1);"
 +"  }";
 
 var frgShader = ""
@@ -20,6 +26,8 @@ var frgShader = ""
 var program = null;
 var posAttr = null;
 var perspUnif = null;
+var timeUnif = null;
+var bpsUnif = null;
 
 
 var resX = 50;
@@ -50,19 +58,14 @@ for (var y = 0; y < resY; y++) {
     indexes[i+0] = v;
     indexes[i+1] = v+vtxResX;
     indexes[i+2] = v+1;
-//    indexes[i+3] = v+vtxResX;
-//    indexes[i+4] = v+1;
-//    indexes[i+5] = v+vtxResX+1;
+    indexes[i+3] = v;
+    indexes[i+4] = v+1;
+    indexes[i+5] = v+vtxResX+1;
   }
 }
 
-console.log("numVtxs: "+numVtxs);
-console.log("vtxPosns: "+vtxPosns);
-console.log("numIndices: "+numIndices);
-console.log("indexes: "+indexes);
 
-
-musis.draw.prototype.terrain = function () {
+musis.draw.prototype.terrain = function (bpm) {
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader, this.gl.VERTEX_SHADER),
@@ -70,10 +73,15 @@ musis.draw.prototype.terrain = function () {
     ]);
     posAttr = this.gl.getAttribLocation(program, "posIn");
     perspUnif = this.gl.getUniformLocation(program, "perspIn");
+    timeUnif = this.gl.getUniformLocation(program, "timeIn");
+    bpsUnif = this.gl.getUniformLocation(program, "bpsIn");
     indexBuffer = this.createIndexBuffer(indexes);
   }
 
   this.gl.useProgram(program);
+
+  this.gl.uniform1f(timeUnif, this.time);
+  this.gl.uniform1f(bpsUnif, bpm/60);
 
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);
   this.gl.uniformMatrix4fv(perspUnif, false, perspectiveMatrix);
