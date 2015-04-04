@@ -97,8 +97,7 @@ musis.draw.prototype.createIndexBuffer = function (indexes) {
   return buffer;
 };
 
-musis.draw.prototype.loadVertexAttrib = function (attr, data, stride) {
-  var buffer = this.gl.createBuffer();
+musis.draw.prototype.loadVertexAttrib = function (buffer, attr, data, stride) {
   this.gl.bindBuffer(this.gl.ARRAY_BUFFER, buffer);
   this.gl.bufferData(this.gl.ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
   this.gl.enableVertexAttribArray(attr);

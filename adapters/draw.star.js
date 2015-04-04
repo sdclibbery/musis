@@ -46,9 +46,13 @@ var vtxPosns = new Float32Array(numVtxs*2);
 var vtxVels = new Float32Array(numVtxs*2);
 var vtxCols = new Float32Array(numVtxs*3);
 var lastVtxIdx = 0;
+var posBuf = null;
 var posAttr = null;
+var velBuf = null;
 var velAttr = null;
+var colBuf = null;
 var colAttr = null;
+var startTimeBuf = null;
 var startTimeAttr = null;
 var sizeUnif = null;
 var timeUnif = null;
@@ -72,9 +76,13 @@ musis.draw.prototype.stars = function () {
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
+    posBuf = this.gl.createBuffer();
     posAttr = this.gl.getAttribLocation(program, "posIn");
+    velBuf = this.gl.createBuffer();
     velAttr = this.gl.getAttribLocation(program, "velIn");
+    colBuf = this.gl.createBuffer();
     colAttr = this.gl.getAttribLocation(program, "colIn");
+    startTimeBuf = this.gl.createBuffer();
     startTimeAttr = this.gl.getAttribLocation(program, "startTimeIn");
     sizeUnif = this.gl.getUniformLocation(program, "size");
     timeUnif = this.gl.getUniformLocation(program, "time");
@@ -85,10 +93,10 @@ musis.draw.prototype.stars = function () {
   this.gl.uniform1f(timeUnif, this.time);
   this.gl.uniform1f(sizeUnif, size*this.ch);
 
-  this.loadVertexAttrib(startTimeAttr, vtxTimes, 1);
-  this.loadVertexAttrib(posAttr, vtxPosns, 2);
-  this.loadVertexAttrib(velAttr, vtxVels, 2);
-  this.loadVertexAttrib(colAttr, vtxCols, 3);
+  this.loadVertexAttrib(startTimeBuf, startTimeAttr, vtxTimes, 1);
+  this.loadVertexAttrib(posBuf, posAttr, vtxPosns, 2);
+  this.loadVertexAttrib(velBuf, velAttr, vtxVels, 2);
+  this.loadVertexAttrib(colBuf, colAttr, vtxCols, 3);
 
   this.gl.blendFuncSeparate(this.gl.ONE, this.gl.ONE, this.gl.ZERO, this.gl.ONE);
   this.gl.enable(this.gl.BLEND);

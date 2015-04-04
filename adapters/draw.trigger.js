@@ -38,6 +38,9 @@ var posAttr = null;
 var texAttr = null;
 var colUnif = null;
 var selUnif = null;
+var posBuf = null;
+var texBuf = null;
+
 
 musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
   if (!program) {
@@ -45,7 +48,9 @@ musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader2d, this.gl.FRAGMENT_SHADER)
     ]);
+    posBuf = this.gl.createBuffer();
     posAttr = this.gl.getAttribLocation(program, "posIn");
+    texBuf = this.gl.createBuffer();
     texAttr = this.gl.getAttribLocation(program, "texIn");
     colUnif = this.gl.getUniformLocation(program, "col");
     selUnif = this.gl.getUniformLocation(program, "selected");
@@ -54,8 +59,8 @@ musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
   this.gl.useProgram(program);
 
   var vtxData = this.squareVtxs(x, y, size);
-  this.loadVertexAttrib(posAttr, vtxData.vtx, 2);
-  this.loadVertexAttrib(texAttr, vtxData.tex, 2);
+  this.loadVertexAttrib(posBuf, posAttr, vtxData.vtx, 2);
+  this.loadVertexAttrib(texBuf, texAttr, vtxData.tex, 2);
 
   var col = this.colours[pitchClass];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);

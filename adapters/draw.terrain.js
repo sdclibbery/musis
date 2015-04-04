@@ -1,6 +1,6 @@
 (function () {
 
-// Adapter for drawing stars
+// Adapter for drawing terrain
 
 var vtxShader = ""
 +"  uniform float timeIn;"
@@ -60,7 +60,7 @@ for (var y = 0; y < resY; y++) {
     indexes[i+0] = v;
     indexes[i+1] = v+vtxResX;
     indexes[i+2] = v+1;
-    indexes[i+3] = v;//+vtxResX;
+    indexes[i+3] = v+vtxResX;
     indexes[i+4] = v+1;
     indexes[i+5] = v+vtxResX+1;
   }
@@ -69,6 +69,7 @@ for (var y = 0; y < resY; y++) {
 
 var program = null;
 var posAttr = null;
+var posBuf = null;
 var perspUnif = null;
 var timeUnif = null;
 var bpsUnif = null;
@@ -81,6 +82,7 @@ musis.draw.prototype.terrain = function (bpm, harmony) {
       this.loadShader(vtxShader, this.gl.VERTEX_SHADER),
       this.loadShader(frgShader, this.gl.FRAGMENT_SHADER)
     ]);
+    posBuf = this.gl.createBuffer();
     posAttr = this.gl.getAttribLocation(program, "posIn");
     perspUnif = this.gl.getUniformLocation(program, "perspIn");
     timeUnif = this.gl.getUniformLocation(program, "timeIn");
@@ -107,7 +109,7 @@ musis.draw.prototype.terrain = function (bpm, harmony) {
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);
   this.gl.uniformMatrix4fv(perspUnif, false, perspectiveMatrix);
 
-  this.loadVertexAttrib(posAttr, vtxPosns, 3);
+  this.loadVertexAttrib(posBuf, posAttr, vtxPosns, 3);
 
   this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 
