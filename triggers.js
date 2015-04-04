@@ -2,8 +2,8 @@
 
 // Domain
 
-var trigger = function (pitchClass, motion) {
-  this.pitchClass = pitchClass;
+var trigger = function (value, motion) {
+  this.value = value;
   this.motion = motion;
   this.selected = false;
   this.p = { x: 0, y: 0 };
@@ -15,7 +15,7 @@ trigger.prototype.update = function (t) {
 };
 
 trigger.prototype.render = function (draw) {
-  draw.trigger(this.p.x, this.p.y, this.size, this.pitchClass, this.selected);
+  draw.trigger(this.p.x, this.p.y, this.size, this.value, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -35,7 +35,7 @@ trigger.prototype.touch = function (sel, s, e) {
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
     this.selected = true;
-    sel.push(this.pitchClass);
+    sel.push(this.value);
   }
 };
 
