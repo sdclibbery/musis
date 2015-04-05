@@ -50,14 +50,14 @@ var expanding = function (a) {
   };
 }
 
-var pitchClasses = ["A", "C", "E", "G", "B", "D", "F"];
+var solfege = ["la", "do", "mi", "sol", "ti", "re", "fa"];
 musis.triggers = function () {
   this.t = 0;
   this.triggers = [];
   this.selected = [];
-  var num = pitchClasses.length;
+  var num = solfege.length;
   for (var i = 0; i < num; i++) {
-    this.triggers[i] = new trigger(pitchClasses[i], expanding((i-2)*6.28/num));
+    this.triggers[i] = new trigger(solfege[i], expanding((i-2)*6.28/num));
   }
 };
 

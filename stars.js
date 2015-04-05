@@ -31,7 +31,8 @@ musis.stars.prototype.render = function (draw) {
 };
 
 musis.stars.prototype.burst = function (pitchClass) {
-  this.bursts.push(pitchClass);
+  var solfege = musis.key.toSolfege(pitchClass);
+  this.bursts.push(solfege);
 };
 
 })();

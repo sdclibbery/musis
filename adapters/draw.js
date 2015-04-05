@@ -9,13 +9,13 @@ musis.draw = function () {
 
 musis.draw.prototype.colours = {
   none: [0.5, 0.5, 0.5],
-  C: [0, 0, 1],
-  D: [1, 1, 0],
-  E: [1, 0, 0.7],
-  F: [0, 1, 0],
-  G: [1, 0.1, 0.1],
-  A: [0, 1, 1],
-  B: [1, 0.5, 0]
+  do: [0, 0, 1],
+  re: [1, 1, 0],
+  mi: [1, 0, 0.7],
+  fa: [0, 1, 0],
+  sol: [1, 0.1, 0.1],
+  la: [0, 1, 1],
+  ti: [1, 0.5, 0]
 };
 
 musis.draw.prototype.frameStart = function (t, gl, cw, ch) {
