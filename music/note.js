@@ -15,7 +15,7 @@ var freqs = {
 */
 
 // just intonation
-var C = 528; // root generator of the key
+var C = 440*3/5; // root generator of the key
 var fifth = 3/2; // perfect fifth
 var G = C*fifth; // dominant generator
 var F = C/fifth*2; // sub-dominant generator
