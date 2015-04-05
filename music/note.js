@@ -1,7 +1,8 @@
 (function () {
 
 // Domain
-
+/*
+// equal temperament
 var freqs = {
   C: 440*Math.pow(2, -9/12),
   D: 440*Math.pow(2, -7/12),
@@ -10,6 +11,23 @@ var freqs = {
   G: 440*Math.pow(2, -2/12),
   A: 440*Math.pow(2, 0/12),
   B: 440*Math.pow(2, 2/12)
+};
+*/
+
+// just intonation
+var C = 528; // root generator of the key
+var fifth = 3/2; // perfect fifth
+var G = C*fifth; // dominant generator
+var F = C/fifth*2; // sub-dominant generator
+var third = 5/4; // major third
+var freqs = {
+  C: C,
+  D: G*fifth,
+  E: C*third,
+  F: F,
+  G: G,
+  A: F*third,
+  B: G*third
 };
 
 var chromatic = {
