@@ -40,6 +40,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
   ;
   var voicing = combs[0];  // choose the best
 console.log(voicing);
+voicing.map(function (v) { console.log("note: "+v+" - solfege: "+v.solfege); });
   musis.voicing.previous = voicing;
 
   // todo:return voicing but also left-over PCs!
@@ -59,6 +60,7 @@ var notesWithinRange = function (pc, range) {
   var note = new musis.note(pc, range.low.octave).above(range.low);
   var res = [];
   while (!note.isHigherThan(range.high)) {
+    note.solfege = pc.solfege;
     res.push(note);
     note = note.above(note);
   }
