@@ -28,6 +28,7 @@ musis.touchstart = function (x, y) {
 
 musis.touchmove = function (x, y) {
   var e = { x: draw.xFromCanvas(x), y: draw.yFromCanvas(y) };
+  if (s === null) { s = e; }
   triggers.touch(s, e);
   s = { x: draw.xFromCanvas(x), y: draw.yFromCanvas(y) };
 };
