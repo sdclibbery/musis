@@ -34,6 +34,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .map(scoreRange)
     .map(scoreSpacing)
     .map(scoreSmoothness)
+    .map(scoreLeadingNoteResolution)
 //    .map(scoreParallels)
     .sort(cmpScore)
   ;
@@ -95,6 +96,14 @@ var scoreSmoothness = function (notes) {
   notes.map(function (note, idx) {
     var diff = note.chromaticDiff(musis.voicing.previous[idx]);
     notes.score -= Math.abs(diff);
+  });
+  return notes;
+};
+
+var scoreLeadingNoteResolution = function (notes) {
+  notes.map(function (note, idx) {
+    // todo: if last note was ti and this is do, score high :-)
+    notes.score += 0;
   });
   return notes;
 };
