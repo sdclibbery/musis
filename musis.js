@@ -37,7 +37,6 @@ musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
     music.nextHarmony(nextHarmony);
-    terrain.nextHarmony(nextHarmony);
     triggers = new musis.triggers();
   }
   s = null;
@@ -51,7 +50,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
   if (dt > 0.1) { console.log("Long frame: "+dt); }
   
   metronome.update(play);
-  music.update(metronome, play, stars);
+  music.update(metronome, play, stars, terrain);
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);

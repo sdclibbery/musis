@@ -12,7 +12,7 @@ musis.music.prototype.nextHarmony = function (solfege) {
   this.nextSolfege = solfege;
 };
 
-musis.music.prototype.update = function (metronome, play, stars) {
+musis.music.prototype.update = function (metronome, play, stars, terrain) {
   var nextBeatAt = metronome.nextBeatAt();
   var timeToNextBeat = nextBeatAt - play.timeNow();
   var beatDuration = metronome.beatDuration();
@@ -23,15 +23,15 @@ musis.music.prototype.update = function (metronome, play, stars) {
   }
   if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
     var events = this.composer.beat(nextBeatAt, beatDuration); // Compose and perform for the next beat
-    musis.perform.beat(play, stars, events);
+    musis.perform.beat(play, stars, events, terrain, this.notes);
     this.lastBeatAt = nextBeatAt;
   }
 };
 
 musis.music.prototype.toNextHarmony = function () {
-  var notes = evaluateNextHarmony(this.nextSolfege);
-  console.log("Next Harmony: "+notes+". tension: "+notes.tension);
-  this.composer = musis.compose.blockChords(notes);
+  this.notes = evaluateNextHarmony(this.nextSolfege);
+  console.log("Next Harmony: "+this.notes+". tension: "+this.notes.tension);
+  this.composer = musis.compose.blockChords(this.notes);
 };
 
 var evaluateNextHarmony = function (nextSolfege) {

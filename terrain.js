@@ -5,16 +5,17 @@
 musis.terrain = function () {
 };
 
-var harmony = ["none", "none", "none", "none"];
+var notes = null;
 
 musis.terrain.prototype.nextHarmony = function (next) {
-	for (var i = 0; i < 4; i++) {
-		harmony[i] = next[i % next.length];
-	}
+  notes = next;
 };
 
 musis.terrain.prototype.render = function (draw, metronome) {
-  draw.terrain(metronome.bpm, harmony);
+console.log(notes);
+  if (notes) {
+    draw.terrain(metronome.bpm, notes);
+  }
 };
 
 })();
