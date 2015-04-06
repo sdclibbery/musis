@@ -30,8 +30,7 @@ musis.stars.prototype.render = function (draw) {
   draw.stars();
 };
 
-musis.stars.prototype.burst = function (pitchClass) {
-  var solfege = musis.key.toSolfege(pitchClass);
+musis.stars.prototype.burst = function (solfege) {
   this.bursts.push(solfege);
 };
 

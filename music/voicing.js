@@ -40,7 +40,6 @@ musis.voicing.assignToVoices = function (pitchClasses) {
   ;
   var voicing = combs[0];  // choose the best
 console.log(voicing);
-voicing.map(function (v) { console.log("note: "+v+" - solfege: "+v.solfege); });
   musis.voicing.previous = voicing;
 
   // todo:return voicing but also left-over PCs!

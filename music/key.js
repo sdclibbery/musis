@@ -21,17 +21,3 @@ musis.key.toPitchclasses = function (solfege) {
   });
   return pcs;
 };
-
-musis.key.toSolfege = function (pitchClass) {
-  // Assumes key of C for now
-  var toS = {
-    C: "do",
-    D: "re",
-    E: "mi",
-    F: "fa",
-    G: "sol",
-    A: "la",
-    B: "ti"
-  };
-  return toS[pitchClass];
-};
