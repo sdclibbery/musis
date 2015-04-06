@@ -103,8 +103,8 @@ var scoreSmoothness = function (notes) {
 
 var scoreLeadingNoteResolution = function (notes) {
   notes.map(function (note, idx) {
-    // todo: if last note was ti and this is do, score high :-)
-    notes.score += 0;
+    var prev = musis.voicing.previous[idx];
+    if (prev.solfege === "ti" && note.solfege === "do") { notes.score += 10; }
   });
   return notes;
 };
