@@ -22,7 +22,7 @@ var F = C/fifth*2; // sub-dominant generator
 var third = 5/4; // major third
 var freqs = {
   C: C,
-  D: G*fifth,
+  D: G*fifth/2,
   E: C*third,
   F: F,
   G: G,
