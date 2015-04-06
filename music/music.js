@@ -1,7 +1,5 @@
 (function () {
 
-var perform = new musis.perform();
-
 // Domain
 
 musis.music = function () {
@@ -25,16 +23,22 @@ musis.music.prototype.update = function (metronome, play, stars) {
   }
   if (nextBeatAt > this.lastBeatAt && timeToNextBeat < 0.1) {
     var events = this.composer.beat(nextBeatAt, beatDuration); // Compose and perform for the next beat
-    perform.beat(play, stars, events);
+    musis.perform.beat(play, stars, events);
     this.lastBeatAt = nextBeatAt;
   }
 };
 
 musis.music.prototype.toNextHarmony = function () {
-  var pitchClasses = musis.key.toPitchclasses(this.nextSolfege);
-  var notes = musis.voicing.assignToVoices(pitchClasses);
-  console.log("Next Harmony: "+notes);
+  var notes = evaluateNextHarmony(this.nextSolfege);
+  console.log("Next Harmony: "+notes+". tension: "+notes.tension);
   this.composer = musis.compose.blockChords(notes);
+};
+
+var evaluateNextHarmony = function (nextSolfege) {
+  var pitchClasses = musis.key.toPitchclasses(nextSolfege);
+  var notes = musis.voicing.assignToVoices(pitchClasses);
+  notes.tension = musis.tension.calculate(nextSolfege);
+  return notes;
 };
 
 })();
