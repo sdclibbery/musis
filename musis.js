@@ -50,7 +50,9 @@ musis.frame = function (t, dt, gl, cw, ch) {
   if (dt > 0.1) { console.log("Long frame: "+dt); }
   
   metronome.update(play);
-  music.update(metronome, play, stars, terrain);
+  music.update(metronome, function (events, notes) {
+    musis.perform.beat(play, stars, events, terrain, notes);
+  });
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);
