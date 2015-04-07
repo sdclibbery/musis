@@ -104,7 +104,10 @@ var scoreSmoothness = function (notes) {
 var scoreLeadingNoteResolution = function (notes) {
   notes.map(function (note, idx) {
     var prev = musis.voicing.previous[idx];
-    if (prev.solfege === "ti" && note.solfege === "do") { notes.score += 10; }
+    var chromaticDiff = note.chromaticDiff(prev);
+    if (prev.solfege === "ti" && note.solfege === "do" && chromaticDiff === 1) {
+      notes.score += 10;
+    }
   });
   return notes;
 };
