@@ -2,12 +2,34 @@
 
 musis.play = function () {
   this.audio = new AudioContext();
+  this.reverb = this.audio.createConvolver();
+
+
+  var seconds = 1;
+  var decay = 5;
+
+  var rate = this.audio.sampleRate;
+  var length = rate * seconds;
+  var impulse = this.audio.createBuffer(2, length, rate);
+  var impulseL = impulse.getChannelData(0);
+  var impulseR = impulse.getChannelData(1);
+
+  for (var i = 0; i < length; i++) {
+    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+  }
+
+  this.reverb.buffer = impulse;
+  this.reverb.connect(this.audio.destination);
+
+
 };
 
 var fadeInOut = [0, 0.309, 0.588, 0.809, 0.951, 1, 0.951, 0.809, 0.588, 0.309, 0];
 
 musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
+  vca.connect(this.reverb);
   vca.connect(this.audio.destination);
   vca.gain.value = 0.0;
   fadeInOut.map(function (g,i,a) {
@@ -31,6 +53,7 @@ musis.play.prototype.tick = function (time) {
   var decay = 0.07;
   var duration = attack + decay;
   var vca = this.audio.createGain();
+  vca.connect(this.reverb);
   vca.connect(this.audio.destination);
   vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
