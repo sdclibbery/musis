@@ -12,7 +12,6 @@ musis.terrain.prototype.nextHarmony = function (next) {
 };
 
 musis.terrain.prototype.render = function (draw, metronome) {
-console.log(notes);
   if (notes) {
     draw.terrain(metronome.bpm, notes);
   }
