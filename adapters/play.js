@@ -2,35 +2,22 @@
 
 musis.play = function () {
   this.audio = new AudioContext();
-  this.reverb = this.audio.createConvolver();
+  this._initReverb();
+};
 
+musis.play.prototype.mix = function (node) {
+  node.connect(this.reverb);
+  node.connect(this.audio.destination);
+};
 
-  var seconds = 1;
-  var decay = 5;
-
-  var rate = this.audio.sampleRate;
-  var length = rate * seconds;
-  var impulse = this.audio.createBuffer(2, length, rate);
-  var impulseL = impulse.getChannelData(0);
-  var impulseR = impulse.getChannelData(1);
-
-  for (var i = 0; i < length; i++) {
-    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
-  }
-
-  this.reverb.buffer = impulse;
-  this.reverb.connect(this.audio.destination);
-
-
+musis.play.prototype.timeNow = function () {
+  return this.audio.currentTime;
 };
 
 var fadeInOut = [0, 0.309, 0.588, 0.809, 0.951, 1, 0.951, 0.809, 0.588, 0.309, 0];
-
 musis.play.prototype.note = function (time, freq, duration) {
   var vca = this.audio.createGain();
-  vca.connect(this.reverb);
-  vca.connect(this.audio.destination);
+  this.mix(vca);
   vca.gain.value = 0.0;
   fadeInOut.map(function (g,i,a) {
     var f = i / a.length;
@@ -44,17 +31,12 @@ musis.play.prototype.note = function (time, freq, duration) {
   vco.stop(time + duration*2);
 };
 
-musis.play.prototype.timeNow = function () {
-  return this.audio.currentTime;
-};
-
 musis.play.prototype.tick = function (time) {
   var attack = 0.03;
   var decay = 0.07;
   var duration = attack + decay;
   var vca = this.audio.createGain();
-  vca.connect(this.reverb);
-  vca.connect(this.audio.destination);
+  this.mix(vca);
   vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
   var real = [0];
@@ -71,4 +53,21 @@ musis.play.prototype.tick = function (time) {
   vca.gain.linearRampToValueAtTime(0.3, time + attack);
   vca.gain.exponentialRampToValueAtTime(0.001, time + duration);
   vco.stop(time + duration);
+};
+
+musis.play.prototype._initReverb = function () {
+  this.reverb = this.audio.createConvolver();
+  var seconds = 1;
+  var decay = 5;
+  var rate = this.audio.sampleRate;
+  var length = rate * seconds;
+  var impulse = this.audio.createBuffer(2, length, rate);
+  var impulseL = impulse.getChannelData(0);
+  var impulseR = impulse.getChannelData(1);
+  for (var i = 0; i < length; i++) {
+    impulseL[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    impulseR[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+  }
+  this.reverb.buffer = impulse;
+  this.reverb.connect(this.audio.destination);
 };
