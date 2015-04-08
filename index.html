@@ -2,6 +2,10 @@
 <head>
   <script type="text/javascript" src="musis.js"></script>
   <script type="text/javascript" src="adapters/play.js"></script>
+  <script type="text/javascript" src="adapters/play.string.js"></script>
+  <script type="text/javascript" src="adapters/play.phoneme_ah.js"></script>
+  <script type="text/javascript" src="adapters/play.celeste.js"></script>
+  <script type="text/javascript" src="adapters/play.piano.js"></script>
   <script type="text/javascript" src="adapters/draw.js"></script>
   <script type="text/javascript" src="adapters/draw.trigger.js"></script>
   <script type="text/javascript" src="adapters/draw.star.js"></script>
@@ -97,12 +101,18 @@ x Nastiness around this line: "music.update(metronome, play, stars, terrain);"
 x Leading note scoring: must make sure it resolves to the tonic Next To the leading note! :-)
 x evaluate tension level as avg of tensions of individual notes: in order: 1-5-3-6-2-4-7
  x use tension to spikify the terrain
-* Better audio pipeline: mixer and reverb
+x Better audio pipeline: mixer and reverb
+* More cheerful sounds!
+* Make TSD triggers larger than the others
+* Conductor to manage composers
+* Some actual composition of some sort...
 * Consider rhythm: downbeats
  * define measures and downbeats
+ * indicate with some basic beats: kick
+* ux for defining tempo and rhythm
+* More composition
  * use harmony notes on downbeats
  * ensure the bass changes on a downbeat
-* Some actual composition of some sort..?
  * when queuing up notes to play later, should queue up starbursts etc too
 * evaluate quality of chords and progressions
  * functional T/S/D evaluation

@@ -5,19 +5,23 @@ musis.play = function () {
   this._initReverb();
 };
 
-musis.play.prototype.mix = function (node) {
-  node.connect(this.reverb);
-  node.connect(this.audio.destination);
-};
-
 musis.play.prototype.timeNow = function () {
   return this.audio.currentTime;
 };
 
+var ffts = [];
+musis.play.prototype.loadFft = function (name) {
+  var fft = musis[name];
+  if (!ffts[name]) {
+    ffts[name] = this.audio.createPeriodicWave(new Float32Array(fft.real), new Float32Array(fft.imag));
+  }
+  return ffts[name];
+}
+
 var fadeInOut = [0, 0.309, 0.588, 0.809, 0.951, 1, 0.951, 0.809, 0.588, 0.309, 0];
-musis.play.prototype.note = function (time, freq, duration) {
+musis.play.prototype.chorus = function (time, freq, duration) {
   var vca = this.audio.createGain();
-  this.mix(vca);
+  this._mix(vca);
   vca.gain.value = 0.0;
   fadeInOut.map(function (g,i,a) {
     var f = i / a.length;
@@ -25,7 +29,7 @@ musis.play.prototype.note = function (time, freq, duration) {
   });
   var vco = this.audio.createOscillator();
   vco.frequency.value = freq;
-  vco.type = "triangle";
+  vco.setPeriodicWave(this.loadFft("celeste_fft"));
   vco.connect(vca);
   vco.start(time);
   vco.stop(time + duration*2);
@@ -36,7 +40,7 @@ musis.play.prototype.tick = function (time) {
   var decay = 0.07;
   var duration = attack + decay;
   var vca = this.audio.createGain();
-  this.mix(vca);
+  this._mix(vca);
   vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
   var real = [0];
@@ -55,6 +59,7 @@ musis.play.prototype.tick = function (time) {
   vco.stop(time + duration);
 };
 
+
 musis.play.prototype._initReverb = function () {
   this.reverb = this.audio.createConvolver();
   var seconds = 1;
@@ -71,3 +76,9 @@ musis.play.prototype._initReverb = function () {
   this.reverb.buffer = impulse;
   this.reverb.connect(this.audio.destination);
 };
+
+musis.play.prototype._mix = function (node) {
+  node.connect(this.reverb);
+  node.connect(this.audio.destination);
+};
+
