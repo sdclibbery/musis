@@ -2,13 +2,21 @@
 
 // Domain
 
-var trigger = function (value, motion) {
+var trigger = function (value, motion, size) {
   this.value = value;
   this.motion = motion;
   this.selected = false;
   this.p = { x: 0, y: 0 };
-  this.size = 0.1;
+  this.size = size;
 };
+
+var small = function (value, motion) {
+  return new trigger(value, motion, 0.12);
+}
+
+var large = function (value, motion) {
+  return new trigger(value, motion, 0.15);
+}
 
 trigger.prototype.update = function (t) {
   this.p = this.motion(t);
@@ -57,7 +65,11 @@ musis.triggers = function () {
   this.selected = [];
   var num = solfege.length;
   for (var i = 0; i < num; i++) {
-    this.triggers[i] = new trigger(solfege[i], expanding((i-2)*6.28/num));
+    if (["do", "fa", "sol"].indexOf(solfege[i]) >= 0) {
+      this.triggers[i] = large(solfege[i], expanding((i-2)*6.28/num));
+    } else {
+      this.triggers[i] = small(solfege[i], expanding((i-2)*6.28/num));
+    }
   }
 };
 
