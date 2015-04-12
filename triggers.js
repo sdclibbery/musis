@@ -11,11 +11,11 @@ var trigger = function (value, motion, size) {
 };
 
 var small = function (value, motion) {
-  return new trigger(value, motion, 0.12);
+  return new trigger(value, motion, 0.115);
 }
 
 var large = function (value, motion) {
-  return new trigger(value, motion, 0.15);
+  return new trigger(value, motion, 0.13);
 }
 
 trigger.prototype.update = function (t) {
@@ -65,10 +65,11 @@ musis.triggers = function () {
   this.selected = [];
   var num = solfege.length;
   for (var i = 0; i < num; i++) {
+    var motion = expanding((i-2)*6.28/num);
     if (["do", "fa", "sol"].indexOf(solfege[i]) >= 0) {
-      this.triggers[i] = large(solfege[i], expanding((i-2)*6.28/num));
+      this.triggers[i] = large(solfege[i], motion);
     } else {
-      this.triggers[i] = small(solfege[i], expanding((i-2)*6.28/num));
+      this.triggers[i] = small(solfege[i], motion);
     }
   }
 };
