@@ -22,8 +22,8 @@
   <script type="text/javascript" src="terrain.js"></script>
   <script type="text/javascript" src="perform.js"></script>
   </head>
-<body>
-  <canvas id="canvas" width="960" height="540"></canvas>
+<body style="margin:0px;">
+  <canvas id="canvas" style="width:100%; height:100%;"></canvas>
   <script type="text/javascript">
 
 /*
@@ -104,20 +104,22 @@ x evaluate tension level as avg of tensions of individual notes: in order: 1-5-3
 x Better audio pipeline: mixer and reverb
 x More cheerful sounds!
 x Make TSD triggers larger than the others
-* Conductor to manage composers
-* Some actual composition of some sort...
+* Make canvas fill window
+ ! Need to update our code sizes on resize...
 * Consider rhythm: downbeats
  * define measures and downbeats
  * indicate with some basic beats: kick
+* evaluate quality of chords and progressions
+ * functional T/S/D evaluation
+ * look for cadences
+ * extra notes and melody kick in if make good progressions
+* Conductor to manage composers
+* Some actual composition of some sort...
 * ux for defining tempo and rhythm
 * More composition
  * use harmony notes on downbeats
  * ensure the bass changes on a downbeat
  * when queuing up notes to play later, should queue up starbursts etc too
-* evaluate quality of chords and progressions
- * functional T/S/D evaluation
- * look for cadences
- * extra notes and melody kick in if make good progressions
 * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
 * grow interesting visual objects when doing well
 * Gestures for arpeggio/block chord/voice leading etc
@@ -138,6 +140,15 @@ x Make TSD triggers larger than the others
 */
 
 musis.begin();
+
+function resize_canvas() {
+  canvas = document.getElementById("canvas");
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+};
+window.addEventListener('resize', resize_canvas, false);
+resize_canvas();
+
 
 var canvas = document.getElementById("canvas");
 var ctxGl = canvas.getContext("webgl");
