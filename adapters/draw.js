@@ -22,9 +22,9 @@ musis.draw.prototype.frameStart = function (t, gl, cw, ch) {
   this.time = t;
   if (!this.gl) {
     this.gl = gl;
-    this.cw = cw;
-    this.ch = ch;
   }
+  this.cw = cw;
+  this.ch = ch;
 
   this.gl.clearColor(0, 0, 0, 1);
   this.gl.enable(this.gl.DEPTH_TEST);

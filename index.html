@@ -27,73 +27,6 @@
   <script type="text/javascript">
 
 /*
-x Have mouse/touch handling in here and call through to js
-x Make rendered object react to touch
-x Have multiple trigger objects
-x Touch-selecting issues
-x Refactor drawing into adapter
-x Arrange triggers
-x Break draw and play out into own modules
-x Have audio triggered by touchend
-x When triggers play
- x fireworks
- x clear and start new triggers
-x Use webgl canvas context
- x clear using webgl
- x basic drawing using webgl
- x trigger selected status
-x Glows/effects for triggers and stars
-x Refactoring and tidy up drawing
-x Pulse and rhythm
- x experiment with noise from custom oscillator type...
- x metronome
-x use metronome to place trigger sounds at exact beat times
-x use pitchclass instead of note
-x pass notes through to another module for voicing
- x voicing uses a composer to keep composing until next triggers are activated
- x first selected note is the bass
- x sensible spacing of other notes
-x Play notes on next beat, not the one after
-x Optimise stars: entire star lifetime should be in vertex shader; suggest ring buffer of star vertices; point sprites
- x setup shader uniform time and give each star a start time
- x velocity/gravity/fade/flicker/size
-x Put adapters into an adapters folder
-x Better voicing/composition
- x assign notes according to voice ranges
- x tidy chord composer: build a pipeline of functions for assigning notes to voices
- x put music stuff into a music folder
-x Split music stuff up much better
- x triggers dont call voicing direct, instead they return the new harmony when activated
- x music module coordinates composing and playing music
- x seperate composition module with helpers like voicing...
- x move expandPCs and assignvoices back into music module
- x rename compose to perform
-x First pc selected should be first reported and therefore the bass
-x Note class
- x validate on construction
- x allow single string constructor eg: "C4"
- x toString function, and use it to output chosen voicing
-x Better voice assignment
- x assign bass first
- x assign others ascending and fitting to voice ranges
- x generate all permutations of pc-to-voice
- x filter unacceptable ones
-  x all PCs must be represented
- x generate further permutations of assigning PCs to notes within the voice range
- x score for proximity to last note in same voice is good
- x choose the best
- x refactor and tidy
-x Play notes with an envelope so they sound continuous
-x Basic environment
- x flat terrain square underneath with camera
- x tessellated terrain underneath
- x progressing
- x colours match current harmony
-x Switch from PCs to movable do solfege for triggers
- x set up a key class which can turn solfege into pitchclass in a given key
-x Try a just intonation using fifths and major thirds only
-x Keep solfege around attached to the notes
- x so stars can use this from perform, and get rid of key.toSolfege
 x Dom7->Tonic has horrible voice leading :-(  G3,D4,F4,B4 -> C3,C4,E4,G4
  x score to encourage good leading note and tritone resolutions
 x Nastiness around this line: "music.update(metronome, play, stars, terrain);"
@@ -141,16 +74,15 @@ x Make TSD triggers larger than the others
 
 musis.begin();
 
-function resize_canvas() {
-  canvas = document.getElementById("canvas");
-  canvas.width  = window.innerWidth;
+var canvas = document.getElementById("canvas");
+
+function onResize() {
+  canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 };
-window.addEventListener('resize', resize_canvas, false);
-resize_canvas();
+window.addEventListener('resize', onResize, false);
+onResize();
 
-
-var canvas = document.getElementById("canvas");
 var ctxGl = canvas.getContext("webgl");
 if (!ctxGl) { ctxGl = canvas.getContext("experimental-webgl"); }
 var tLast;
