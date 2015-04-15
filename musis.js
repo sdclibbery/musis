@@ -51,9 +51,9 @@ musis.frame = function (t, dt, gl, cw, ch) {
 
   metronome.update(play.timeNow(), function (nextBeat) {
     play.tick(nextBeat);
-  });
-  music.update(metronome, function (events, notes) {
-    musis.perform.beat(play, stars, events, terrain, notes);
+    music.beat(metronome, function (events, notes) {
+      musis.perform.beat(play, stars, events, terrain, notes);
+    });
   });
   triggers.update(dt);
 
