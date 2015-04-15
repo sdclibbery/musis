@@ -16,9 +16,9 @@ musis.metronome.prototype.beatDuration = function () {
 };
 
 musis.metronome.prototype.update = function (now, beat) {
-  if (now > this.nextBeat) {
-    this.nextBeat += this.beatDuration();
+  if (now > this.nextBeat - 0.1) { // Call back just BEFORE the next beat to make sure that events composed ON the beat can be scheduled accurately
     beat(this.nextBeat);
+    this.nextBeat += this.beatDuration();
   }
 };
 
