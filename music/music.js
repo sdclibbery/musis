@@ -4,7 +4,7 @@
 
 musis.music = function () {
   this.nextSolfege = [];
-  this.composer = { beat: function() { return []; }, end: function () {} };
+  this.composer = function() { return []; };
 };
 
 musis.music.prototype.nextHarmony = function (solfege) {
@@ -12,14 +12,11 @@ musis.music.prototype.nextHarmony = function (solfege) {
 };
 
 musis.music.prototype.beat = function (metronome, perform) {
-  var nextBeatAt = metronome.nextBeatAt();
-  var beatDuration = metronome.beatDuration();
   if (this.nextSolfege.length > 0) {
-    this.composer.end(nextBeatAt, beatDuration);
     this.toNextHarmony();
     this.nextSolfege = [];
   }
-  var events = this.composer.beat(nextBeatAt, beatDuration); // Compose and perform for the next beat
+  var events = this.composer(metronome.nextBeatAt(), metronome.beatDuration()); // Compose for the next beat
   perform(events, this.notes);
 };
 
