@@ -16,7 +16,7 @@
   <script type="text/javascript" src="music/compose.js"></script>
   <script type="text/javascript" src="music/tension.js"></script>
   <script type="text/javascript" src="music/music.js"></script>
-  <script type="text/javascript" src="metronome.js"></script>
+  <script type="text/javascript" src="music/metronome.js"></script>
   <script type="text/javascript" src="triggers.js"></script>
   <script type="text/javascript" src="stars.js"></script>
   <script type="text/javascript" src="terrain.js"></script>
@@ -38,6 +38,8 @@ x Better audio pipeline: mixer and reverb
 x More cheerful sounds!
 x Make TSD triggers larger than the others
 x Make canvas fill window
+* Refactor metronome: decouple and move into music domain
+ * music and composition should be driven from metronome callback, not by getting play time itself
 * Consider rhythm: downbeats
  * define measures and downbeats
  * indicate with some basic beats: kick
