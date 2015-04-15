@@ -48,8 +48,10 @@ musis.frame = function (t, dt, gl, cw, ch) {
   }
 
   if (dt > 0.1) { console.log("Long frame: "+dt); }
-  
-  metronome.update(play);
+
+  metronome.update(play.timeNow(), function (nextBeat) {
+    play.tick(nextBeat);
+  });
   music.update(metronome, function (events, notes) {
     musis.perform.beat(play, stars, events, terrain, notes);
   });
