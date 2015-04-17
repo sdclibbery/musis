@@ -14,7 +14,7 @@ musis.music = function () {
       events.push({ time: beat.time, percussion: 'snare' });
     }
     beat.subBeats.map(function (time) {
-      events.push({ time: beat.time + time*beat.duration, percussion: 'tick' });
+      events.push({ time: beat.time + time*beat.duration, percussion: 'hat' });
     });
     return events;
   };
