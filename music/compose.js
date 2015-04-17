@@ -5,12 +5,12 @@
 musis.compose = {};
 
 musis.compose.blockChords = function (notes) {
-  return function (time, beatDuration) {
+  return function (beat) {
     var events = [];
     notes.map(function (note) {
       events.push({
-        time: time,
-        duration: beatDuration,
+        time: beat.time,
+        duration: beat.duration,
         note: note
       });
     });

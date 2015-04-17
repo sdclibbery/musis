@@ -4,6 +4,12 @@
 
 musis.music = function () {
   this.composer = function() { return []; };
+
+  this.drummer = function(beat) {
+    var events = [];
+    events.push({ time: beat.time, percussion: 'tick' });
+    return events;
+  };
 };
 
 musis.music.prototype.nextHarmony = function (solfege) {
@@ -12,8 +18,10 @@ musis.music.prototype.nextHarmony = function (solfege) {
   this.composer = musis.compose.blockChords(this.notes);
 };
 
-musis.music.prototype.beat = function (metronome, perform) {
-  var events = this.composer(metronome.nextBeatAt(), metronome.beatDuration()); // Compose for the next beat
+musis.music.prototype.beat = function (beat, perform) {
+  var events = []
+    .concat(this.composer(beat))
+    .concat(this.drummer(beat));
   perform(events, this.notes);
 };
 
