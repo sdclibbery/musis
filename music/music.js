@@ -7,10 +7,15 @@ musis.music = function () {
 
   this.drummer = function(beat) {
     var events = [];
-    events.push({ time: beat.time, percussion: 'tick' });
     if (beat.strength === 'down') {
       events.push({ time: beat.time, percussion: 'kick' });
     }
+    if (beat.strength === 'up') {
+      events.push({ time: beat.time, percussion: 'snare' });
+    }
+    beat.subBeats.map(function (time) {
+      events.push({ time: beat.time + time*beat.duration, percussion: 'tick' });
+    });
     return events;
   };
 };
