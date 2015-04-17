@@ -8,6 +8,9 @@ musis.music = function () {
   this.drummer = function(beat) {
     var events = [];
     events.push({ time: beat.time, percussion: 'tick' });
+    if (beat.strength === 'down') {
+      events.push({ time: beat.time, percussion: 'kick' });
+    }
     return events;
   };
 };
