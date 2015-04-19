@@ -87,7 +87,7 @@ var scoreRange = function (notes) {
 var scoreSpacing = function (notes) {
   for (var i = 1; i < 4; i++) {
     var diff = notes[i].chromaticDiff(notes[i-1]);
-    var limit = (i === 1) ? 12 : 7
+    var limit = (i === 1) ? 12 : 7;
     notes.score += limit - Math.max(Math.abs(diff), limit);
   }
   return notes;
