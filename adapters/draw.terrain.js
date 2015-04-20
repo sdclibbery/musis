@@ -22,7 +22,7 @@ var vtxShader = ""
 +"    float spike = tensionIn/3.0*max(pow(sin(sin(posIn.x)*distance*tensionIn/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tensionIn)), 0.0);"
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
-+"    colour = colsIn[ int(b+spike)%4 ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
++"    colour = colsIn[ int(mod(b+spike, 4.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
 +"  }";
 
 var frgShader = ""

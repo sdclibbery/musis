@@ -8,7 +8,7 @@ musis.play.prototype.hat = function (time) {
   this._mix(vca);
   vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
-  vco.setPeriodicWave(this.createNoiseTable(4096));
+  vco.setPeriodicWave(this.createNoiseTable(2048));
   vco.frequency.value = 1/duration;
   vco.connect(vca);
   vco.start(time);
@@ -25,7 +25,7 @@ musis.play.prototype.snare = function (time) {
   this._mix(vca);
   vca.gain.value = 0.0;
   var vco = this.audio.createOscillator();
-  vco.setPeriodicWave(this.createNoiseTable(4096));
+  vco.setPeriodicWave(this.createNoiseTable(2048));
   vco.frequency.value = 1/duration;
   vco.connect(vca);
   vco.start(time);
