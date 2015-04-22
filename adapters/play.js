@@ -25,7 +25,7 @@ musis.play.prototype.chorus = function (time, freq, duration) {
   vca.gain.value = 0.0;
   fadeInOut.map(function (g,i,a) {
     var f = i / a.length;
-    vca.gain.linearRampToValueAtTime(0.12*g, time + f*duration*2);
+    vca.gain.linearRampToValueAtTime(0.04*g, time + f*duration*2);
   });
   var vco = this.audio.createOscillator();
   vco.frequency.value = freq;
@@ -33,6 +33,21 @@ musis.play.prototype.chorus = function (time, freq, duration) {
   vco.connect(vca);
   vco.start(time);
   vco.stop(time + duration*2);
+};
+
+
+musis.play.prototype.lead = function (time, freq, duration) {
+  var vca = this.audio.createGain();
+  this._mix(vca);
+  vca.gain.value = 0.0;
+  var vco = this.audio.createOscillator();
+  vco.frequency.value = freq;
+  vco.setPeriodicWave(this.loadFft("piano_fft"));
+  vco.connect(vca);
+  vco.start(time);
+  vca.gain.linearRampToValueAtTime(0.6, time + 0.05);
+  vca.gain.linearRampToValueAtTime(0.001, time + duration);
+  vco.stop(time + duration);
 };
 
 

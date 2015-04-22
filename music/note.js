@@ -49,7 +49,7 @@ musis.note = function (pitchClass, octave) {
   }
   if (octave < 1) { throw("Invalid note: "+pitchClass+"-"+octave); }
   if (octave > 6) { throw("Invalid note: "+pitchClass+"-"+octave); }
-  if (!freqs.hasOwnProperty(pitchClass)) { throw("Invalid note: "+pitchClass+"-"+octave); }
+  if (!freqs[pitchClass]) { throw("Invalid note: "+pitchClass+"-"+octave); }
   this.pitchClass = pitchClass;
   this.octave = octave;
 };
@@ -87,5 +87,16 @@ musis.note.prototype.above = function (cmp) {
   }
   return ret;
 };
+
+var idxs = {C:0, D:1, E:2, F:3, G:4, A:5, B:6};
+var pcs = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
+musis.note.prototype.shift = function (shift) {
+  var idx = idxs[this.pitchClass] + shift;
+  var octaveShift = 0;
+  if (idx < 0) { idx += 7; octaveShift = -1; }
+  if (idx > 6) { idx -= 7; octaveShift = 1; }
+  return new musis.note(pcs[idx], this.octave+octaveShift);
+};
+
 
 })();
