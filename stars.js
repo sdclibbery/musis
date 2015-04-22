@@ -17,7 +17,7 @@ musis.stars.prototype.render = function (draw) {
       var speed = size*Math.pow(Math.random(), 0.25);
       var theta = Math.random()*6.28;
       draw.addStar({
-        pitchClass: burst.solfege,
+        solfege: burst.solfege,
         x: x,
         y: y,
         vx: speed*Math.cos(theta),
