@@ -45,36 +45,33 @@ x Refactor metronome: decouple and move into music domain
 x Consider rhythm: downbeats
  x define measures and downbeats
  x indicate with some basic beats: kick
-! Generalise triggers
- * break out visuals, function and count
-* Conductor to manage composers
+x Generalise triggers
+ x break out visuals, function and count
+* Orchestrator to manage composers
 * Some actual composition of some sort...
-* ux for defining tempo and rhythm
-* More composition
- * use harmony notes on downbeats
- * ensure the bass changes on a downbeat
- * when queuing up notes to play later, should queue up starbursts etc too
- * evaluate quality of chords and progressions
-  * functional T/S/D evaluation
-  * look for cadences
-  * extra notes and melody kick in if make good progressions
+* use harmony notes on downbeats
+* ensure the bass changes on a downbeat
+* when queuing up notes to play later, should queue up starbursts etc too
+* evaluate quality of chords and progressions
+ * functional T/S/D evaluation
+ * look for cadences
+* extra notes and melody kick in if make good progressions
 * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
 * grow interesting visual objects when doing well
-* Gestures for arpeggio/block chord/voice leading etc
-* Visual metronome indication
-* Analysechord root
-* tick sound when select a trigger
+* ux for defining tempo and rhythm
+* ux for arpeggio/block chord/voice leading etc
+* Analyse chord root
+* tick sound when select a trigger?
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
 * Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
-* Score to encourage leading note to tonic resolution and tritone resolution
-* Bangs for fireworks going off..?
+* Voicing: score to encourage tritone resolution
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 ! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 * Modulation
  * add extra triggers for more notes: f# then c# then Bb then Ab etc
  * detect modulations
  * indicate key with a small border around the triggers: blue if in tonic key, red for dominant etc
-* Score against parallel fifths/octaves
+* Voicing: score against parallel fifths/octaves
 */
 
 musis.begin();
