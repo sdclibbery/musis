@@ -10,13 +10,11 @@ var triggers;
 var music;
 var terrain;
 
-var solfege = ["la", "do", "mi", "sol", "ti", "re", "fa"];
-var primary = ["do", "fa", "sol"];
 var createSolfegeTriggers = function (draw) {
   return new musis.triggers(
-    solfege,
-    function (x,y,s,v,l) {draw.trigger(x,y,s,v,l);},
-    primary
+    ["la", "do", "mi", "sol", "ti", "re", "fa"],
+    "solfege",
+    ["do", "fa", "sol"]
   );
 };
 

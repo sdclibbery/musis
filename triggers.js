@@ -22,8 +22,8 @@ trigger.prototype.update = function (t) {
   this.p = this.motion(t);
 };
 
-trigger.prototype.render = function (draw) {
-  draw(this.p.x, this.p.y, this.size, this.value, this.selected);
+trigger.prototype.render = function (draw, type) {
+  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, this.selected);
 };
 
 var sqr = function(x) { return x * x };
@@ -58,11 +58,11 @@ var expanding = function (a) {
   };
 }
 
-musis.triggers = function (vs, draw, largeVs) {
+musis.triggers = function (vs, type, largeVs) {
   this.t = 0;
   this.triggers = [];
   this.selected = [];
-  this.draw = draw;
+  this.type = type;
   var num = vs.length;
   var self = this;
   vs.map(function (v, i) {
@@ -81,9 +81,9 @@ musis.triggers.prototype.update = function (dt) {
   this.triggers.map(function(trigger) { trigger.update(t); });
 };
 
-musis.triggers.prototype.render = function () {
+musis.triggers.prototype.render = function (draw) {
   var self = this;
-  this.triggers.map(function(trigger) { trigger.render(self.draw); });
+  this.triggers.map(function(trigger) { trigger.render(draw, self.type); });
 };
 
 musis.triggers.prototype.touch = function (tx, ty) {

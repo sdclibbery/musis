@@ -42,7 +42,7 @@ var posBuf = null;
 var texBuf = null;
 
 
-musis.draw.prototype.trigger = function (x, y, size, solfege, selected) {
+musis.draw.prototype.trigger = function (x, y, size, value, type, selected) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -62,7 +62,7 @@ musis.draw.prototype.trigger = function (x, y, size, solfege, selected) {
   this.loadVertexAttrib(posBuf, posAttr, vtxData.vtx, 2);
   this.loadVertexAttrib(texBuf, texAttr, vtxData.tex, 2);
 
-  var col = this.colours[solfege];
+  var col = this.colours[value];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
 
   this.gl.uniform1i(selUnif, selected);
