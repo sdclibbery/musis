@@ -27,10 +27,10 @@ var frgShader2d = ""
 +"    float d = 1.0 - length(max(abs(texFull)-0.2, 0.0));" // distance field value at this fragment
 +"    if (d < 0.35) {"
 +"      float b = smoothstep(0.1, 0.3, d);" // border brightness
-+"      gl_FragColor = (selected ? vec4(1,1,1,b) : col) * vec4(b,b,b,b);" // border color: white if trigger is selected
++"      gl_FragColor = (selected ? vec4(1,1,1,1) : col) * vec4(b,b,b, d<0.3 ? 0.0 : 0.8);" // border color: white if trigger is selected
 +"    } else {"
 +"      float b = 0.5 + 0.5*smoothstep(0.5, 0.35, d);" // interior brightness
-+"      gl_FragColor = col * vec4(b,b,b,0.8);" // interior color
++"      gl_FragColor = col * vec4(b,b,b,0.4);" // interior color
 +"    }"
 +"  }";
 
@@ -68,7 +68,7 @@ musis.draw.prototype.trigger = function (x, y, size, pitchClass, selected) {
   this.gl.uniform1i(selUnif, selected);
 
   this.gl.enable(this.gl.BLEND);
-  this.gl.blendFunc(this.gl.SRC_ALPHA, this.gl.ONE_MINUS_SRC_ALPHA);
+  this.gl.blendFunc(this.gl.ONE, this.gl.ONE_MINUS_SRC_ALPHA);
   this.gl.drawArrays(this.gl.TRIANGLES, 0, 6);
 };
 
