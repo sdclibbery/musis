@@ -59,7 +59,7 @@ var sizeUnif = null;
 var timeUnif = null;
 
 musis.draw.prototype.addStar = function (star) {
-  var col = this.colours[star.pitchClass];
+  var col = this.colours.solfege[star.pitchClass];
   vtxTimes[lastVtxIdx] = this.time;
   vtxPosns[lastVtxIdx*2+0] = star.x;
   vtxPosns[lastVtxIdx*2+1] = star.y;

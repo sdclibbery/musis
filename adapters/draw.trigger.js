@@ -62,7 +62,7 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, selected) {
   this.loadVertexAttrib(posBuf, posAttr, vtxData.vtx, 2);
   this.loadVertexAttrib(texBuf, texAttr, vtxData.tex, 2);
 
-  var col = this.colours[value];
+  var col = this.colours[type][value];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
 
   this.gl.uniform1i(selUnif, selected);

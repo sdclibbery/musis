@@ -102,7 +102,7 @@ musis.draw.prototype.terrain = function (bpm, notes) {
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var cols = [];
-  var colours = this.colours;
+  var colours = this.colours.solfege;
   notes.map(function (note) {
     var col = colours[note.solfege];
     cols.push(col[0]);
