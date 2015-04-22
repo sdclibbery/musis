@@ -12,7 +12,7 @@ var terrain;
 
 var createSolfegeTriggers = function (draw) {
   return new musis.triggers(
-    ["la", "do", "mi", "sol", "ti", "re", "fa"],
+    ["do", "mi", "sol", "ti", "re", "fa", "la"],
     "solfege",
     ["do", "fa", "sol"]
   );

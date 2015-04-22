@@ -66,7 +66,7 @@ musis.triggers = function (vs, type, largeVs) {
   var num = vs.length;
   var self = this;
   vs.map(function (v, i) {
-    var motion = expanding((i-2)*6.28/num);
+    var motion = expanding((i-1)/num*6.28);
     if (largeVs && largeVs.indexOf(v) >= 0) {
       self.triggers[i] = large(v, motion);
     } else {
