@@ -10,12 +10,15 @@ var triggers;
 var music;
 var terrain;
 
+var solfege = ["la", "do", "mi", "sol", "ti", "re", "fa"];
+var primary = ["do", "fa", "sol"];
+
 musis.begin = function () {
   draw = new musis.draw();
   play = new musis.play();
   stars = new musis.stars();
   metronome = new musis.metronome();
-  triggers = new musis.triggers();
+  triggers = new musis.triggers(solfege, primary);
   music = new musis.music();
   terrain = new musis.terrain();
 };
@@ -37,7 +40,7 @@ musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
     music.nextHarmony(nextHarmony);
-    triggers = new musis.triggers();
+    triggers = new musis.triggers(solfege, primary);
   }
   s = null;
 };

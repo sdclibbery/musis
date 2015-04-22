@@ -58,20 +58,20 @@ var expanding = function (a) {
   };
 }
 
-var solfege = ["la", "do", "mi", "sol", "ti", "re", "fa"];
-musis.triggers = function () {
+musis.triggers = function (vs, largeVs) {
   this.t = 0;
   this.triggers = [];
   this.selected = [];
-  var num = solfege.length;
-  for (var i = 0; i < num; i++) {
+  var num = vs.length;
+  var self = this;
+  vs.map(function (v, i) {
     var motion = expanding((i-2)*6.28/num);
-    if (["do", "fa", "sol"].indexOf(solfege[i]) >= 0) {
-      this.triggers[i] = large(solfege[i], motion);
+    if (largeVs && largeVs.indexOf(v) >= 0) {
+      self.triggers[i] = large(v, motion);
     } else {
-      this.triggers[i] = small(solfege[i], motion);
+      self.triggers[i] = small(v, motion);
     }
-  }
+  });
 };
 
 musis.triggers.prototype.update = function (dt) {
