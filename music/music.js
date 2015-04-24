@@ -24,8 +24,8 @@ musis.music.prototype.nextHarmony = function (solfege) {
   this.notes = evaluateNextHarmony(solfege);
   console.log("Next Harmony: "+this.notes+". tension: "+this.notes.tension);
   this.composers = [
-    musis.compose.blockChords(this.notes),
-    musis.compose.melody(this.notes)
+//    musis.compose.melody(this.notes),
+    musis.compose.blockChords(this.notes)
   ];
 };
 
