@@ -47,31 +47,45 @@ x Consider rhythm: downbeats
  x indicate with some basic beats: kick
 x Generalise triggers
  x break out visuals, function and count
-* Orchestrator to manage composers
-* Some actual composition of some sort...
-* use harmony notes on downbeats
-* ensure the bass changes on a downbeat
-* when queuing up notes to play later, should queue up starbursts etc too
+x Orchestrator to manage composers
+x Some actual composition of some sort...
+** level 1: Harmony
 * evaluate quality of chords and progressions
  * functional T/S/D evaluation
  * look for cadences
-* extra notes and melody kick in if make good progressions
+* 1.1: tonic harmony
+ * setup: which triggers
+ * text
+ * completion criteria
+* 1.2: static harmony
+* 1.3: perfect cadence
+* 1.4: interrupted cadence?
+* 1.5: secondary dominants
+* 1.6: dominant modulation
+* 1.7: ??
 * when hit tonic after perfect cadence, fill out the tonic chord for richer sound
-* grow interesting visual objects when doing well
-* ux for defining tempo and rhythm
-* ux for arpeggio/block chord/voice leading etc
-* Analyse chord root
-* tick sound when select a trigger?
-* Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
-* Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
-* Voicing: score to encourage tritone resolution
-* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
-! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 * Modulation
  * add extra triggers for more notes: f# then c# then Bb then Ab etc
  * detect modulations
  * indicate key with a small border around the triggers: blue if in tonic key, red for dominant etc
+ * Analyse chord root
 * Voicing: score against parallel fifths/octaves
+* Voicing: score to encourage tritone resolution
+** Rhythm
+* ux for defining tempo and rhythm
+** Melody
+* use harmony notes on downbeats
+* ensure the bass changes on a downbeat
+* when queuing up notes to play later, should queue up starbursts etc too
+* extra notes and melody kick in if make good progressions
+* grow interesting visual objects when doing well
+* ux for arpeggio/block chord/voice leading etc
+** Other
+* tick sound when select a trigger?
+* Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
+* Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
+* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
+! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 */
 
 musis.begin();
