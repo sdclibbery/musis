@@ -44,7 +44,8 @@ musis.touchmove = function (x, y) {
 musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
-    music.nextHarmony(nextHarmony);
+    var analysis = music.nextHarmony(nextHarmony);
+console.log(analysis);
     triggers = createSolfegeTriggers(draw);
   }
   s = null;

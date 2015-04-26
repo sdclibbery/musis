@@ -27,6 +27,7 @@ musis.music.prototype.nextHarmony = function (solfege) {
 //    musis.compose.melody(this.notes),
     musis.compose.blockChords(this.notes)
   ];
+  return musis.music.analyse(solfege);
 };
 
 musis.music.prototype.beat = function (beat, perform) {
