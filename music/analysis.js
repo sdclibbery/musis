@@ -12,7 +12,7 @@ var solfegeIdxs = {
   "ti": 6
 };
 musis.music.analyseHarmony = function (solfege) {
-  // evaluate as stacked thirds
+  // evaluate as tertian (stacked thirds)
   var stack = [];
   var bassIdx = solfegeIdxs[solfege[0]];
   solfege.map(function (s) {
@@ -46,12 +46,16 @@ musis.music.analyseHarmony = function (solfege) {
   });
   var root = best[0].solfege;
   var hasThird = best[1].distance === best[0].distance + 1; // Probably only valid to consider as stacked thirds if it actually has a third
+  var hasFifth = best[2].distance === best[0].distance + 2;
+  var hasTriad = hasThird && hasFifth;
 
   // If its not stackedThirds, should also consider stacked fourths...
-  if (!hasThird) { return { root:'?' }; }
+  if (!hasThird) { return { type:'?' }; }
 
   return {
-    root: root
+    type: 'tertian',
+    root: root,
+    hasTriad: hasTriad
   };
 };
 
