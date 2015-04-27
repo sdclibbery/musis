@@ -11,43 +11,48 @@ var solfegeIdxs = {
   "la": 5,
   "ti": 6
 };
-musis.music.analyse = function (solfege) {
+musis.music.analyseHarmony = function (solfege) {
   // evaluate as stacked thirds
-  var thirds = [];
+  var stack = [];
   var bassIdx = solfegeIdxs[solfege[0]];
   solfege.map(function (s) {
     var diff = solfegeIdxs[s] - bassIdx;
     if (diff < 0) { diff += 7; }
     if (diff % 2 === 1) { diff += 7; }
     var numThirds = diff / 2;
-    thirds.push({ solfege: s, distance: numThirds });
+    stack.push({ solfege: s, distance: numThirds });
   });
-  var combs = combinations(thirds.map(function (third) {
+  var combs = combinations(stack.map(function (third) {
     return [
       { solfege: third.solfege, distance: third.distance },
       { solfege: third.solfege, distance: third.distance+7 },
       { solfege: third.solfege, distance: third.distance-7 }
     ];
   }));
-  var best = thirds[0];
+  var best = combs[0];
   var bestScore = 1e10;
-  combs.map(function (thirds) {
+  combs.map(function (stack) {
     var score = 0;
-    thirds.sort(function (a, b) { return a.distance - b.distance; });
-    for (var i = 0; i < thirds.length; i++) {
-      for (var j = i; j < thirds.length; j++) {
-        score += Math.abs(thirds[j].distance - thirds[i].distance);
+    stack.sort(function (a, b) { return a.distance - b.distance; });
+    for (var i = 0; i < stack.length; i++) {
+      for (var j = i; j < stack.length; j++) {
+        score += Math.abs(stack[j].distance - stack[i].distance);
       }
     }
     if (score < bestScore) {
       bestScore = score;
-      best = thirds;
+      best = stack;
     }
   });
   var root = best[0].solfege;
-  var hasThird = best[1].distance === best[0].distance + 1; // Probably only valid to consider as stacked thirds if it has a third
+  var hasThird = best[1].distance === best[0].distance + 1; // Probably only valid to consider as stacked thirds if it actually has a third
 
-  return root;
+  // If its not stackedThirds, should also consider stacked fourths...
+  if (!hasThird) { return { root:'?' }; }
+
+  return {
+    root: root
+  };
 };
 
 

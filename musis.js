@@ -45,7 +45,7 @@ musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
     var analysis = music.nextHarmony(nextHarmony);
-console.log(analysis);
+console.log(analysis.harmony.root);
     triggers = createSolfegeTriggers(draw);
   }
   s = null;
