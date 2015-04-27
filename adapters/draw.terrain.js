@@ -79,7 +79,7 @@ var tensionUnif = null;
 var colsUnif = null;
 
 
-musis.draw.prototype.terrain = function (bpm, notes) {
+musis.draw.prototype.terrain = function (bpm, solfege, tension) {
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader, this.gl.VERTEX_SHADER),
@@ -98,17 +98,17 @@ musis.draw.prototype.terrain = function (bpm, notes) {
   this.gl.useProgram(program);
 
   this.gl.uniform1f(timeUnif, this.time/1000);
-  this.gl.uniform1f(tensionUnif, notes.tension);
+  this.gl.uniform1f(tensionUnif, tension);
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var cols = [];
   var colours = this.colours.solfege;
-  notes.map(function (note) {
-    var col = colours[note.solfege];
+  for (var i = 0; i < 4; i++) {
+    var col = colours[solfege[i % solfege.length]];
     cols.push(col[0]);
     cols.push(col[1]);
     cols.push(col[2]);
-  });
+  }
   this.gl.uniform3fv(colsUnif, new Float32Array(cols));
 
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);

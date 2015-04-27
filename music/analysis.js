@@ -2,6 +2,8 @@
 
 // Domain
 
+musis.analyse = {};
+
 var solfegeIdxs = {
   "do": 0,
   "re": 1,
@@ -11,7 +13,7 @@ var solfegeIdxs = {
   "la": 5,
   "ti": 6
 };
-musis.music.analyseHarmony = function (solfege) {
+musis.analyse.harmony = function (solfege) {
   // evaluate as tertian (stacked thirds)
   var stack = [];
   var bassIdx = solfegeIdxs[solfege[0]];

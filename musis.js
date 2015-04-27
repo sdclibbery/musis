@@ -45,7 +45,7 @@ musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
     var analysis = music.nextHarmony(nextHarmony);
-console.log(analysis.harmony.root);
+    terrain.nextHarmony(analysis);
     triggers = createSolfegeTriggers(draw);
   }
   s = null;
@@ -60,7 +60,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
 
   metronome.update(play.timeNow(), function (beat) {
     music.beat(beat, function (events, notes) {
-      musis.perform.beat(play, stars, events, terrain, notes);
+      musis.perform.beat(play, stars, events);
     });
   });
   triggers.update(dt);

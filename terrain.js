@@ -5,15 +5,15 @@
 musis.terrain = function () {
 };
 
-var notes = null;
+var analysis = null;
 
-musis.terrain.prototype.nextHarmony = function (next) {
-  notes = next;
+musis.terrain.prototype.nextHarmony = function (analysisIn) {
+  analysis = analysisIn;
 };
 
 musis.terrain.prototype.render = function (draw, metronome) {
-  if (notes) {
-    draw.terrain(metronome.bpm, notes);
+  if (analysis) {
+    draw.terrain(metronome.bpm, analysis.solfege, analysis.tension);
   }
 };
 

@@ -4,8 +4,7 @@
 
 musis.perform = {};
 
-musis.perform.beat = function (play, stars, events, terrain, notes) {
-  terrain.nextHarmony(notes);
+musis.perform.beat = function (play, stars, events) {
   events.map(function (event) {
     if (event.note) {
       play[event.instrument](event.time, event.note.freq(), event.duration);

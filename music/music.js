@@ -21,16 +21,19 @@ musis.music = function () {
 };
 
 musis.music.prototype.nextHarmony = function (solfege) {
-  this.notes = evaluateNextHarmony(solfege);
-  console.log("Next Harmony: "+this.notes+". tension: "+this.notes.tension);
+  var pitchClasses = musis.key.toPitchclasses(solfege);
+  this.notes = musis.voicing.assignToVoices(pitchClasses);
+console.log("Next Harmony: "+this.notes);
   this.composers = [
 //    musis.compose.melody(this.notes),
     musis.compose.blockChords(this.notes)
   ];
   return {
-    harmony: musis.music.analyseHarmony(solfege)
+    solfege: solfege,
+    harmony: musis.analyse.harmony(solfege),
+    tension: musis.tension.calculate(solfege)
     // progression:
-    // cadence: 
+    // cadence:
   }
 };
 
@@ -40,13 +43,6 @@ musis.music.prototype.beat = function (beat, perform) {
     events = events.concat(composer(beat));
   });
   perform(events, this.notes);
-};
-
-var evaluateNextHarmony = function (nextSolfege) {
-  var pitchClasses = musis.key.toPitchclasses(nextSolfege);
-  var notes = musis.voicing.assignToVoices(pitchClasses);
-  notes.tension = musis.tension.calculate(nextSolfege);
-  return notes;
 };
 
 })();
