@@ -20,15 +20,13 @@ musis.music.analyseHarmony = function (solfege) {
     if (diff < 0) { diff += 7; }
     if (diff % 2 === 1) { diff += 7; }
     var numThirds = diff / 2;
-    stack.push({ solfege: s, distance: numThirds });
+    stack.push([
+      { solfege: s, distance: numThirds },
+      { solfege: s, distance: numThirds+7 },
+      { solfege: s, distance: numThirds-7 }
+    ]);
   });
-  var combs = combinations(stack.map(function (third) {
-    return [
-      { solfege: third.solfege, distance: third.distance },
-      { solfege: third.solfege, distance: third.distance+7 },
-      { solfege: third.solfege, distance: third.distance-7 }
-    ];
-  }));
+  var combs = combinations(stack);
   var best = combs[0];
   var bestScore = 1e10;
   combs.map(function (stack) {
@@ -45,12 +43,12 @@ musis.music.analyseHarmony = function (solfege) {
     }
   });
   var root = best[0].solfege;
-  var hasThird = best[1].distance === best[0].distance + 1; // Probably only valid to consider as stacked thirds if it actually has a third
+  var hasThird = best[1].distance === best[0].distance + 1;
   var hasFifth = best[2].distance === best[0].distance + 2;
   var hasTriad = hasThird && hasFifth;
 
   // If its not stackedThirds, should also consider stacked fourths...
-  if (!hasThird) { return { type:'?' }; }
+  if (!hasThird) { return { type:'?' }; } // Probably only valid to consider as stacked thirds if it actually has a third
 
   return {
     type: 'tertian',
