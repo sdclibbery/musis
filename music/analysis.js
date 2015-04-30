@@ -55,10 +55,22 @@ musis.analyse.harmony = function (solfege) {
   return {
     type: 'tertian',
     root: root,
-    hasTriad: hasTriad
+    hasTriad: hasTriad,
+    function: rootFunction(root)
   };
 };
 
+var rootFunction = function (r) {
+  return {
+    do: 'tonic',
+    re: 'subdominant',
+    mi: 'tonic',
+    fa: 'subdominant',
+    sol: 'dominant',
+    la: 'tonic',
+    ti: 'dominant'
+  }[r];
+};
 
 var combinations = function (xss) { // Takes an array with one entry per slot in the output. Each entry is another array of possible values that could go in that slot.
   var n = xss.length;
