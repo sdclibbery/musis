@@ -22,7 +22,7 @@ var vtxShader = ""
 +"    float spike = tensionIn/3.0*max(pow(sin(sin(posIn.x)*distance*tensionIn/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tensionIn)), 0.0);"
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
-+"    colour = colsIn[ int(mod(b+spike, 4.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
++"    colour = colsIn[ int(mod(b*b + spike, 2.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
 +"  }";
 
 var frgShader = ""
@@ -79,7 +79,7 @@ var tensionUnif = null;
 var colsUnif = null;
 
 
-musis.draw.prototype.terrain = function (bpm, solfege, tension) {
+musis.draw.prototype.terrain = function (bpm, tension, root, func) {
   if (program === null) {
     program = this.loadProgram([
       this.loadShader(vtxShader, this.gl.VERTEX_SHADER),
@@ -102,13 +102,10 @@ musis.draw.prototype.terrain = function (bpm, solfege, tension) {
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var cols = [];
-  var colours = this.colours.solfege;
-  for (var i = 0; i < 4; i++) {
-    var col = colours[solfege[i % solfege.length]];
-    cols.push(col[0]);
-    cols.push(col[1]);
-    cols.push(col[2]);
-  }
+  var funcCol = this.colours.solfege[{tonic:'do', subdominant:'fa', dominant:'sol'}[func] || 'none'];
+  cols.push(funcCol[0], funcCol[1], funcCol[2]);
+  var rootCol = this.colours.solfege[root || 'none'];
+  cols.push(rootCol[0], rootCol[1], rootCol[2]);
   this.gl.uniform3fv(colsUnif, new Float32Array(cols));
 
   var perspectiveMatrix = this.perspectiveMatrix(1.7, 0.001, 100);

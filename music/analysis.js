@@ -45,8 +45,8 @@ musis.analyse.harmony = function (solfege) {
     }
   });
   var root = best[0].solfege;
-  var hasThird = best[1].distance === best[0].distance + 1;
-  var hasFifth = best[2].distance === best[0].distance + 2;
+  var hasThird = best[1] && (best[1].distance === best[0].distance + 1);
+  var hasFifth = best[2] && (best[2].distance === best[0].distance + 2);
   var hasTriad = hasThird && hasFifth;
 
   // If its not stackedThirds, should also consider stacked fourths...

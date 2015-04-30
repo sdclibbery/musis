@@ -13,7 +13,8 @@ musis.terrain.prototype.nextHarmony = function (analysisIn) {
 
 musis.terrain.prototype.render = function (draw, metronome) {
   if (analysis) {
-    draw.terrain(metronome.bpm, analysis.solfege, analysis.tension);
+    var h = analysis.harmony || {};
+    draw.terrain(metronome.bpm, analysis.tension, h.root, h.function);
   }
 };
 
