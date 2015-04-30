@@ -19,10 +19,12 @@ var vtxShader = ""
 +"    float distance = timeIn * speed;" // current distance the grid origin should have reached
 +"    float delta = mod(distance, repeatSize);" // amount to move the drawn grid so it lines up with where the grid should be
 +"    float index = distance-posIn.z-delta;" // value to use that moves with the grid without snapping back on the repeat
-+"    float spike = tensionIn/3.0*max(pow(sin(sin(posIn.x)*distance*tensionIn/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tensionIn)), 0.0);"
-+"    gl_Position = perspIn * vec4(posIn.x, posIn.y+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
++"    float spike = tensionIn/2.0*max(pow(sin(sin(posIn.x)*distance*tensionIn/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tensionIn)), 0.0);"
++"    float wave = sin(posIn.x*(0.1+tensionIn*0.04))+sin(index*(0.1+tensionIn*0.03));"
++"    gl_Position = perspIn * vec4(posIn.x, posIn.y+wave*1.5+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
 +"    colour = colsIn[ int(mod(b*b + spike, 2.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
++"    colour = colour*abs(wave);"
 +"  }";
 
 var frgShader = ""
