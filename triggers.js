@@ -2,20 +2,21 @@
 
 // Domain
 
-var trigger = function (value, motion, size) {
+var trigger = function (value, motion, size, disabled) {
   this.value = value;
   this.motion = motion;
   this.selected = false;
+  this.disabled = disabled;
   this.p = { x: 0, y: 0 };
   this.size = size;
 };
 
-var small = function (value, motion) {
-  return new trigger(value, motion, 0.115);
+var small = function (value, motion, disabled) {
+  return new trigger(value, motion, 0.115, disabled);
 }
 
-var large = function (value, motion) {
-  return new trigger(value, motion, 0.13);
+var large = function (value, motion, disabled) {
+  return new trigger(value, motion, 0.13, disabled);
 }
 
 trigger.prototype.update = function (t) {
@@ -23,7 +24,8 @@ trigger.prototype.update = function (t) {
 };
 
 trigger.prototype.render = function (draw, type) {
-  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, this.selected);
+  var state = this.selected ? 'selected' : (this.disabled ? 'disabled' : 'none')
+  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, state);
 };
 
 var sqr = function(x) { return x * x };
@@ -39,6 +41,7 @@ var sqrDistToSegment = function(p, v, w) {
 
 trigger.prototype.touch = function (sel, s, e) {
   if (this.selected) { return; }
+  if (this.disabled) { return; }
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
@@ -58,19 +61,19 @@ var expanding = function (a) {
   };
 }
 
-musis.triggers = function (vs, type, largeVs) {
+musis.triggers = function (infos, type) {
   this.t = 0;
   this.triggers = [];
   this.selected = [];
   this.type = type;
-  var num = vs.length;
+  var num = infos.length;
   var self = this;
-  vs.map(function (v, i) {
+  infos.map(function (info, i) {
     var motion = expanding((i-1)/num*6.28);
-    if (largeVs && largeVs.indexOf(v) >= 0) {
-      self.triggers[i] = large(v, motion);
+    if (info.size === "large") {
+      self.triggers[i] = large(info.value, motion, info.disabled);
     } else {
-      self.triggers[i] = small(v, motion);
+      self.triggers[i] = small(info.value, motion, info.disabled);
     }
   });
 };

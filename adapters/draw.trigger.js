@@ -19,17 +19,19 @@ var frgShader2d = ""
 +"  precision mediump float;"
 +"  uniform vec4 col;"
 +"  uniform bool selected;"
++"  uniform bool disabled;"
 +"  "
 +"  varying vec2 tex;"
 +"  "
 +"  void main() {"
 +"    vec2 texFull = tex*2.0 - 1.0;" // tex coords in range -1 to 1
 +"    float d = 1.0 - length(max(abs(texFull)-0.2, 0.0));" // distance field value at this fragment
++"    float dis = (disabled ? 0.3 : 1.0);" // alpha value for disabled status
 +"    if (d < 0.35) {"
-+"      float b = smoothstep(0.1, 0.3, d);" // border brightness
++"      float b = dis*smoothstep(0.1, 0.3, d);" // border brightness
 +"      gl_FragColor = (selected ? vec4(1,1,1,1) : col) * vec4(b,b,b, d<0.3 ? 0.0 : 0.8);" // border color: white if trigger is selected
 +"    } else {"
-+"      float b = 0.5 + 0.5*smoothstep(0.5, 0.35, d);" // interior brightness
++"      float b = dis*(0.5 + 0.5*smoothstep(0.5, 0.35, d));" // interior brightness
 +"      gl_FragColor = col * vec4(b,b,b,0.4);" // interior color
 +"    }"
 +"  }";
@@ -38,11 +40,12 @@ var posAttr = null;
 var texAttr = null;
 var colUnif = null;
 var selUnif = null;
+var disUnif = null;
 var posBuf = null;
 var texBuf = null;
 
 
-musis.draw.prototype.trigger = function (x, y, size, value, type, selected) {
+musis.draw.prototype.trigger = function (x, y, size, value, type, state) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -54,6 +57,7 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, selected) {
     texAttr = this.gl.getAttribLocation(program, "texIn");
     colUnif = this.gl.getUniformLocation(program, "col");
     selUnif = this.gl.getUniformLocation(program, "selected");
+    disUnif = this.gl.getUniformLocation(program, "disabled");
   }
 
   this.gl.useProgram(program);
@@ -65,7 +69,8 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, selected) {
   var col = this.colours[type][value];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
 
-  this.gl.uniform1i(selUnif, selected);
+  this.gl.uniform1i(selUnif, state === 'selected');
+  this.gl.uniform1i(disUnif, state === 'disabled');
 
   this.gl.enable(this.gl.BLEND);
   this.gl.blendFunc(this.gl.ONE, this.gl.ONE_MINUS_SRC_ALPHA);

@@ -11,11 +11,15 @@ var music;
 var terrain;
 
 var createSolfegeTriggers = function (draw) {
-  return new musis.triggers(
-    ["do", "mi", "sol", "ti", "re", "fa", "la"],
-    "solfege",
-    ["do", "fa", "sol"]
-  );
+  return new musis.triggers([
+    { value: "do", size: "large", disabled: false },
+    { value: "mi", size: "small", disabled: false },
+    { value: "sol", size: "large", disabled: false },
+    { value: "ti", size: "small", disabled: false },
+    { value: "re", size: "small", disabled: false },
+    { value: "fa", size: "large", disabled: false },
+    { value: "la", size: "small", disabled: false }
+  ], "solfege");
 };
 
 musis.begin = function () {
