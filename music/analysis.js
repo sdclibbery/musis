@@ -14,6 +14,15 @@ var solfegeIdxs = {
   "ti": 6
 };
 musis.analyse.harmony = function (solfege) {
+
+  // Single notes
+  if (solfege.length === 1) {
+    return {
+      type:'?',
+      function:rootFunction(solfege[0])
+    };
+  }
+
   // evaluate as tertian (stacked thirds)
   var stack = [];
   var bassIdx = solfegeIdxs[solfege[0]];
