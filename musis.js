@@ -15,10 +15,10 @@ var createSolfegeTriggers = function (draw) {
     { value: "do", size: "large", disabled: false },
     { value: "mi", size: "small", disabled: false },
     { value: "sol", size: "large", disabled: false },
-    { value: "ti", size: "small", disabled: false },
-    { value: "re", size: "small", disabled: false },
-    { value: "fa", size: "large", disabled: false },
-    { value: "la", size: "small", disabled: false }
+    { value: "ti", size: "small", disabled: true },
+    { value: "re", size: "small", disabled: true },
+    { value: "fa", size: "large", disabled: true },
+    { value: "la", size: "small", disabled: true }
   ], "solfege");
 };
 
