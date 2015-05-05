@@ -19,7 +19,7 @@ musis.tension.calculate = function (solfege) {
   solfege.map(function (s) {
     sum += tensions[s];
   });
-  return sum/solfege.length;
+  return sum;
 };
 
 })();

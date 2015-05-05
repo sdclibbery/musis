@@ -58,8 +58,7 @@ musis.analyse.harmony = function (solfege) {
   var hasFifth = best[2] && (best[2].distance === best[0].distance + 2);
   var hasTriad = hasThird && hasFifth;
 
-  // If its not stackedThirds, should also consider stacked fourths...
-  if (!hasThird) { return { type:'?' }; } // Probably only valid to consider as stacked thirds if it actually has a third
+  // also need to handle sus2/sus4
 
   return {
     type: 'tertian',

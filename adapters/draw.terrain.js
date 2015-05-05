@@ -15,17 +15,17 @@ var vtxShader = ""
 +"  varying vec3 colour;"
 +"  "
 +"  void main() {"
++"    float tension = min(tensionIn/3.0, 6.0);"
 +"    float repeatSize = 4.0;" // size of one square in the terrain grid
 +"    float speed = repeatSize * bpsIn;" // speed of terrain motion in metres per second
 +"    float distance = timeIn * speed;" // current distance the grid origin should have reached
 +"    float delta = mod(distance, repeatSize);" // amount to move the drawn grid so it lines up with where the grid should be
 +"    float index = distance-posIn.z-delta;" // value to use that moves with the grid without snapping back on the repeat
-+"    float spike = tensionIn/2.0*max(pow(sin(sin(posIn.x)*distance*tensionIn/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tensionIn)), 0.0);"
-+"    float wave = 0.5*(sin(posIn.x*(0.1+tensionIn*0.04))+sin(index*(0.1+tensionIn*0.03)));"
++"    float spike = tension/2.0*max(pow(sin(sin(posIn.x)*distance*tension/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tension)), 0.0);"
++"    float wave = 0.5*(sin(posIn.x*(0.1+tension*0.04))+sin(index*(0.1+tension*0.03)));"
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y+wave*3.0+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
 +"    colour = colsIn[ int(mod(b + spike, 2.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
-//+"    colour = colour*pow(min(max(abs(wave), 0.0), 1.0), triadIn?1.0:5.0);"
 +"    colour = colour*(triadIn?1.0:0.6)*(0.3 + pow(abs(wave), triadIn?1.5:3.0));"
 +"  }";
 
