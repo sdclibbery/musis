@@ -106,7 +106,7 @@ var scoreMotion = function (notes) {
   notes.map(function (note, idx) {
     var diff = note.chromaticDiff(musis.voicing.previous[idx]);
     if (diff === 0) {
-      notes.score -= 10;
+      notes.score -= 7;
     }
   });
   return notes;
