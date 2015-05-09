@@ -11,15 +11,7 @@ var music;
 var terrain;
 
 var createSolfegeTriggers = function (draw) {
-  return new musis.triggers([
-    { value: "do", size: "large", disabled: false },
-    { value: "mi", size: "small", disabled: false },
-    { value: "sol", size: "large", disabled: false },
-    { value: "ti", size: "small", disabled: true },
-    { value: "re", size: "small", disabled: true },
-    { value: "fa", size: "large", disabled: true },
-    { value: "la", size: "small", disabled: true }
-  ], "solfege");
+  return new musis.triggers(musis.game.solfegeTriggers(), "solfege");
 };
 
 musis.begin = function () {
@@ -30,7 +22,7 @@ musis.begin = function () {
   triggers = createSolfegeTriggers(draw);
   music = new musis.music();
   terrain = new musis.terrain();
-  musis.info.title('Play a Tonic Triad');
+  musis.game.begin();
 };
 
 var s = null;
