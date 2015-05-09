@@ -2,25 +2,24 @@
 
 // Domain
 
+var makeDiatonicTriggers = function (enabled) {
+  return [
+    { value: 'do', size: 'large', disabled: true },
+    { value: 'mi', size: 'small', disabled: true },
+    { value: 'sol', size: 'large', disabled: true },
+    { value: 'ti', size: 'small', disabled: true },
+    { value: 're', size: 'small', disabled: true },
+    { value: 'fa', size: 'large', disabled: true },
+    { value: 'la', size: 'small', disabled: true }
+  ].map(function (t) {
+    if (enabled.indexOf(t.value) >= 0) { t.disabled = false; }
+    return t;
+  });
+}
+
 var solfegeTriggers = {
-  tonicTriad: [
-    { value: "do", size: "large", disabled: false },
-    { value: "mi", size: "small", disabled: false },
-    { value: "sol", size: "large", disabled: false },
-    { value: "ti", size: "small", disabled: true },
-    { value: "re", size: "small", disabled: true },
-    { value: "fa", size: "large", disabled: true },
-    { value: "la", size: "small", disabled: true }
-  ],
-  all: [
-    { value: "do", size: "large", disabled: false },
-    { value: "mi", size: "small", disabled: false },
-    { value: "sol", size: "large", disabled: false },
-    { value: "ti", size: "small", disabled: false },
-    { value: "re", size: "small", disabled: false },
-    { value: "fa", size: "large", disabled: false },
-    { value: "la", size: "small", disabled: false }
-  ]
+  tonicTriad: makeDiatonicTriggers(['do', 'mi', 'sol']),
+  all: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti'])
 };
 
 var levels = [
