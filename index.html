@@ -38,6 +38,7 @@
   <canvas id="canvas" class="fullscreen" style="width:100%; height:100%;"></canvas>
   <div id="info" class="fullscreen" style="color:white; font-family:helvetica,arial;">
     <h1 id="title"></h1>
+    <h3>Score: <span id="score"></span></h3>
   </div>
   <script type="text/javascript">
 
@@ -119,10 +120,10 @@ x 1.1: tonic harmony
 */
 
 var title = document.getElementById("title");
+var score = document.getElementById("score");
 musis.info = {
-  title: function (t) {
-    title.innerHTML = t;
-  }
+  title: function (t) { title.innerHTML = t; },
+  score: function (s) { score.innerHTML = s; }
 };
 
 musis.begin();

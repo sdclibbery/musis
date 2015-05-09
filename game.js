@@ -50,8 +50,8 @@ var levels = [
   {
     title: 'Play some static harmony',
     solfegeTriggers: solfegeTriggers.staticHarmony,
-    complete: function (analysis) {
-      return false;//TEMP!!
+    complete: function (analysis, game) {
+      return game.levelScore > 20;
     }
   },
   {
@@ -63,11 +63,13 @@ var levels = [
 
 musis.game = {
   levelIdx: 0,
-  level: levels[0]
+  level: levels[0],
+  levelScore: 0,
+  totalScore: 0
 };
 
 musis.game.begin = function () {
-  musis.info.title(this.level.title);
+  this.info();
 };
 
 musis.game.solfegeTriggers = function () {
@@ -75,12 +77,23 @@ musis.game.solfegeTriggers = function () {
 };
 
 musis.game.nextHarmony = function (analysis) {
-  if (this.level.complete(analysis)) {
+  var score = analysis.score || 0;
+  this.levelScore += score;
+  this.totalScore += score;
+  if (this.level.complete(analysis, this)) {
     this.levelIdx++;
     this.level = levels[this.levelIdx];
-    this.begin();
+    this.totalScore += 100;
+    this.levelScore = 0;
+    this.info();
     return true;
   }
+  this.info();
+};
+
+musis.game.info = function () {
+  musis.info.title(this.level.title);
+  musis.info.score(this.totalScore);
 };
 
 })();
