@@ -18,23 +18,40 @@ var makeDiatonicTriggers = function (enabled) {
 }
 
 var solfegeTriggers = {
+  tonicNote: makeDiatonicTriggers(['do']),
   tonicTriad: makeDiatonicTriggers(['do', 'mi', 'sol']),
+  dominantTriad: makeDiatonicTriggers(['sol', 'ti', 're']),
+  staticHarmony: makeDiatonicTriggers(['la', 'do', 'mi', 'sol', 'ti', 're']),
   all: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti'])
 };
 
 var levels = [
   {
     title: 'Play the Tonic note',
-    solfegeTriggers: solfegeTriggers.tonicTriad,
+    solfegeTriggers: solfegeTriggers.tonicNote,
     complete: function (analysis) {
       return (analysis.solfege.length === 1 && analysis.solfege[0] === 'do');
     }
   },
   {
-    title: 'Play a Tonic Triad',
+    title: 'Play the Tonic Triad',
     solfegeTriggers: solfegeTriggers.tonicTriad,
     complete: function (analysis) {
       return (analysis.harmony.root === 'do' && analysis.harmony.hasTriad);
+    }
+  },
+  {
+    title: 'Play the Dominant Triad',
+    solfegeTriggers: solfegeTriggers.dominantTriad,
+    complete: function (analysis) {
+      return (analysis.harmony.root === 'sol' && analysis.harmony.hasTriad);
+    }
+  },
+  {
+    title: 'Play some static harmony',
+    solfegeTriggers: solfegeTriggers.staticHarmony,
+    complete: function (analysis) {
+      return false;//TEMP!!
     }
   },
   {
