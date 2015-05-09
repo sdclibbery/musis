@@ -10,10 +10,6 @@ var triggers;
 var music;
 var terrain;
 
-var createSolfegeTriggers = function (draw) {
-  return new musis.triggers(musis.game.solfegeTriggers(), "solfege");
-};
-
 musis.begin = function () {
   draw = new musis.draw();
   play = new musis.play();
@@ -41,10 +37,7 @@ musis.touchmove = function (x, y) {
 musis.touchend = function () {
   var nextHarmony = triggers.nextHarmony();
   if (nextHarmony.length > 0) {
-    var analysis = music.nextHarmony(nextHarmony);
-console.log(analysis);
-    terrain.nextHarmony(analysis);
-    triggers = createSolfegeTriggers(draw);
+    toNextHarmony(nextHarmony);
   }
   s = null;
 };
@@ -67,6 +60,18 @@ musis.frame = function (t, dt, gl, cw, ch) {
   terrain.render(draw, metronome);
   stars.render(draw);
   triggers.render(draw);
+};
+
+var createSolfegeTriggers = function (draw) {
+  return new musis.triggers(musis.game.solfegeTriggers(), "solfege");
+};
+
+var toNextHarmony = function (nextHarmony) {
+  var analysis = music.nextHarmony(nextHarmony);
+console.log(analysis);
+  terrain.nextHarmony(analysis);
+  musis.game.nextHarmony(analysis);
+  triggers = createSolfegeTriggers(draw);
 };
 
 })();

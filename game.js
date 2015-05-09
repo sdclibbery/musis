@@ -20,4 +20,11 @@ musis.game.solfegeTriggers = function () {
   ];
 };
 
+musis.game.nextHarmony = function (analysis) {
+  if (analysis.harmony.root === 'do' && analysis.harmony.hasTriad) {
+    console.log('done!');
+  }
+};
+
+
 })();
