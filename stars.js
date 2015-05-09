@@ -3,6 +3,7 @@
 // Domain
 
 var numStarInBurst = 50;
+var numStarInBigBurst = 500;
 
 musis.stars = function () {
   this.bursts = [];
@@ -27,11 +28,28 @@ musis.stars.prototype.render = function (draw) {
     }
   });
   this.bursts = [];
+  if (this.doBigBurst) {
+    this.doBigBurst = undefined;
+    for (var i = 0; i < numStarInBigBurst; i++) {
+      draw.addStar({
+        solfege: 're',
+        x: Math.random()*2-1,
+        y: -0.1,
+        vx: 0,
+        vy: Math.random(),
+        vl: 1.7+0.3*Math.random()
+      });
+    }
+  }
   draw.stars();
 };
 
 musis.stars.prototype.burst = function (note) {
   this.bursts.push(note);
+};
+
+musis.stars.prototype.bigBurst = function () {
+  this.doBigBurst = true;
 };
 
 })();

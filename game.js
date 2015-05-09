@@ -25,6 +25,13 @@ var solfegeTriggers = {
 
 var levels = [
   {
+    title: 'Play the Tonic note',
+    solfegeTriggers: solfegeTriggers.tonicTriad,
+    complete: function (analysis) {
+      return (analysis.solfege.length === 1 && analysis.solfege[0] === 'do');
+    }
+  },
+  {
     title: 'Play a Tonic Triad',
     solfegeTriggers: solfegeTriggers.tonicTriad,
     complete: function (analysis) {
@@ -56,6 +63,7 @@ musis.game.nextHarmony = function (analysis) {
     this.levelIdx++;
     this.level = levels[this.levelIdx];
     this.begin();
+    return true;
   }
 };
 

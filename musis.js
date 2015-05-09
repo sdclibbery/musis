@@ -70,8 +70,10 @@ var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
 console.log(analysis);
   terrain.nextHarmony(analysis);
-  musis.game.nextHarmony(analysis);
   triggers = createSolfegeTriggers(draw);
+  if (musis.game.nextHarmony(analysis)) {
+    stars.bigBurst();
+  }
 };
 
 })();

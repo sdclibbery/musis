@@ -41,7 +41,7 @@ var frgShader2d = ""
 
 var size = 0.013;
 var program = null;
-var numVtxs = 600;
+var numVtxs = 1000;
 var vtxTimes = new Float32Array(numVtxs);
 var vtxPosns = new Float32Array(numVtxs*2);
 var vtxVels = new Float32Array(numVtxs*2);
