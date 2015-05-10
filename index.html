@@ -44,27 +44,6 @@
   <script type="text/javascript">
 
 /*
-x Dom7->Tonic has horrible voice leading :-(  G3,D4,F4,B4 -> C3,C4,E4,G4
- x score to encourage good leading note and tritone resolutions
-x Nastiness around this line: "music.update(metronome, play, stars, terrain);"
- x move perform OUT of /music
-x Leading note scoring: must make sure it resolves to the tonic Next To the leading note! :-)
-x evaluate tension level as avg of tensions of individual notes: in order: 1-5-3-6-2-4-7
- x use tension to spikify the terrain
-x Better audio pipeline: mixer and reverb
-x More cheerful sounds!
-x Make TSD triggers larger than the others
-x Make canvas fill window
-x Refactor metronome: decouple and move into music domain
- x music and composition should be driven from metronome callback, not by getting play time itself
- x have returned to problem of composing one beat too late :-(
-x Consider rhythm: downbeats
- x define measures and downbeats
- x indicate with some basic beats: kick
-x Generalise triggers
- x break out visuals, function and count
-x Orchestrator to manage composers
-x Some actual composition of some sort...
 ** level 1: Harmony
 x evaluate quality of chords and progressions
  x analyse harmony as stacked thirds; determine chord root
