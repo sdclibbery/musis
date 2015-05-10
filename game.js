@@ -28,6 +28,7 @@ var solfegeTriggers = {
 var levels = [
   {
     title: 'Play the Tonic note',
+    hint: 'Tap the blue trigger',
     solfegeTriggers: solfegeTriggers.tonicNote,
     complete: function (analysis) {
       return (analysis.solfege.length === 1 && analysis.solfege[0] === 'do');
@@ -35,6 +36,7 @@ var levels = [
   },
   {
     title: 'Play the Tonic Triad',
+    hint: 'Swipe the blue, violet and red triggers',
     solfegeTriggers: solfegeTriggers.tonicTriad,
     complete: function (analysis) {
       return (analysis.harmony.root === 'do' && analysis.harmony.hasTriad);
@@ -42,6 +44,7 @@ var levels = [
   },
   {
     title: 'Play the Dominant Triad',
+    hint: 'Swipe the red, orange and yellow triggers',
     solfegeTriggers: solfegeTriggers.dominantTriad,
     complete: function (analysis) {
       return (analysis.harmony.root === 'sol' && analysis.harmony.hasTriad);
@@ -49,6 +52,7 @@ var levels = [
   },
   {
     title: 'Play some static harmony',
+    hint: 'Try alternating tonic and dominant harmonies',
     solfegeTriggers: solfegeTriggers.staticHarmony,
     complete: function (analysis, game) {
       return game.levelScore > 20;
@@ -93,6 +97,7 @@ musis.game.nextHarmony = function (analysis) {
 
 musis.game.info = function () {
   musis.info.title(this.level.title);
+  musis.info.hint('Hint: '+this.level.hint);
   musis.info.score(this.totalScore);
 };
 

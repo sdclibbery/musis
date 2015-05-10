@@ -38,6 +38,7 @@
   <canvas id="canvas" class="fullscreen" style="width:100%; height:100%;"></canvas>
   <div id="info" class="fullscreen" style="color:white; font-family:helvetica,arial;">
     <h1 id="title"></h1>
+    <h5 id="hint"></h5>
     <h3>Score: <span id="score"></span></h3>
   </div>
   <script type="text/javascript">
@@ -85,6 +86,11 @@ x 1.1: tonic harmony
   x move trigger configuration into game
  x completion criteria
   x test and move to next level
+* analyse score
+ * score more for variety?
+ ?? Should score be defined solely by the game..?
+  * Yes this is logical
+  * so for the static harmony level, score for switching between tonic and dominant functions...
 * 1.2: static harmony
 * look for cadences
 * 1.3: perfect cadence
@@ -119,11 +125,10 @@ x 1.1: tonic harmony
 ! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 */
 
-var title = document.getElementById("title");
-var score = document.getElementById("score");
 musis.info = {
-  title: function (t) { title.innerHTML = t; },
-  score: function (s) { score.innerHTML = s; }
+  title: function (t) { document.getElementById("title").innerHTML = t; },
+  hint: function (t) { document.getElementById("hint").innerHTML = t; },
+  score: function (s) { document.getElementById("score").innerHTML = s; }
 };
 
 musis.begin();
