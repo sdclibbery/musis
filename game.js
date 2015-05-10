@@ -49,10 +49,8 @@ var levels = [
     complete: function (analysis, game) {
       return game.levelScore >= 20;
     },
-    score: function (analysis) {
-      var score = (this.lastFunction !== analysis.harmony.function) ? 5 : 1;
-      this.lastFunction = analysis.harmony.function;
-      return score;
+    score: function (analysis, lastAnalysis) {
+      return (lastAnalysis.harmony.function !== analysis.harmony.function) ? 5 : 1;
     }
   },
   {
@@ -79,7 +77,8 @@ musis.game.solfegeTriggers = function () {
 
 musis.game.nextHarmony = function (analysis) {
   var completedLevel = false;
-  var score = (this.level.score || this.defaultScore)(analysis);
+  var score = (this.level.score || this.defaultScore)(analysis, this.lastAnalysis);
+  this.lastAnalysis = analysis;
   this.levelScore += score;
   this.totalScore += score;
   if (this.level.complete(analysis, this)) {
