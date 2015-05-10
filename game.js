@@ -44,10 +44,15 @@ var levels = [
   },
   {
     title: 'Play some static harmony',
-    hint: 'Try alternating tonic and dominant harmonies',
+    hint: 'Score 20 points. Try alternating tonic and dominant harmonies',
     solfegeTriggers: makeDiatonicTriggers(['la', 'do', 'mi', 'sol', 'ti', 're']),
     complete: function (analysis, game) {
-      return game.levelScore > 20;
+      return game.levelScore >= 20;
+    },
+    score: function (analysis) {
+      var score = (this.lastFunction !== analysis.harmony.function) ? 5 : 1;
+      this.lastFunction = analysis.harmony.function;
+      return score;
     }
   },
   {
@@ -73,15 +78,14 @@ musis.game.solfegeTriggers = function () {
 };
 
 musis.game.nextHarmony = function (analysis) {
-  var score = analysis.score || 0;
   var completedLevel = false;
+  var score = (this.level.score || this.defaultScore)(analysis);
   this.levelScore += score;
   this.totalScore += score;
   if (this.level.complete(analysis, this)) {
+    this.totalScore += 100;
     this.levelIdx++;
     this.level = levels[this.levelIdx];
-    this.totalScore += this.levelScore;
-    this.totalScore += 100;
     this.levelScore = 0;
     completedLevel = true;
   }
@@ -94,5 +98,10 @@ musis.game.info = function () {
   musis.info.hint('Hint: '+this.level.hint);
   musis.info.score(this.totalScore);
 };
+
+musis.game.defaultScore = function (analysis) {
+  return 0;
+};
+
 
 })();
