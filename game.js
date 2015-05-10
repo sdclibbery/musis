@@ -54,6 +54,14 @@ var levels = [
     }
   },
   {
+    title: 'Play the SubDominant Triad',
+    hint: 'Swipe the green, cyan and blue triggers',
+    solfegeTriggers: makeDiatonicTriggers(['fa', 'la', 'do']),
+    complete: function (analysis, game) {
+      return (analysis.harmony.root === 'fa' && analysis.harmony.hasTriad);
+    }
+  },
+  {
     title: 'Finished!',
     solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
     complete: function (analysis, game) { return false; }
