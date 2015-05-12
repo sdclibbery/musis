@@ -22,19 +22,20 @@ musis.music = function () {
 
 musis.music.prototype.nextHarmony = function (solfege) {
   var pitchClasses = musis.key.toPitchclasses(solfege);
-  this.notes = musis.voicing.assignToVoices(pitchClasses);
-console.log("Next Harmony: "+this.notes);
-  this.composers = [
-//    musis.compose.melody(this.notes),
-    musis.compose.blockChords(this.notes)
-  ];
-  return {
+  var analysis = {
     solfege: solfege,
     harmony: musis.analyse.harmony(solfege),
     tension: musis.tension.calculate(solfege)
     // progression:
     // cadence:
   }
+  this.notes = musis.voicing.assignToVoices(pitchClasses);
+  this.composers = [
+//    musis.compose.melody(this.notes),
+    musis.compose.blockChords(this.notes)
+  ];
+  console.log("Next Harmony: "+this.notes);
+  return analysis;
 };
 
 musis.music.prototype.beat = function (beat, perform) {
