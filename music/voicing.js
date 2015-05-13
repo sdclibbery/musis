@@ -79,7 +79,7 @@ var addScore = function (notes) { notes.score = 0; return notes; };
 var scoreRange = function (notes) {
   notes.map(function (note, idx) {
     var diff = note.chromaticDiff(ranges[voices[idx]].mid);
-    notes.score -= Math.abs(diff) / 2;
+    notes.score -= Math.abs(diff);
   });
   return notes;
 };
