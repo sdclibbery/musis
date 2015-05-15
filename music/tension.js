@@ -14,7 +14,7 @@ var tensions = {
   ti: 6
 };
 
-musis.tension.calculate = function (solfege) {
+musis.tension.analyse = function (solfege) {
   var sum = 0;
   solfege.map(function (s) {
     sum += tensions[s];

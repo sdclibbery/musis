@@ -24,8 +24,8 @@ musis.music.prototype.nextHarmony = function (solfege) {
   var pitchClasses = musis.key.toPitchclasses(solfege);
   var analysis = {
     solfege: solfege,
-    harmony: musis.analyse.harmony(solfege),
-    tension: musis.tension.calculate(solfege)
+    harmony: musis.harmony.analyse(solfege),
+    tension: musis.tension.analyse(solfege)
     // progression:
     // cadence:
   }
