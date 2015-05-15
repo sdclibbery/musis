@@ -45,7 +45,7 @@ var levels = [
   {
     title: 'Play some static harmony',
     hint: 'Score 20 points. Try alternating tonic and dominant harmonies',
-    solfegeTriggers: makeDiatonicTriggers(['la', 'do', 'mi', 'sol', 'ti', 're']),
+    solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol', 'ti', 're']),
     complete: function (analysis, game) {
       return game.levelScore >= 20;
     },
