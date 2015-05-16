@@ -32,7 +32,7 @@ musis.stars.prototype.render = function (draw) {
     this.doBigBurst = undefined;
     for (var i = 0; i < numStarInBigBurst; i++) {
       draw.addStar({
-        solfege: 're',
+        solfege: 'none',
         x: Math.random()*2-1,
         y: -0.1,
         vx: 0,

@@ -9,7 +9,7 @@ musis.draw = function () {
 
 var grey = [0.3, 0.3, 0.3];
 var green = [0.2, 0.7, 0.1];
-var darkBrown = [0.6, 0.1, 0.2];
+var wine = [0.6, 0.1, 0.2];
 var brown = [0.7, 0.3, 0.1];
 var skyBlue = [0.5, 0.6, 1.0];
 var blue = [0.0, 0.0, 1.0];
@@ -33,7 +33,7 @@ musis.draw.prototype.colours = {
     none: grey,
     tonic: green,
     dominant: skyBlue,
-    subdominant: darkBrown
+    subdominant: wine
   }
 };
 
