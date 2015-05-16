@@ -26,8 +26,6 @@ musis.music.prototype.nextHarmony = function (solfege) {
     solfege: solfege,
     harmony: musis.harmony.analyse(solfege),
     tension: musis.tension.analyse(solfege)
-    // progression:
-    // cadence:
   }
   this.notes = musis.voicing.assignToVoices(pitchClasses);
   this.composers = [
