@@ -7,16 +7,33 @@ musis.draw = function () {
   this.ch = 1;
 };
 
+var grey = [0.3, 0.3, 0.3];
+var green = [0.2, 0.7, 0.1];
+var darkBrown = [0.6, 0.1, 0.2];
+var brown = [0.7, 0.3, 0.1];
+var skyBlue = [0.5, 0.6, 1.0];
+var blue = [0.0, 0.0, 1.0];
+var silver = [0.95, 0.9, 1.0];
+var cyan = [0.0, 0.5, 1.0];
+var yellow = [1.0, 0.9, 0.0];
+var red = [1.0, 0.0, 0.0];
+var purple = [0.7, 0.0, 0.9];
 musis.draw.prototype.colours = {
   solfege: {
-    none: [0.5, 0.5, 0.5],
-    do: [0.1, 0.03, 1.0],
-    re: [0.8, 0.76, 0.03],
-    mi: [0.5, 0.03, 0.9],
-    fa: [0.03, 0.8, 0.03],
-    sol: [1, 0.1, 0.1],
-    la: [0.03, 0.6, 0.9],
-    ti: [1, 0.5, 0.03]
+    none: grey,
+    do: green,
+    re: yellow,
+    mi: brown,
+    fa: red,
+    sol: cyan,
+    la: purple,
+    ti: silver
+  },
+  function: {
+    none: grey,
+    tonic: green,
+    dominant: skyBlue,
+    subdominant: darkBrown
   }
 };
 

@@ -8,7 +8,7 @@ var vtxShader = ""
 +"  uniform float tensionIn;"
 +"  uniform bool triadIn;"
 +"  uniform mat4 perspIn;"
-+"  uniform vec3 colsIn[4];"
++"  uniform vec3 colsIn[2];"
 +"  "
 +"  attribute vec3 posIn;"
 +"  "
@@ -25,7 +25,7 @@ var vtxShader = ""
 +"    float wave = 0.5*(sin(posIn.x*(0.1+tension*0.04))+sin(index*(0.1+tension*0.03)));"
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y+wave*3.0+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
-+"    colour = colsIn[ int(mod(b + spike, 2.0)) ] * 0.7 + vec3(spike, spike, spike) * 0.2;"
++"    colour = colsIn[0] * 0.7 + colsIn[1] * 0.2 * spike;"
 +"    colour = colour*(triadIn?1.0:0.6)*(0.3 + pow(abs(wave), triadIn?1.5:3.0));"
 +"  }";
 
@@ -110,7 +110,7 @@ musis.draw.prototype.terrain = function (bpm, tension, root, func, triad) {
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var cols = [];
-  var funcCol = this.colours.solfege[{tonic:'do', subdominant:'fa', dominant:'sol'}[func] || 'none'];
+  var funcCol = this.colours.function[func || 'none'];
   cols.push(funcCol[0], funcCol[1], funcCol[2]);
   var rootCol = this.colours.solfege[root || 'none'];
   cols.push(rootCol[0], rootCol[1], rootCol[2]);
