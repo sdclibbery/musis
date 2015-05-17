@@ -9,6 +9,7 @@ var solfegeIdxs = {
   "re": 1,
   "mi": 2,
   "fa": 3,
+  "fi": 3,
   "sol": 4,
   "la": 5,
   "ti": 6
@@ -74,6 +75,7 @@ var rootFunction = function (r) {
     re: 'subdominant',
     mi: 'tonic',
     fa: 'subdominant',
+    fi: 'diminished',
     sol: 'dominant',
     la: 'tonic',
     ti: 'dominant'

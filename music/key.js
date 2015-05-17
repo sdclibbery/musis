@@ -9,6 +9,7 @@ musis.key.toPitchclasses = function (solfege) {
     re: "D",
     mi: "E",
     fa: "F",
+    fi: "F#",
     sol: "G",
     la: "A",
     ti: "B"

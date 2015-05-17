@@ -9,6 +9,7 @@ var tensions = {
   re: 4,
   mi: 2,
   fa: 5,
+  fi: 5,
   sol: 1,
   la: 3,
   ti: 6

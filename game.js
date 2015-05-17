@@ -10,6 +10,7 @@ var makeDiatonicTriggers = function (enabled) {
     { value: 'ti', size: 'small', disabled: true },
     { value: 're', size: 'small', disabled: true },
     { value: 'fa', size: 'large', disabled: true },
+    { value: 'fi', size: 'small', disabled: true },
     { value: 'la', size: 'small', disabled: true }
   ].map(function (t) {
     if (enabled.indexOf(t.value) >= 0) { t.disabled = false; }
@@ -71,7 +72,7 @@ var levels = [
   },
   {
     title: 'Finished!',
-    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
+    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'fi', 'sol', 'la', 'ti']),
     complete: function (analysis, game) { return false; }
   }
 ];

@@ -8,6 +8,7 @@ var freqs = {
   D: 440*Math.pow(2, -7/12),
   E: 440*Math.pow(2, -5/12),
   F: 440*Math.pow(2, -4/12),
+  'F#': 440*Math.pow(2, -5/12),
   G: 440*Math.pow(2, -2/12),
   A: 440*Math.pow(2, 0/12),
   B: 440*Math.pow(2, 2/12)
@@ -25,6 +26,7 @@ var freqs = {
   D: G*fifth/2,
   E: C*third,
   F: F,
+  'F#': G*fifth/2*third,
   G: G,
   A: F*third,
   B: G*third
@@ -35,6 +37,7 @@ var chromatic = {
   D: 2,
   E: 4,
   F: 5,
+  'F#': 6,
   G: 7,
   A: 9,
   B: 11
