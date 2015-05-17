@@ -13,16 +13,16 @@ var wine = [0.6, 0.1, 0.2];
 var brown = [0.7, 0.3, 0.1];
 var skyBlue = [0.5, 0.6, 1.0];
 var blue = [0.0, 0.0, 1.0];
-var silver = [0.95, 0.9, 1.0];
+var silver = [0.85, 0.8, 0.9];
 var cyan = [0.0, 0.5, 1.0];
-var yellow = [1.0, 0.9, 0.0];
+var gold = [1.0, 0.7, 0.1];
 var red = [1.0, 0.0, 0.0];
 var purple = [0.7, 0.0, 0.9];
 musis.draw.prototype.colours = {
   solfege: {
     none: grey,
     do: green,
-    re: yellow,
+    re: gold,
     mi: brown,
     fa: red,
     sol: cyan,

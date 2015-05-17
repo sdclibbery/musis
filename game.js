@@ -20,7 +20,7 @@ var makeDiatonicTriggers = function (enabled) {
 var levels = [
   {
     title: 'Play the Tonic note',
-    hint: 'Tap the blue trigger',
+    hint: 'Tap the green trigger',
     solfegeTriggers: makeDiatonicTriggers(['do']),
     complete: function (analysis, game) {
       return (analysis.solfege.length === 1 && analysis.solfege[0] === 'do');
@@ -28,7 +28,7 @@ var levels = [
   },
   {
     title: 'Play the Tonic Triad',
-    hint: 'Swipe the blue, violet and red triggers',
+    hint: 'Swipe the green, brown and blue triggers',
     solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'do' && analysis.harmony.hasTriad);
@@ -36,7 +36,7 @@ var levels = [
   },
   {
     title: 'Play the Dominant Triad',
-    hint: 'Swipe the red, orange and yellow triggers',
+    hint: 'Swipe the blue, silver and gold triggers',
     solfegeTriggers: makeDiatonicTriggers(['sol', 'ti', 're']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'sol' && analysis.harmony.hasTriad);
@@ -55,7 +55,7 @@ var levels = [
   },
   {
     title: 'Play the SubDominant Triad',
-    hint: 'Swipe the green, cyan and blue triggers',
+    hint: 'Swipe the red, purple and green triggers',
     solfegeTriggers: makeDiatonicTriggers(['fa', 'la', 'do']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'fa' && analysis.harmony.hasTriad);
