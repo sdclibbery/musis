@@ -62,6 +62,14 @@ var levels = [
     }
   },
   {
+    title: 'Play an authentic cadence',
+    hint: 'Play a Tonic, a SubDominant, a Dominant then the Tonic',
+    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
+    complete: function (analysis, game) {
+      return analysis.cadence === 'sdt' && analysis.harmony.root === 'do';
+    }
+  },
+  {
     title: 'Finished!',
     solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
     complete: function (analysis, game) { return false; }
