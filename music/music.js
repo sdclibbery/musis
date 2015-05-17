@@ -22,11 +22,11 @@ musis.music = function () {
 
 musis.music.prototype.nextHarmony = function (solfege) {
   var pitchClasses = musis.key.toPitchclasses(solfege);
-  var analysis = {
-    solfege: solfege,
-    harmony: musis.harmony.analyse(solfege),
-    tension: musis.tension.analyse(solfege)
-  }
+  var analysis = {};
+  analysis.solfege = solfege;
+  analysis.harmony = musis.harmony.analyse(solfege);
+  analysis.tension = musis.tension.analyse(solfege);
+  analysis.cadence = musis.cadence.analyse(analysis);
   this.notes = musis.voicing.assignToVoices(pitchClasses);
   this.composers = [
 //    musis.compose.melody(this.notes),
