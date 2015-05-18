@@ -37,16 +37,18 @@ var freqs = {
   Bb: F/fifth*2,
   B: G*third
 };
-console.log(freqs);
 
 var chromatic = {
   C: 0,
   D: 2,
+  Eb: 3,
   E: 4,
   F: 5,
   'F#': 6,
   G: 7,
+  Ab: 8,
   A: 9,
+  Bb: 10,
   B: 11
 };
 
