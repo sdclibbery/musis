@@ -25,7 +25,7 @@ musis.play.prototype.chorus = function (time, freq, duration) {
   vca.gain.value = 0.0;
   fadeInOut.map(function (g,i,a) {
     var f = i / a.length;
-    vca.gain.linearRampToValueAtTime(0.04*g, time + f*duration*2);
+    vca.gain.linearRampToValueAtTime(0.08*g, time + f*duration*2);
   });
   var vco = this.audio.createOscillator();
   vco.frequency.value = freq;
