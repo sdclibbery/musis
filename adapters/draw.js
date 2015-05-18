@@ -25,11 +25,14 @@ musis.draw.prototype.colours = {
     do: green,
     re: gold,
     mi: brown,
+    me: brown,
     fa: red,
     fi: red,
     sol: cyan,
     la: purple,
-    ti: silver
+    le: purple,
+    ti: silver,
+    te: silver
   },
   function: {
     none: grey,

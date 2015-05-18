@@ -7,11 +7,14 @@ musis.key.toPitchclasses = function (solfege) {
   var toPC = {
     do: "C",
     re: "D",
+    me: "Eb",
     mi: "E",
     fa: "F",
     fi: "F#",
     sol: "G",
+    le: "Ab",
     la: "A",
+    te: "Bb",
     ti: "B"
   };
   var pcs = [];

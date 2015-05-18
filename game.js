@@ -5,12 +5,12 @@
 var makeDiatonicTriggers = function (enabled) {
   return [
     [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
-    [ null/*{ value: 'me', disabled: true }*/, { value: 'mi', size: 'small', disabled: true },  null,                             ],
+    [ { value: 'me', disabled: true }, { value: 'mi', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 'sol', size: 'large', disabled: true }, null,                             ],
-    [ null/*{ value: 'te', disabled: true }*/, { value: 'ti', size: 'small', disabled: true },  null,                             ],
+    [ { value: 'te', disabled: true }, { value: 'ti', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 're', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 'fa', size: 'large', disabled: true },  { value: 'fi', disabled: true },  ],
-    [ null/*{ value: 'le', disabled: true }*/, { value: 'la', size: 'small', disabled: true },  null,                             ]
+    [ { value: 'le', disabled: true }, { value: 'la', size: 'small', disabled: true },  null,                             ]
   ].map(function (a) {
     return a.map(function (t) {
       if (t && enabled.indexOf(t.value) >= 0) { t.disabled = false; }
@@ -74,7 +74,7 @@ var levels = [
   },
   {
     title: 'Finished!',
-    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'fi', 'sol', 'la', 'ti']),
+    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'me', 'fa', 'fi', 'sol', 'la', 'le', 'ti', 'te']),
     complete: function (analysis, game) { return false; }
   }
 ];

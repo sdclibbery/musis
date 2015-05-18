@@ -8,11 +8,14 @@ var solfegeIdxs = {
   "do": 0,
   "re": 1,
   "mi": 2,
+  "me": 2,
   "fa": 3,
   "fi": 3,
   "sol": 4,
   "la": 5,
-  "ti": 6
+  "le": 5,
+  "ti": 6,
+  "te": 6
 };
 musis.harmony.analyse = function (solfege) {
 
@@ -73,11 +76,14 @@ var rootFunction = function (r) {
   return {
     do: 'tonic',
     re: 'subdominant',
+    me: 'tonic', //?
     mi: 'tonic',
     fa: 'subdominant',
     fi: 'diminished',
     sol: 'dominant',
+    le: 'tonic', //?
     la: 'tonic',
+    te: 'dominant', //?
     ti: 'dominant'
   }[r];
 };
