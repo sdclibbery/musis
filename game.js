@@ -4,18 +4,20 @@
 
 var makeDiatonicTriggers = function (enabled) {
   return [
-    { value: 'do', size: 'large', disabled: true },
-    { value: 'mi', size: 'small', disabled: true },
-    { value: 'sol', size: 'large', disabled: true },
-    { value: 'ti', size: 'small', disabled: true },
-    { value: 're', size: 'small', disabled: true },
-    { value: 'fa', size: 'large', disabled: true },
-    { value: 'fi', size: 'small', disabled: true },
-    { value: 'la', size: 'small', disabled: true }
-  ].map(function (t) {
-    if (enabled.indexOf(t.value) >= 0) { t.disabled = false; }
-    return t;
+    [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
+    [ null/*{ value: 'mi', disabled: true }*/, { value: 'mi', size: 'small', disabled: true },  null,                             ],
+    [ null,                            { value: 'sol', size: 'large', disabled: true }, null,                             ],
+    [ null/*{ value: 'ti', disabled: true }*/, { value: 'ti', size: 'small', disabled: true },  null,                             ],
+    [ null,                            { value: 're', size: 'small', disabled: true },  null,                             ],
+    [ null,                            { value: 'fa', size: 'large', disabled: true },  { value: 'fi', disabled: true },  ],
+    [ null/*{ value: 'la', disabled: true }*/, { value: 'la', size: 'small', disabled: true },  null,                             ]
+  ].map(function (a) {
+    return a.map(function (t) {
+      if (t && enabled.indexOf(t.value) >= 0) { t.disabled = false; }
+      return t;
+    });
   });
+//  ,
 }
 
 var levels = [

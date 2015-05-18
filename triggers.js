@@ -52,11 +52,11 @@ trigger.prototype.touch = function (sel, s, e) {
 
 //////
 
-var expanding = function (a) {
+var expanding = function (a, r) {
   return function (t) {
     return {
-      x: Math.pow(t, 0.3)/4*Math.sin(a),
-      y: Math.pow(t, 0.3)/4*Math.cos(a)
+      x: Math.pow(t, 0.3)*Math.sin(a)*(r+2)/10,
+      y: Math.pow(t, 0.3)*Math.cos(a)*(r+2)/10
     };
   };
 }
@@ -68,13 +68,14 @@ musis.triggers = function (infos, type) {
   this.type = type;
   var num = infos.length;
   var self = this;
-  infos.map(function (info, i) {
-    var motion = expanding((i-1)/num*6.28);
-    if (info.size === "large") {
-      self.triggers[i] = large(info.value, motion, info.disabled);
-    } else {
-      self.triggers[i] = small(info.value, motion, info.disabled);
-    }
+  infos.map(function (a, i) {
+    a.map(function (info, r) {
+      if (info) {
+        var motion = expanding((i-1)/num*6.28, r);
+        var constructor = (info.size === "large") ? large : small;
+        self.triggers.push(constructor(info.value, motion, info.disabled));
+      }
+    });
   });
 };
 
