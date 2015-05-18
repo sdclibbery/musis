@@ -25,7 +25,7 @@ trigger.prototype.update = function (t) {
 
 trigger.prototype.render = function (draw, type) {
   var state = this.selected ? 'selected' : (this.disabled ? 'disabled' : 'none')
-  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, state);
+  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, state, this.accidental);
 };
 
 var sqr = function(x) { return x * x };
@@ -55,8 +55,8 @@ trigger.prototype.touch = function (sel, s, e) {
 var expanding = function (a, r) {
   return function (t) {
     return {
-      x: Math.pow(t, 0.3)*Math.sin(a)*(r+2)/10,
-      y: Math.pow(t, 0.3)*Math.cos(a)*(r+2)/10
+      x: Math.pow(t/2, 0.3)*Math.sin(a)*(r+2)/10,
+      y: Math.pow(t/2, 0.3)*Math.cos(a)*(r+2)/10
     };
   };
 }
@@ -69,11 +69,13 @@ musis.triggers = function (infos, type) {
   var num = infos.length;
   var self = this;
   infos.map(function (a, i) {
-    a.map(function (info, r) {
+    a.map(function (info, acc) {
       if (info) {
-        var motion = expanding((i-1)/num*6.28, r);
+        var motion = expanding((i-1)/num*6.28, acc);
         var constructor = (info.size === "large") ? large : small;
-        self.triggers.push(constructor(info.value, motion, info.disabled));
+        var trigger = constructor(info.value, motion, info.disabled);
+        trigger.accidental = acc;
+        self.triggers.push(trigger);
       }
     });
   });

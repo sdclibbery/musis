@@ -5,12 +5,12 @@
 var makeDiatonicTriggers = function (enabled) {
   return [
     [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
-    [ null/*{ value: 'mi', disabled: true }*/, { value: 'mi', size: 'small', disabled: true },  null,                             ],
+    [ null/*{ value: 'me', disabled: true }*/, { value: 'mi', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 'sol', size: 'large', disabled: true }, null,                             ],
-    [ null/*{ value: 'ti', disabled: true }*/, { value: 'ti', size: 'small', disabled: true },  null,                             ],
+    [ null/*{ value: 'te', disabled: true }*/, { value: 'ti', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 're', size: 'small', disabled: true },  null,                             ],
     [ null,                            { value: 'fa', size: 'large', disabled: true },  { value: 'fi', disabled: true },  ],
-    [ null/*{ value: 'la', disabled: true }*/, { value: 'la', size: 'small', disabled: true },  null,                             ]
+    [ null/*{ value: 'le', disabled: true }*/, { value: 'la', size: 'small', disabled: true },  null,                             ]
   ].map(function (a) {
     return a.map(function (t) {
       if (t && enabled.indexOf(t.value) >= 0) { t.disabled = false; }

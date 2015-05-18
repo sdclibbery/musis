@@ -18,6 +18,7 @@ var vtxShader2d = ""
 var frgShader2d = ""
 +"  precision mediump float;"
 +"  uniform vec4 col;"
++"  uniform int accidental;"
 +"  uniform bool selected;"
 +"  uniform bool disabled;"
 +"  "
@@ -25,7 +26,15 @@ var frgShader2d = ""
 +"  "
 +"  void main() {"
 +"    vec2 texFull = tex*2.0 - 1.0;" // tex coords in range -1 to 1
-+"    float d = 1.0 - length(max(abs(texFull)-0.2, 0.0));" // distance field value at this fragment
++"    float d;" // distance field value at this fragment
++"    if (accidental == 0) {" // flat
++"      d = 1.0 - 0.8*length(abs(texFull));"
++"    } else if (accidental == 2) {" // sharp
++"      vec2 t = pow(abs(texFull), vec2(0.8, 0.8));"
++"      d = 1.0 - 0.7*abs(t.x+t.y);"
++"    } else {"
++"      d = 1.0 - length(max(abs(texFull)-0.2, 0.0));"
++"    }"
 +"    float dis = (disabled ? 0.3 : 1.0);" // alpha value for disabled status
 +"    if (d < 0.35) {"
 +"      float b = dis*smoothstep(0.1, 0.3, d);" // border brightness
@@ -38,6 +47,7 @@ var frgShader2d = ""
 
 var posAttr = null;
 var texAttr = null;
+var accUnif = null;
 var colUnif = null;
 var selUnif = null;
 var disUnif = null;
@@ -45,7 +55,7 @@ var posBuf = null;
 var texBuf = null;
 
 
-musis.draw.prototype.trigger = function (x, y, size, value, type, state) {
+musis.draw.prototype.trigger = function (x, y, size, value, type, state, accidental) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -56,6 +66,7 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, state) {
     texBuf = this.gl.createBuffer();
     texAttr = this.gl.getAttribLocation(program, "texIn");
     colUnif = this.gl.getUniformLocation(program, "col");
+    accUnif = this.gl.getUniformLocation(program, "accidental");
     selUnif = this.gl.getUniformLocation(program, "selected");
     disUnif = this.gl.getUniformLocation(program, "disabled");
   }
@@ -68,6 +79,8 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, state) {
 
   var col = this.colours[type][value];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
+
+  this.gl.uniform1i(accUnif, accidental);
 
   this.gl.uniform1i(selUnif, state === 'selected');
   this.gl.uniform1i(disUnif, state === 'disabled');
