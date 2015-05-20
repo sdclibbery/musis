@@ -7,6 +7,7 @@ var vtxShader = ""
 +"  uniform float bpsIn;"
 +"  uniform float tensionIn;"
 +"  uniform bool triadIn;"
++"  uniform float curveIn;"
 +"  uniform mat4 perspIn;"
 +"  uniform vec3 colsIn[2];"
 +"  "
@@ -24,6 +25,7 @@ var vtxShader = ""
 +"    float spike = tension/2.0*max(pow(sin(sin(posIn.x)*distance*tension/6.0 + 0.18*cos(posIn.z*0.5)), 20.0*(7.0-tension)), 0.0);"
 +"    float wave = 0.5*(sin(posIn.x*(0.1+tension*0.04))+sin(index*(0.1+tension*0.03)));"
 +"    gl_Position = perspIn * vec4(posIn.x, posIn.y+wave*3.0+spike, posIn.z + delta, 1);" // apply the delta to give the sense of motion
++"    gl_Position.y += gl_Position.x*gl_Position.x*curveIn;"
 +"    float b = index/10.0 + abs(posIn.x)*100.0;" // value to use to look up the colour
 +"    colour = colsIn[0] * 0.7 + colsIn[1] * 0.2 * spike;"
 +"    colour = colour*(triadIn?1.0:0.6)*(0.3 + pow(abs(wave), triadIn?1.5:3.0));"
@@ -81,6 +83,7 @@ var timeUnif = null;
 var bpsUnif = null;
 var tensionUnif = null;
 var triadUnif = null;
+var curveUnif = null;
 var colsUnif = null;
 var tensionUnif = null;
 
@@ -98,6 +101,7 @@ musis.draw.prototype.terrain = function (bpm, tension, root, func, triad) {
     bpsUnif = this.gl.getUniformLocation(program, "bpsIn");
     tensionUnif = this.gl.getUniformLocation(program, "tensionIn");
     triadUnif = this.gl.getUniformLocation(program, "triadIn");
+    curveUnif = this.gl.getUniformLocation(program, "curveIn");
     colsUnif = this.gl.getUniformLocation(program, "colsIn");
     indexBuffer = this.createIndexBuffer(indexes);
   }
@@ -108,6 +112,12 @@ musis.draw.prototype.terrain = function (bpm, tension, root, func, triad) {
   this.gl.uniform1f(tensionUnif, tension);
   this.gl.uniform1f(triadUnif, !!triad);
   this.gl.uniform1f(bpsUnif, bpm/60);
+
+  var curve = 0;
+  if (func === 'subdominant') { curve = 10/size; }
+  if (func === 'diminished') { curve = 5/size; }
+  if (func === 'dominant') { curve = -1/size; }
+  this.gl.uniform1f(curveUnif, curve);
 
   var cols = [];
   var funcCol = this.colours.function[func || 'none'];
