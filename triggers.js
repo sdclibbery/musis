@@ -53,10 +53,12 @@ trigger.prototype.touch = function (sel, s, e) {
 //////
 
 var expanding = function (a, r) {
+  var scale = (r+1)/6;
   return function (t) {
+    var time = Math.pow(t/3, 0.3);
     return {
-      x: Math.pow(t/2, 0.3)*Math.sin(a)*(r+2)/10,
-      y: Math.pow(t/2, 0.3)*Math.cos(a)*(r+2)/10
+      x: time*Math.sin(a)*scale,
+      y: time*Math.cos(a)*scale
     };
   };
 }
