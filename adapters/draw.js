@@ -7,6 +7,16 @@ musis.draw = function () {
   this.ch = 1;
 };
 
+var sharp = function (col) {
+  return col.map(function (v) {
+    return 0.3+v*0.8;
+  });
+};
+var flat = function (col) {
+  return col.map(function (v) {
+    return 0.2+v*0.4;
+  });
+};
 var grey = [0.3, 0.3, 0.3];
 var green = [0.2, 0.7, 0.1];
 var wine = [0.6, 0.1, 0.2];
@@ -25,14 +35,14 @@ musis.draw.prototype.colours = {
     do: green,
     re: gold,
     mi: brown,
-    me: brown,
+    me: flat(brown),
     fa: red,
-    fi: red,
+    fi: sharp(red),
     sol: cyan,
     la: purple,
-    le: purple,
+    le: flat(purple),
     ti: silver,
-    te: silver
+    te: flat(silver)
   },
   function: {
     none: grey,
