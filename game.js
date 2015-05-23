@@ -73,6 +73,14 @@ var levels = [
     }
   },
   {
+    title: 'Play the Secondary Dominant',
+    hint: 'Swipe the yellow, sharp red and purple triggers',
+    solfegeTriggers: makeDiatonicTriggers(['re', 'fi', 'la']),
+    complete: function (analysis, game) {
+      return (analysis.harmony.root === 're' && analysis.harmony.hasTriad && analysis.harmony.quality === 'major');
+    }
+  },
+  {
     title: 'Finished!',
     solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'me', 'fa', 'fi', 'sol', 'la', 'le', 'ti', 'te']),
     complete: function (analysis, game) { return false; }
