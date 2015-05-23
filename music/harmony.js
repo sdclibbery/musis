@@ -58,8 +58,10 @@ musis.harmony.analyse = function (solfege) {
     }
   });
   var root = best[0].solfege;
-  var hasThird = best[1] && (best[1].distance === best[0].distance + 1);
-  var hasFifth = best[2] && (best[2].distance === best[0].distance + 2);
+  var third = best[1] && (best[1].distance === best[0].distance + 1) ? best[1].solfege : null;
+  var fifth = best[2] && (best[2].distance === best[0].distance + 2) ? best[2].solfege : null;
+  var hasThird = !!third;
+  var hasFifth = !!fifth;
   var hasTriad = hasThird && hasFifth;
 
   // also need to handle sus2/sus4
@@ -68,6 +70,7 @@ musis.harmony.analyse = function (solfege) {
     type: 'tertian',
     root: root,
     hasTriad: hasTriad,
+    quality: quality(root, third, fifth),
     function: rootFunction(root)
   };
 };
@@ -86,6 +89,28 @@ var rootFunction = function (r) {
     te: 'dominant', //?
     ti: 'dominant'
   }[r];
+};
+
+var quality = function (root, third, fifth) {
+  if (!root || !third || !fifth) { return; }
+  var chromaticDiff = function (l, r) {
+    var noteL = new musis.note(musis.key.toPitchclasses([l])[0], 3);
+    var noteR = new musis.note(musis.key.toPitchclasses([r])[0], 3).above(noteL);
+    return noteR.chromaticDiff(noteL);
+  };
+  var isMinor = function (l, r) { return chromaticDiff(l, r) === 3; };
+  var isMajor = function (l, r) { return chromaticDiff(l, r) === 4; };
+  if (isMinor(root, third) && isMinor(third, fifth)) {
+    return 'diminished';
+  } else if (isMajor(root, third) && isMajor(third, fifth)) {
+    return 'augmented';
+  } else {
+    if (isMajor(root, third)) {
+      return 'major';
+    } else if (isMinor(root, third)) {
+      return 'minor';
+    }
+  }
 };
 
 var combinations = function (xss) { // Takes an array with one entry per slot in the output. Each entry is another array of possible values that could go in that slot.
