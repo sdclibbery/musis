@@ -17,11 +17,9 @@ musis.key.toPitchclasses = function (solfege) {
     te: "Bb",
     ti: "B"
   };
-  var pcs = [];
-  solfege.map(function (s) {
+  return solfege.map(function (s) {
     var pc = new String(toPC[s]);
     pc.solfege = s;
-    pcs.push(pc);
+    return pc;
   });
-  return pcs;
 };
