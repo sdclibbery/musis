@@ -11,7 +11,6 @@ var music;
 var terrain;
 
 musis.begin = function () {
-  musis.game.begin();
   draw = new musis.draw();
   play = new musis.play();
   stars = new musis.stars();
@@ -19,6 +18,7 @@ musis.begin = function () {
   triggers = createSolfegeTriggers(draw);
   music = new musis.music();
   terrain = new musis.terrain();
+  musis.game.begin(draw);
 };
 
 var s = null;
@@ -70,7 +70,7 @@ var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
 console.log(analysis);
   terrain.nextHarmony(analysis);
-  if (musis.game.nextHarmony(analysis)) { stars.bigBurst(); }
+  if (musis.game.nextHarmony(draw, analysis)) { stars.bigBurst(); }
   triggers = createSolfegeTriggers(draw);
 };
 

@@ -93,15 +93,15 @@ musis.game = {
   level: levels[0]
 };
 
-musis.game.begin = function () {
-  this.info();
+musis.game.begin = function (draw) {
+  this.info(draw);
 };
 
 musis.game.solfegeTriggers = function () {
   return this.level.solfegeTriggers;
 };
 
-musis.game.nextHarmony = function (analysis) {
+musis.game.nextHarmony = function (draw, analysis) {
   var completedLevel = false;
   if (this.level.nextHarmony) {
     this.level.nextHarmony(analysis, this.lastAnalysis);
@@ -112,13 +112,13 @@ musis.game.nextHarmony = function (analysis) {
     this.level = levels[this.levelIdx];
     completedLevel = true;
   }
-  this.info();
+  this.info(draw);
   return completedLevel;
 };
 
-musis.game.info = function () {
-  musis.info.title(this.level.title);
-  musis.info.hint('Hint: '+this.level.hint);
+musis.game.info = function (draw) {
+  draw.title(this.level.title);
+  draw.hint('Hint: '+this.level.hint);
 };
 
 })();

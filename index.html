@@ -11,6 +11,7 @@
   <script type="text/javascript" src="adapters/draw.trigger.js"></script>
   <script type="text/javascript" src="adapters/draw.star.js"></script>
   <script type="text/javascript" src="adapters/draw.terrain.js"></script>
+  <script type="text/javascript" src="adapters/draw.info.js"></script>
   <script type="text/javascript" src="music/key.js"></script>
   <script type="text/javascript" src="music/note.js"></script>
   <script type="text/javascript" src="music/voicing.js"></script>
@@ -99,11 +100,6 @@ x ditch score: theres no point
 * Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 ! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 */
-
-musis.info = {
-  title: function (t) { document.getElementById("title").innerHTML = t; },
-  hint: function (t) { document.getElementById("hint").innerHTML = t; },
-};
 
 musis.begin();
 
