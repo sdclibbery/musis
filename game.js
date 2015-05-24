@@ -47,13 +47,14 @@ var levels = [
   },
   {
     title: 'Play some static harmony',
-    hint: 'Score 15 points. Try alternating tonic and dominant harmonies',
+    hint: 'Alternate tonic and dominant harmonies',
     solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol', 'ti', 're']),
     complete: function (analysis, game) {
-      return game.levelScore >= 15;
+      return this.score >= 15;
     },
-    score: function (analysis, lastAnalysis) {
-      return (lastAnalysis.harmony.function !== analysis.harmony.function) ? 5 : 1;
+    nextHarmony: function (analysis, lastAnalysis) {
+      if (this.score === undefined) { this.score = 0; }
+      this.score += (lastAnalysis.harmony.function !== analysis.harmony.function) ? 5 : 1;
     }
   },
   {
@@ -89,9 +90,7 @@ var levels = [
 
 musis.game = {
   levelIdx: 0,
-  level: levels[0],
-  levelScore: 0,
-  totalScore: 0
+  level: levels[0]
 };
 
 musis.game.begin = function () {
@@ -104,15 +103,13 @@ musis.game.solfegeTriggers = function () {
 
 musis.game.nextHarmony = function (analysis) {
   var completedLevel = false;
-  var score = (this.level.score || this.defaultScore)(analysis, this.lastAnalysis);
+  if (this.level.nextHarmony) {
+    this.level.nextHarmony(analysis, this.lastAnalysis);
+  }
   this.lastAnalysis = analysis;
-  this.levelScore += score;
-  this.totalScore += score;
   if (this.level.complete(analysis, this)) {
-    this.totalScore += 100;
     this.levelIdx++;
     this.level = levels[this.levelIdx];
-    this.levelScore = 0;
     completedLevel = true;
   }
   this.info();
@@ -122,12 +119,6 @@ musis.game.nextHarmony = function (analysis) {
 musis.game.info = function () {
   musis.info.title(this.level.title);
   musis.info.hint('Hint: '+this.level.hint);
-  musis.info.score(this.totalScore);
 };
-
-musis.game.defaultScore = function (analysis) {
-  return 0;
-};
-
 
 })();

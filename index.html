@@ -40,7 +40,6 @@
   <div id="info" class="fullscreen" style="color:white; font-family:helvetica,arial;">
     <h1 id="title"></h1>
     <h5 id="hint"></h5>
-    <h3>Score: <span id="score"></span></h3>
   </div>
   <script type="text/javascript">
 
@@ -83,6 +82,8 @@ x Drawing tweaks
  x subdom terrain should wrap round as if a tunnel
 x 1.5: secondary dominant
  x need to implement analysis.harmony.quality somehow
+* ditch score: theres no point
+* both hint and title text should highlight names of functions in appropriate colours
 * menus
  * harmony tutorial
   * 1: diatonic (all existing except sec.dom.)
@@ -124,7 +125,6 @@ x 1.5: secondary dominant
 musis.info = {
   title: function (t) { document.getElementById("title").innerHTML = t; },
   hint: function (t) { document.getElementById("hint").innerHTML = t; },
-  score: function (s) { document.getElementById("score").innerHTML = s; }
 };
 
 musis.begin();
