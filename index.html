@@ -44,31 +44,6 @@
   <script type="text/javascript">
 
 /*
-** level 1: Harmony
-x evaluate quality of chords and progressions
- x analyse harmony as stacked thirds; determine chord root
- x move tension calculation into analysis
- x functional T/S/D evaluation
- x show analysis onscreen
-  x rejig terrain to reflect analysis not notes
-x Analyse and represent different types and qualities of chords in the terrain
- x single note:
- x one third:
- x triad:
- x 1-5 power chords:
-x 1.1: tonic harmony
- x setup: which triggers
-  x Ability to disable triggers
- x info display
- x game domain component
-  x move info panel display into game
-  x move trigger configuration into game
- x completion criteria
-  x test and move to next level
-x analyse score
- x so for the static harmony level, score for switching between tonic and dominant functions...
-x 1.2: static harmony
-x 1.3: subdominant chord
 x 1.3: authentic cadence
  x require t-s-d-t motion; final t must really be tonic
 x add trigger for 'fi'
@@ -82,8 +57,9 @@ x Drawing tweaks
  x subdom terrain should wrap round as if a tunnel
 x 1.5: secondary dominant
  x need to implement analysis.harmony.quality somehow
-* ditch score: theres no point
+x ditch score: theres no point
 * both hint and title text should highlight names of functions in appropriate colours
+* visual indication of authentic cadence
 * menus
  * harmony tutorial
   * 1: diatonic (all existing except sec.dom.)
@@ -93,13 +69,12 @@ x 1.5: secondary dominant
  * free play
  * settings (12tet vs ji)
 * More levels:
- * 2: using sec dom in a cadence
- * 2: use of diminished chord on fi
  * 1: minor chords and their functions
  * 1: deceptive cadence
  * 1: 7th chords
  * 1: sus2/sus4 chords
- * visual indication of authentic cadence
+ * 2: using sec dom in a cadence
+ * 2: use of diminished chord on fi
 * Modulation
  * detect modulations
  * indicate key with a small border around the triggers: blue if in tonic key, red for dominant etc
@@ -114,6 +89,9 @@ x 1.5: secondary dominant
 * extra notes and melody kick in if make good progressions
 * grow interesting visual objects when doing well
 * ux for arpeggio/block chord/voice leading etc
+** ?? Scale
+* Allow choosing mode from supermode
+ * And this informs scale for melody and available notes for harmony
 ** Other
 * tick sound when select a trigger?
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
