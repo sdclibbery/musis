@@ -55,7 +55,7 @@ trigger.prototype.touch = function (sel, s, e) {
 var expanding = function (a, r) {
   var scale = (r+1)/6;
   return function (t) {
-    var time = Math.pow(t/3, 0.3);
+    var time = Math.min(Math.pow(t/3, 0.3), 2);
     return {
       x: time*Math.sin(a)*scale,
       y: time*Math.cos(a)*scale
