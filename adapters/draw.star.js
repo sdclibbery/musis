@@ -39,7 +39,7 @@ var frgShader2d = ""
 +"    gl_FragColor = col * vec4(b*b,b*b,b*b, 1);" // modulate color with the brightness; sqr to give glowy blur
 +"  }";
 
-var size = 0.013;
+var size = 0.01;
 var program = null;
 var numVtxs = 1000;
 var vtxTimes = new Float32Array(numVtxs);

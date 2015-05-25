@@ -46,7 +46,7 @@ var levels = [
   },
   {
     title: 'Play some static harmony',
-    hint: 'Switch between tonic and dominant triads',
+    hint: 'Switch between tonic and dominant triads a few times',
     solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol', 'ti', 're']),
     complete: function (analysis, game) {
       return this.score >= 15;
