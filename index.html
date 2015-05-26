@@ -12,6 +12,7 @@
   <script type="text/javascript" src="adapters/draw.star.js"></script>
   <script type="text/javascript" src="adapters/draw.terrain.js"></script>
   <script type="text/javascript" src="adapters/draw.info.js"></script>
+  <script type="text/javascript" src="adapters/menu.js"></script>
   <script type="text/javascript" src="music/key.js"></script>
   <script type="text/javascript" src="music/note.js"></script>
   <script type="text/javascript" src="music/voicing.js"></script>
@@ -34,13 +35,24 @@
     width:100%;
     height:100%;
   }
+  .menu-item {
+    width: 45%;
+    margin: 16px auto;
+    border: 1px solid #c0c0c0;
+    border-radius: 8px;
+    background: #404040;
+    padding: 8px;
+    text-align: center;
+    font-size: 1.4em;
+  }
   </style>
   </head>
 <body style="margin:0px;">
   <canvas id="canvas" class="fullscreen" style="width:100%; height:100%;"></canvas>
-  <div id="info" class="fullscreen" style="color:white; font-family:helvetica,arial;">
+  <div id="info" class="fullscreen" style="color:#e0e0e0; font-family:helvetica,arial;">
     <h1 id="title"></h1>
     <h5 id="hint"></h5>
+    <div id="menu"></div>
   </div>
   <script type="text/javascript">
 
