@@ -2,7 +2,7 @@
 
 // Domain
 
-var makeDiatonicTriggers = function (enabled) {
+var makeTriggers = function (enabled) {
   return [
     [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
     [ { value: 'me', disabled: true }, { value: 'mi', size: 'small', disabled: true },  null,                             ],
@@ -23,7 +23,7 @@ var levels = [
   {
     title: 'Play the tonic note',
     hint: 'Tap the highlighted trigger',
-    solfegeTriggers: makeDiatonicTriggers(['do']),
+    solfegeTriggers: makeTriggers(['do']),
     complete: function (analysis, game) {
       return (analysis.solfege.length === 1 && analysis.solfege[0] === 'do');
     }
@@ -31,7 +31,7 @@ var levels = [
   {
     title: 'Play the tonic triad',
     hint: 'Swipe the highlighted triggers',
-    solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol']),
+    solfegeTriggers: makeTriggers(['do', 'mi', 'sol']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'do' && analysis.harmony.hasTriad);
     }
@@ -39,7 +39,7 @@ var levels = [
   {
     title: 'Play the dominant triad',
     hint: 'Swipe the highlighted triggers',
-    solfegeTriggers: makeDiatonicTriggers(['sol', 'ti', 're']),
+    solfegeTriggers: makeTriggers(['sol', 'ti', 're']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'sol' && analysis.harmony.hasTriad);
     }
@@ -47,7 +47,7 @@ var levels = [
   {
     title: 'Play some static harmony',
     hint: 'Switch between tonic and dominant triads a few times',
-    solfegeTriggers: makeDiatonicTriggers(['do', 'mi', 'sol', 'ti', 're']),
+    solfegeTriggers: makeTriggers(['do', 'mi', 'sol', 'ti', 're']),
     complete: function (analysis, game) {
       return this.score >= 15;
     },
@@ -59,7 +59,7 @@ var levels = [
   {
     title: 'Play the subdominant triad',
     hint: 'Swipe the highlighted triggers',
-    solfegeTriggers: makeDiatonicTriggers(['fa', 'la', 'do']),
+    solfegeTriggers: makeTriggers(['fa', 'la', 'do']),
     complete: function (analysis, game) {
       return (analysis.harmony.root === 'fa' && analysis.harmony.hasTriad);
     }
@@ -67,22 +67,14 @@ var levels = [
   {
     title: 'Play an authentic cadence',
     hint: 'Play the tonic, the subdominant, the dominant then the tonic',
-    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
+    solfegeTriggers: makeTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
     complete: function (analysis, game) {
       return analysis.cadence === 'sdt' && analysis.harmony.root === 'do';
     }
   },
   {
-    title: 'Play the Secondary Dominant',
-    hint: 'Swipe the highlighted triggers',
-    solfegeTriggers: makeDiatonicTriggers(['re', 'fi', 'la']),
-    complete: function (analysis, game) {
-      return (analysis.harmony.root === 're' && analysis.harmony.hasTriad && analysis.harmony.quality === 'major');
-    }
-  },
-  {
     title: 'Finished!',
-    solfegeTriggers: makeDiatonicTriggers(['do', 're', 'mi', 'me', 'fa', 'fi', 'sol', 'la', 'le', 'ti', 'te']),
+    solfegeTriggers: makeTriggers(['do', 're', 'mi', 'fa', 'sol', 'la', 'ti']),
     complete: function (analysis, game) { return false; }
   }
 ];
