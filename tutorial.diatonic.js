@@ -87,20 +87,22 @@ var levels = [
   }
 ];
 
-musis.game = {
+musis.tutorial = musis.tutorial || {};
+
+musis.tutorial.diatonic = {
   levelIdx: 0,
   level: levels[0]
 };
 
-musis.game.begin = function (draw) {
+musis.tutorial.diatonic.begin = function (draw) {
   info(this.level, draw);
 };
 
-musis.game.solfegeTriggers = function () {
+musis.tutorial.diatonic.solfegeTriggers = function () {
   return this.level.solfegeTriggers;
 };
 
-musis.game.nextHarmony = function (draw, analysis) {
+musis.tutorial.diatonic.nextHarmony = function (draw, analysis) {
   var completedLevel = false;
   if (this.level.nextHarmony) {
     this.level.nextHarmony(analysis, this.lastAnalysis);

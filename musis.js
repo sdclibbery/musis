@@ -9,16 +9,18 @@ var metronome;
 var triggers;
 var music;
 var terrain;
+var game;
 
 musis.begin = function () {
   draw = new musis.draw();
   play = new musis.play();
   stars = new musis.stars();
   metronome = new musis.metronome();
-  triggers = createSolfegeTriggers(draw);
   music = new musis.music();
   terrain = new musis.terrain();
-  musis.game.begin(draw);
+  game = musis.tutorial.diatonic;
+  game.begin(draw);
+  triggers = createSolfegeTriggers(draw);
 };
 
 var s = null;
@@ -63,14 +65,14 @@ musis.frame = function (t, dt, gl, cw, ch) {
 };
 
 var createSolfegeTriggers = function (draw) {
-  return new musis.triggers(musis.game.solfegeTriggers(), "solfege");
+  return new musis.triggers(game.solfegeTriggers(), "solfege");
 };
 
 var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
 console.log(analysis);
   terrain.nextHarmony(analysis);
-  if (musis.game.nextHarmony(draw, analysis)) { stars.bigBurst(); }
+  if (game.nextHarmony(draw, analysis)) { stars.bigBurst(); }
   triggers = createSolfegeTriggers(draw);
 };
 
