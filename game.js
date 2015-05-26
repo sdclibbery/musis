@@ -93,7 +93,7 @@ musis.game = {
 };
 
 musis.game.begin = function (draw) {
-  this.info(draw);
+  info(this.level, draw);
 };
 
 musis.game.solfegeTriggers = function () {
@@ -111,13 +111,13 @@ musis.game.nextHarmony = function (draw, analysis) {
     this.level = levels[this.levelIdx];
     completedLevel = true;
   }
-  this.info(draw);
+  info(this.level, draw);
   return completedLevel;
 };
 
-musis.game.info = function (draw) {
-  draw.title(this.level.title);
-  draw.hint('Hint: '+this.level.hint);
+var info = function (level, draw) {
+  draw.title(level.title);
+  draw.hint('Hint: '+level.hint);
 };
 
 })();
