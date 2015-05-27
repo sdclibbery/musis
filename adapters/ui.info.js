@@ -2,12 +2,14 @@
 
 // Adapter for drawing info text
 
-musis.draw.prototype.title = function (t) {
-  setInfo(this, 'title', t);
+musis.ui = musis.ui || {};
+
+musis.ui.title = function (t) {
+  setInfo(this.draw, 'title', t);
 };
 
-musis.draw.prototype.hint = function (t) {
-  setInfo(this, 'hint', t);
+musis.ui.hint = function (t) {
+  setInfo(this.draw, 'hint', t);
 };
 
 var setInfo = function (draw, type, t) {

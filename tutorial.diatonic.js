@@ -69,15 +69,15 @@ musis.tutorial.diatonic = {
   level: levels[0]
 };
 
-musis.tutorial.diatonic.begin = function (draw) {
-  info(this.level, draw);
+musis.tutorial.diatonic.begin = function () {
+  info(this.level);
 };
 
 musis.tutorial.diatonic.solfegeTriggers = function () {
   return this.level.solfegeTriggers;
 };
 
-musis.tutorial.diatonic.nextHarmony = function (draw, analysis) {
+musis.tutorial.diatonic.nextHarmony = function (analysis) {
   var completedLevel = false;
   if (this.level.nextHarmony) {
     this.level.nextHarmony(analysis, this.lastAnalysis);
@@ -88,13 +88,13 @@ musis.tutorial.diatonic.nextHarmony = function (draw, analysis) {
     this.level = levels[this.levelIdx];
     completedLevel = true;
   }
-  info(this.level, draw);
+  info(this.level);
   return completedLevel;
 };
 
-var info = function (level, draw) {
-  draw.title(level.title);
-  draw.hint('Hint: '+level.hint);
+var info = function (level) {
+  musis.ui.title(level.title);
+  musis.ui.hint('Hint: '+level.hint);
 };
 
 })();
