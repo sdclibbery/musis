@@ -19,7 +19,7 @@ musis.begin = function () {
   metronome = new musis.metronome();
   music = new musis.music();
   terrain = new musis.terrain();
-  game = musis.tutorial.diatonic;
+  game = musis.menus;
   game.begin();
   triggers = createSolfegeTriggers();
 };
@@ -66,6 +66,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
 };
 
 var createSolfegeTriggers = function () {
+  if (!game.solfegeTriggers) { return new musis.triggers([]); }
   var enabled = game.solfegeTriggers();
   var info = [
     [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
@@ -88,7 +89,7 @@ var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
 console.log(analysis);
   terrain.nextHarmony(analysis);
-  if (game.nextHarmony(analysis)) { stars.bigBurst(); }
+  if (game.nextHarmony && game.nextHarmony(analysis)) { stars.bigBurst(); }
   triggers = createSolfegeTriggers();
 };
 
