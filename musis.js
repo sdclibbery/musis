@@ -19,7 +19,14 @@ musis.begin = function () {
   metronome = new musis.metronome();
   music = new musis.music();
   terrain = new musis.terrain();
-  game = musis.menus;
+  this.changeGame(musis.menus);
+};
+
+musis.changeGame = function (next) {
+  musis.ui.menu.clear();
+  musis.ui.title('');
+  musis.ui.hint('');
+  game = next;
   game.begin();
   triggers = createSolfegeTriggers();
 };
@@ -66,6 +73,7 @@ musis.frame = function (t, dt, gl, cw, ch) {
 };
 
 var createSolfegeTriggers = function () {
+console.log(game.solfegeTriggers);
   if (!game.solfegeTriggers) { return new musis.triggers([]); }
   var enabled = game.solfegeTriggers();
   var info = [
