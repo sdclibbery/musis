@@ -15,7 +15,8 @@ var menus = {
     title: 'tutorials',
     items: [
       { name: 'diatonic harmony', action: function () { musis.changeGame(musis.tutorial.diatonic); } },
-      { name: 'chromatic harmony', action: function () { musis.changeGame(musis.tutorial.chromatic); } }
+      { name: 'chromatic harmony', action: function () { musis.changeGame(musis.tutorial.chromatic); } },
+      { name: 'back', action: function () { show(menus.home); } }
     ]
   }
 };
