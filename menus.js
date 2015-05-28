@@ -15,13 +15,17 @@ var menus = {
     title: 'tutorials',
     items: [
       { name: 'diatonic harmony', action: function () { musis.changeGame(musis.tutorial.diatonic); } },
-      { name: 'chromatic harmony', action: function () { musis.changeGame(musis.tutorial.chromatic); } },
-      { name: 'back', action: function () { show(menus.home); } }
+      { name: 'chromatic harmony', action: function () { musis.changeGame(musis.tutorial.chromatic); } }
     ]
   }
 };
 
 musis.menus = {};
+
+musis.menus.goHome = function () {
+  musis.changeGame(musis.menus);
+  show(menus.home);
+};
 
 musis.menus.begin = function () {
   show(menus.home);

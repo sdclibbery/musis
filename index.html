@@ -43,12 +43,19 @@
     border: 2px solid #c0c0c0;
     border-radius: 8px;
     background: #404040;
-    padding: 8px;
+    padding: 6px;
     text-align: center;
     font-size: 1.4em;
   }
   .menu-item:hover {
     background: #606060;
+  }
+  .home-item {
+    width: 24px;
+    position:absolute;
+    top: 0px;
+    right: 0px;
+    margin: 16px;
   }
   </style>
   </head>
@@ -58,6 +65,7 @@
     <h1 id="title"></h1>
     <h5 id="hint"></h5>
     <div id="menu"></div>
+    <div class="menu-item home-item" onclick="javascript:musis.menus.goHome();">&#x2302;</div>
   </div>
   <script type="text/javascript">
 
@@ -85,7 +93,7 @@ x new menu object that acts like a game
  x click callback for menu items
  x mouse over highlight for menu items
  x action to switch from menu to a game
- * go back to parent menu
+ x go back to parent menu
 * tutorials return to main menu after completion
 * menus
  * harmony tutorial
