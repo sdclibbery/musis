@@ -16,7 +16,12 @@ musis.ui.menu.item = function (name, action) {
   var item = document.createElement('div');
   item.className = 'menu-item';
   item.innerHTML = name;
-  item.onclick = action;
+  item.onclick = function () {
+    var newName = action();
+    if (newName) {
+      item.innerHTML = newName;
+    }
+  }
   menu.appendChild(item);
 };
 
