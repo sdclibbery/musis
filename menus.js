@@ -22,8 +22,8 @@ var menus = {
     title: 'settings',
     items: [
       {
-        name: function () { return 'Tuning: '+musis.tuning.current(); },
-        action: function () { musis.tuning.swap(); return 'Tuning: '+musis.tuning.current(); }
+        name: function () { return 'Tuning: '+musis.tuning.name(); },
+        action: function () { musis.tuning.swap(); return 'Tuning: '+musis.tuning.name(); }
       },
     ]
   }
