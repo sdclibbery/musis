@@ -29,6 +29,7 @@
   <script type="text/javascript" src="menus.js"></script>
   <script type="text/javascript" src="tutorial.diatonic.js"></script>
   <script type="text/javascript" src="tutorial.chromatic.js"></script>
+  <script type="text/javascript" src="freeplay.js"></script>
   <style>
   .fullscreen {
     position:absolute;
@@ -93,18 +94,19 @@ x new menu object that acts like a game
  x click callback for menu items
  x mouse over highlight for menu items
  x action to switch from menu to a game
- x go back to parent menu
-* tutorials return to main menu after completion
+x button to return to home menu
 * menus
- * harmony tutorial
+ x harmony tutorial
   x 1: diatonic (all existing except sec.dom.)
   x 2: chromatic (sec.dom.)
-  * 3: minor
-  * 4: modulation
  * free play
  * settings (12tet vs ji)
+* refactor: tutorial.diatonic etc should only contain level defs, not the actual begin() etc etc function
 * issue with terrain rendering on chrome on the win7 desktop
-* visual indication of authentic cadence
+* better feedback when you do good stuff
+ * refactor: big starburst should NOT be triggered on a return value :-)
+ * visual indication of authentic cadence
+ * more...
 * voice leading goes a bit mad on T-D-S-T...
 * More levels:
  * 1: minor chords and their functions
@@ -116,6 +118,9 @@ x new menu object that acts like a game
 * Modulation
  * detect modulations
  * indicate key with a small border around the triggers: blue if in tonic key, red for dominant etc
+* more tutorials
+ * 3: minor
+ * 4: modulation
 * Voicing: score against parallel fifths/octaves
 * Voicing: score to encourage tritone resolution
 ** Rhythm

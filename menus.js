@@ -7,7 +7,7 @@ var menus = {
     title: 'musis',
     items: [
       { name: 'tutorials', action: function () { show(menus.tutorials); } },
-      { name: 'free play' },
+      { name: 'free play', action: function () { musis.changeGame(musis.freeplay); } },
       { name: 'settings' }
     ]
   },
