@@ -62,7 +62,7 @@
   }
   </style>
   </head>
-<body style="margin:0px;">
+<body style="margin:0px; background-color: black;">
   <canvas id="canvas" class="fullscreen" style="width:100%; height:100%;"></canvas>
   <div id="info" class="fullscreen" style="color:#e0e0e0; font-family:helvetica,arial;">
     <h1 id="title"></h1>
@@ -104,7 +104,10 @@ x button to return to home menu
  x free play
  x settings (12tet vs ji)
 x refactor: tutorial.diatonic etc should only contain level defs, not the actual begin() etc etc function
-* issue with terrain rendering on chrome on the win7 desktop
+* compat
+ x error reporting when web audio or webgl is missing
+ * issue with terrain rendering on chrome on the win7 desktop
+  ?? back face culling..??
 * better feedback when you do good stuff
  * refactor: big starburst should NOT be triggered on a return value :-)
  * visual indication of authentic cadence
@@ -145,6 +148,8 @@ x refactor: tutorial.diatonic etc should only contain level defs, not the actual
 ! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 */
 
+try { if (!AudioContext) { throw 1; } } catch(e) { document.getElementById('info').innerHTML = 'Web Audio not supported!'; }
+
 musis.begin();
 
 var canvas = document.getElementById("canvas");
@@ -158,6 +163,7 @@ onResize();
 
 var ctxGl = canvas.getContext("webgl");
 if (!ctxGl) { ctxGl = canvas.getContext("experimental-webgl"); }
+if (!ctxGl) { document.getElementById('info').innerHTML = 'WebGL not supported!'; }
 var tLast;
 var frame = function (t) {
   if (tLast) {
