@@ -134,6 +134,7 @@ musis.draw.prototype.terrain = function (bpm, tension, root, func, triad) {
   this.gl.bindBuffer(this.gl.ELEMENT_ARRAY_BUFFER, indexBuffer);
 
   this.gl.disable(this.gl.BLEND);
+  this.gl.disable(this.gl.CULL_FACE);
   this.gl.drawElements(this.gl.TRIANGLES, numIndices, this.gl.UNSIGNED_SHORT, 0);
 };
 
