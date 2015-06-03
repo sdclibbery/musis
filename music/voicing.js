@@ -39,7 +39,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .sort(cmpScore)
   ;
   var voicing = combs[0];  // choose the best
-console.log(voicing);
+//console.log(voicing);
   musis.voicing.previous = voicing;
 
   // todo:return voicing but also left-over PCs!

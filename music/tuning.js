@@ -47,7 +47,6 @@ musis.tuning.name = function () {
 };
 
 musis.tuning.freq = function (pitchClass) {
-console.log(this.current+': '+pitchClass);
   return tunings[this.current][pitchClass];
 };
 
