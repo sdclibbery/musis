@@ -33,7 +33,7 @@ describe("voicing", function() {
     return true;
   } );
 
-  // property("lowest note is bass pc", function (pcs, ns) { return ; } );
+  property("lowest note is bass pc", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
 
   // property("bass is in range", function (pcs, ns) { return ; } );
 
