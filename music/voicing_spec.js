@@ -14,6 +14,12 @@ var property = function (name, cond) {
   });
 };
 
+var inRange = function (n, l, h) {
+  if (n.isLowerThan(new musis.note(l))) { return false; }
+  if (n.isHigherThan(new musis.note(h))) { return false; }
+  return true;
+};
+
 describe("voicing", function() {
 
   property("produces four voices", function (pcs, ns) { return ns.length === 4; } );
@@ -35,7 +41,7 @@ describe("voicing", function() {
 
   property("lowest note is bass pc", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
 
-  // property("bass is in range", function (pcs, ns) { return ; } );
+  property("bass is in range", function (pcs, ns) { return inRange(ns[0], 'E2', 'E4'); } );
 
   // property("tenor is in range", function (pcs, ns) { return ; } );
 
