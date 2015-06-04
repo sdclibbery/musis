@@ -42,12 +42,9 @@ describe("voicing", function() {
   property("lowest note is bass pc", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
 
   property("bass is in range", function (pcs, ns) { return inRange(ns[0], 'E2', 'E4'); } );
-
-  // property("tenor is in range", function (pcs, ns) { return ; } );
-
-  // property("alto is in range", function (pcs, ns) { return ; } );
-
-  // property("soprano is in range", function (pcs, ns) { return ; } );
+  property("tenor is in range", function (pcs, ns) { return inRange(ns[1], 'C3', 'C5'); } );
+  property("alto is in range", function (pcs, ns) { return inRange(ns[2], 'G3', 'F5'); } );
+  property("soprano is in range", function (pcs, ns) { return inRange(ns[3], 'C4', 'C6'); } );
 
   // property("either open or closed voicing", function (pcs, ns) { return ; } );
 
