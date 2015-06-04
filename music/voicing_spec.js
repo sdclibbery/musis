@@ -21,12 +21,17 @@ describe("voicing", function() {
   property("all of first four pcs are represented", function (pcs, ns) {
     return pcs.slice(0, 4).every(function (pc) {
       return ns.some(function (n) {
-        return n.pitchClass === pc; 
+        return n.pitchClass === pc;
       });
     });
   } );
 
-  // property("voices are in order of pitch", function (pcs, ns) { return ; } );
+  property("voices are in order of pitch", function (pcs, ns) {
+    for (i=1; i<4; i++) {
+      if (ns[i].chromaticDiff(ns[i-1]) < 0) { return false; }
+    }
+    return true;
+  } );
 
   // property("lowest note is bass pc", function (pcs, ns) { return ; } );
 
