@@ -29,6 +29,10 @@ var inRange = function (n, l, h) {
 };
 
 describe("voicing", function() {
+  var bass = 0;
+  var tenor = 1;
+  var alto = 2;
+  var soprano = 3;
 
   property("produces four voices", function (pcs, ns) { return ns.length === 4; } );
 
@@ -40,23 +44,23 @@ describe("voicing", function() {
     });
   } );
 
-  property("bass is lower than tenor", function (pcs, ns) { return ns[0].chromaticDiff(ns[1]) < 0; } );
-  property("tenor is not higher than alto", function (pcs, ns) { return ns[1].chromaticDiff(ns[2]) <= 0; } );
-  property("alto is not higher than soprano", function (pcs, ns) { return ns[2].chromaticDiff(ns[3]) <= 0; } );
+  property("bass is lower than tenor", function (pcs, ns) { return ns[bass].chromaticDiff(ns[tenor]) < 0; } );
+  property("tenor is not higher than alto", function (pcs, ns) { return ns[tenor].chromaticDiff(ns[alto]) <= 0; } );
+  property("alto is not higher than soprano", function (pcs, ns) { return ns[alto].chromaticDiff(ns[soprano]) <= 0; } );
 
-  property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
+  property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[tenor].chromaticDiff(ns[bass]) >= 5; } );
 
-  property("first pc becomes the bass note", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
+  property("first pc becomes the bass note", function (pcs, ns) { return ns[bass].pitchClass === pcs[bass]; } );
 
-  property("bass is in range", function (pcs, ns) { return inRange(ns[0], 'E2', 'E4'); } );
-  property("tenor is in range", function (pcs, ns) { return inRange(ns[1], 'C3', 'C5'); } );
-  property("alto is in range", function (pcs, ns) { return inRange(ns[2], 'G3', 'F5'); } );
-  property("soprano is in range", function (pcs, ns) { return inRange(ns[3], 'C4', 'C6'); } );
+  property("bass is in range", function (pcs, ns) { return inRange(ns[bass], 'E2', 'E4'); } );
+  property("tenor is in range", function (pcs, ns) { return inRange(ns[tenor], 'C3', 'C5'); } );
+  property("alto is in range", function (pcs, ns) { return inRange(ns[alto], 'G3', 'F5'); } );
+  property("soprano is in range", function (pcs, ns) { return inRange(ns[soprano], 'C4', 'C6'); } );
 
-  property("bass moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[0].chromaticDiff(prevNs[0])) <= 12; } );
-  property("tenor moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[1].chromaticDiff(prevNs[1])) <= 12; } );
-  property("alto moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[2].chromaticDiff(prevNs[2])) <= 12; } );
-  property("soprano moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[3].chromaticDiff(prevNs[3])) <= 12; } );
+  property("bass moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[bass].chromaticDiff(prevNs[bass])) <= 12; } );
+  property("tenor moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[tenor].chromaticDiff(prevNs[tenor])) <= 12; } );
+  property("alto moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[alto].chromaticDiff(prevNs[alto])) <= 12; } );
+  property("soprano moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[soprano].chromaticDiff(prevNs[soprano])) <= 12; } );
 
   // property("no consecutive octaves", function (pcs, ns) { return ; } );
 
