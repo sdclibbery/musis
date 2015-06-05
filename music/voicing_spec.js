@@ -9,8 +9,12 @@ var arbPcs = jsc.nearray(jsc.elements(['C', 'E', 'G', 'B', 'D', 'F', 'A', 'F#', 
 
 var property = function (name, cond) {
   jsc.property(name, arbPcs, function (pcs) {
+    var prevNotes = musis.voicing.previous;
     var notes = musis.voicing.assignToVoices(pcs);
-    if (!cond(pcs, notes)) {
+    if (!cond(pcs, notes, prevNotes)) {
+      console.log('prev: ');
+      prevNotes.map(function (n) { console.log(n.toString()); });
+      console.log('next: ');
       notes.map(function (n) { console.log(n.toString()); });
       return false;
     }
@@ -52,11 +56,7 @@ describe("voicing", function() {
 
   property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
 
-  // property("voices do not cross", function (pcs, ns) { return ; } );
-
-  // property("voices do not overlap", function (pcs, ns) { return ; } );
-
-  // property("smooth movement", function (pcs, ns) { return ; } );
+  property("bass moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[0].chromaticDiff(prevNs[0])) <= 12; } );
 
   // property("no consecutive octaves", function (pcs, ns) { return ; } );
 
