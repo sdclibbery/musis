@@ -40,21 +40,18 @@ describe("voicing", function() {
     });
   } );
 
-  property("voices are in order of pitch", function (pcs, ns) {
-    for (i=1; i<4; i++) {
-      if (ns[i].chromaticDiff(ns[i-1]) < 0) { return false; }
-    }
-    return true;
-  } );
+  property("bass is lower than tenor", function (pcs, ns) { return ns[0].chromaticDiff(ns[1]) < 0; } );
+  property("tenor is not higher than alto", function (pcs, ns) { return ns[1].chromaticDiff(ns[2]) <= 0; } );
+  property("alto is not higher than soprano", function (pcs, ns) { return ns[2].chromaticDiff(ns[3]) <= 0; } );
 
-  property("lowest note is bass pc", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
+  property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
+
+  property("first pc becomes the bass note", function (pcs, ns) { return ns[0].pitchClass === pcs[0]; } );
 
   property("bass is in range", function (pcs, ns) { return inRange(ns[0], 'E2', 'E4'); } );
   property("tenor is in range", function (pcs, ns) { return inRange(ns[1], 'C3', 'C5'); } );
   property("alto is in range", function (pcs, ns) { return inRange(ns[2], 'G3', 'F5'); } );
   property("soprano is in range", function (pcs, ns) { return inRange(ns[3], 'C4', 'C6'); } );
-
-  property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
 
   property("bass moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[0].chromaticDiff(prevNs[0])) <= 12; } );
   property("tenor moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[1].chromaticDiff(prevNs[1])) <= 12; } );
