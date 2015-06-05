@@ -10,7 +10,11 @@ var arbPcs = jsc.nearray(jsc.elements(['C', 'E', 'G', 'B', 'D', 'F', 'A', 'F#', 
 var property = function (name, cond) {
   jsc.property(name, arbPcs, function (pcs) {
     var notes = musis.voicing.assignToVoices(pcs);
-    return !!cond(pcs, notes);
+    if (!cond(pcs, notes)) {
+      notes.map(function (n) { console.log(n.toString()); });
+      return false;
+    }
+    return true;
   });
 };
 
@@ -46,7 +50,7 @@ describe("voicing", function() {
   property("alto is in range", function (pcs, ns) { return inRange(ns[2], 'G3', 'F5'); } );
   property("soprano is in range", function (pcs, ns) { return inRange(ns[3], 'C4', 'C6'); } );
 
-  // property("either open or closed voicing", function (pcs, ns) { return ; } );
+  property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
 
   // property("voices do not cross", function (pcs, ns) { return ; } );
 

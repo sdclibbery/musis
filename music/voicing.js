@@ -29,6 +29,7 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .map(insertBass)
     .filter(allPCsPresent)
     .reduce(toNotesInRange, [])
+    .filter(gapBetweenBassAndTenor)
     .filter(notCrossed) // after this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
     .map(scoreRange)
@@ -65,6 +66,11 @@ var notesWithinRange = function (pc, range) {
   }
   return res;
 };
+
+var gapBetweenBassAndTenor = function (notes) {
+  return notes[1].chromaticDiff(notes[0]) >= 5;
+};
+
 
 var notCrossed = function (notes) {
   for (var i = 1; i < 4; i++) {
