@@ -57,6 +57,9 @@ describe("voicing", function() {
   property("at least a fourth between bass and tenor", function (pcs, ns) { return ns[1].chromaticDiff(ns[0]) >= 5; } );
 
   property("bass moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[0].chromaticDiff(prevNs[0])) <= 12; } );
+  property("tenor moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[1].chromaticDiff(prevNs[1])) <= 12; } );
+  property("alto moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[2].chromaticDiff(prevNs[2])) <= 12; } );
+  property("soprano moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[3].chromaticDiff(prevNs[3])) <= 12; } );
 
   // property("no consecutive octaves", function (pcs, ns) { return ; } );
 
