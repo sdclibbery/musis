@@ -2,7 +2,10 @@
 
 // Domain
 
-// just intonation in C
+var equal12tet = '12-TET Equal Temperament';
+var just5limit = '5-Limit Just Intonation';
+
+// just5limit intonation in C
 var C = 440*3/5; // root generator of the key
 var fifth = 3/2; // perfect fifth
 var G = C*fifth; // dominant generator
@@ -10,7 +13,7 @@ var F = C/fifth*2; // sub-dominant generator
 var third = 5/4; // major third
 
 var tunings = {
-  '12tet': {
+  equal12tet: {
     C: 440*Math.pow(2, -9/12),
     D: 440*Math.pow(2, -7/12),
     Eb: 440*Math.pow(2, -4/12),
@@ -23,7 +26,7 @@ var tunings = {
     Bb: 440*Math.pow(2, 1/12),
     B: 440*Math.pow(2, 2/12)
   },
-  just: {
+ just5limit: {
     C: C,
     D: G*fifth/2,
     Eb: G/third,
@@ -39,7 +42,7 @@ var tunings = {
 };
 
 musis.tuning = {
-  current: 'just'
+  current: just5limit
 };
 
 musis.tuning.name = function () {
@@ -51,7 +54,7 @@ musis.tuning.freq = function (pitchClass) {
 };
 
 musis.tuning.swap = function () {
-  this.current = (this.current === 'just') ? '12tet' : 'just';
+  this.current = (this.current === just5limit) ? equal12tet : just5limit;
 };
 
 })();

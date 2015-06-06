@@ -62,6 +62,8 @@ describe("voicing", function() {
   property("alto moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[alto].chromaticDiff(prevNs[alto])) <= 12; } );
   property("soprano moves smoothly", function (pcs, ns, prevNs) { return Math.abs(ns[soprano].chromaticDiff(prevNs[soprano])) <= 12; } );
 
+  // leading note resolution..?
+
   // property("no consecutive octaves", function (pcs, ns) { return ; } );
 
   // property("no consecutive fifths", function (pcs, ns) { return ; } );
