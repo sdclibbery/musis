@@ -64,6 +64,8 @@ describe("voicing", function() {
 
   // leading note resolution..?
 
+  // tritone resolution..?
+
   // property("no consecutive octaves", function (pcs, ns) { return ; } );
 
   // property("no consecutive fifths", function (pcs, ns) { return ; } );

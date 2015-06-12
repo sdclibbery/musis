@@ -95,7 +95,6 @@ console.log(game.solfegeTriggers);
 
 var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
-console.log(analysis);
   terrain.nextHarmony(analysis);
   if (game.nextHarmony && game.nextHarmony(analysis)) { stars.bigBurst(); }
   triggers = createSolfegeTriggers();

@@ -33,9 +33,8 @@ musis.voicing.assignToVoices = function (pitchClasses) {
     .filter(notCrossed) // after this point we have all possible valid voicings; now lets pick the best
     .map(addScore)
     .map(scoreRange)
-    .map(scoreSpacing)
     .map(scoreSmoothness)
-    .map(scoreLeadingNoteResolution)
+//    .map(scoreLeadingNoteResolution)
 //    .map(scoreParallels)
     .sort(cmpScore)
   ;
@@ -87,15 +86,6 @@ var scoreRange = function (notes) {
     var diff = note.chromaticDiff(ranges[voices[idx]].mid);
     notes.score -= Math.abs(diff);
   });
-  return notes;
-};
-
-var scoreSpacing = function (notes) {
-  for (var i = 1; i < 4; i++) {
-    var diff = notes[i].chromaticDiff(notes[i-1]);
-    var limit = (i === 1) ? 12 : 7;
-    notes.score += limit - Math.max(Math.abs(diff), limit);
-  }
   return notes;
 };
 
