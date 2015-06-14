@@ -47,7 +47,7 @@ musis.draw.prototype.colours = {
   function: {
     none: grey,
     tonic: green,
-    subdominant: wine,
+    predominant: wine,
     dominant: skyBlue,
     diminished: yellow
   }

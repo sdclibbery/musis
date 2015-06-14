@@ -114,7 +114,7 @@ musis.draw.prototype.terrain = function (bpm, tension, root, func, triad) {
   this.gl.uniform1f(bpsUnif, bpm/60);
 
   var curve = 0;
-  if (func === 'subdominant') { curve = 10/size; }
+  if (func === 'predominant') { curve = 10/size; }
   if (func === 'diminished') { curve = 5/size; }
   if (func === 'dominant') { curve = -1/size; }
   this.gl.uniform1f(curveUnif, curve);

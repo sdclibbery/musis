@@ -78,15 +78,15 @@ musis.harmony.analyse = function (solfege) {
 var rootFunction = function (r) {
   return {
     do: 'tonic',
-    re: 'subdominant',
-    me: 'tonic', //?
+    re: 'predominant',
+    me: 'tonic',
     mi: 'tonic',
-    fa: 'subdominant',
+    fa: 'predominant',
     fi: 'diminished',
     sol: 'dominant',
-    le: 'tonic', //?
+    le: 'predominant',
     la: 'tonic',
-    te: 'dominant', //?
+    te: 'dominant',
     ti: 'dominant'
   }[r];
 };
