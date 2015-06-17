@@ -52,7 +52,7 @@ var levels = [
     hint: 'Play the tonic, the subdominant, the dominant then the tonic',
     solfegeTriggers: ['do', 're', 'mi', 'fa', 'sol', 'la', 'ti'],
     complete: function (analysis, game) {
-      return analysis.cadence === 'sdt' && analysis.harmony.root === 'do';
+      return analysis.cadence === 'pdt' && analysis.harmony.root === 'do';
     }
   },
   {
