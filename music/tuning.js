@@ -41,7 +41,7 @@ tunings[just5limit] = {
 };
 
 musis.tuning = {
-  current: just5limit
+  current: equal12tet
 };
 
 musis.tuning.name = function () {
