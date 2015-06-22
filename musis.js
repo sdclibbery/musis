@@ -4,21 +4,17 @@
 
 musis = {}
 
-var stars;
 var metronome;
 var triggers;
 var music;
-var terrain;
 var game;
 
 musis.begin = function () {
   draw = new musis.draw();
   musis.ui.draw = draw;
   play = new musis.play();
-  stars = new musis.stars();
   metronome = new musis.metronome();
   music = new musis.music();
-  terrain = new musis.terrain();
   this.changeGame(musis.freeplay);
 };
 
@@ -61,14 +57,12 @@ musis.frame = function (t, dt, gl, cw, ch) {
 
   metronome.update(play.timeNow(), function (beat) {
     music.beat(beat, function (events, notes) {
-      musis.perform.beat(play, stars, events);
+      musis.perform.beat(play, events);
     });
   });
   triggers.update(dt);
 
   draw.frameStart(t, gl, cw, ch);
-  terrain.render(draw, metronome);
-  stars.render(draw);
   triggers.render(draw);
 };
 
@@ -95,8 +89,6 @@ console.log(game.solfegeTriggers);
 
 var toNextHarmony = function (nextHarmony) {
   var analysis = music.nextHarmony(nextHarmony);
-  terrain.nextHarmony(analysis);
-  if (game.nextHarmony && game.nextHarmony(analysis)) { stars.bigBurst(); }
   triggers = createSolfegeTriggers();
 };
 

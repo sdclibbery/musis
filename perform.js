@@ -4,11 +4,10 @@
 
 musis.perform = {};
 
-musis.perform.beat = function (play, stars, events) {
+musis.perform.beat = function (play, events) {
   events.map(function (event) {
     if (event.note) {
       play[event.instrument](event.time, event.note.freq(), event.duration);
-      stars.burst(event.note); // if event is later in the beat, this should be delayed
     } else if (event.percussion) {
       play[event.percussion](event.time);
     }
