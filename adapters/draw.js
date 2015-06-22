@@ -17,39 +17,36 @@ var flat = function (col) {
     return 0.2+v*0.4;
   });
 };
+
 var grey = [0.3, 0.3, 0.3];
-var green = [0.2, 0.7, 0.1];
-var wine = [0.6, 0.1, 0.2];
-var yellow = [0.8, 0.7, 0.0];
-var brown = [0.7, 0.3, 0.1];
-var skyBlue = [0.5, 0.6, 1.0];
-var blue = [0.0, 0.0, 1.0];
-var silver = [0.85, 0.8, 0.9];
-var cyan = [0.0, 0.5, 1.0];
-var gold = [1.0, 0.7, 0.1];
-var red = [1.0, 0.0, 0.0];
-var purple = [0.7, 0.0, 0.9];
+var blue = [2/255, 110/255, 255/255];
+var green = [12/255, 139/255, 0/255];
+var red = [239/255, 0/255, 17/255];
+var yellow = [148/255, 114/255, 0/255];
+var orange = [193/255, 89/255, 0/255];
+var cyan = [0/255, 132/255, 137/255];
+var purple = [192/255, 0/255, 255/255];
 musis.draw.prototype.colours = {
   solfege: {
     none: grey,
-    do: green,
-    re: gold,
-    mi: brown,
-    me: flat(brown),
+    do: blue,
+    re: orange,
+    mi: cyan,
+    me: flat(cyan),
     fa: red,
     fi: sharp(red),
-    sol: cyan,
+    sol: green,
     la: purple,
     le: flat(purple),
-    ti: silver,
-    te: flat(silver)
+    ti: yellow,
+    te: flat(yellow)
   },
   function: {
     none: grey,
-    tonic: green,
-    predominant: wine,
-    dominant: skyBlue,
-    diminished: yellow
+    tonic: blue,
+    predominant: red,
+    dominant: green,
+    diminished: cyan
   }
 };
 
