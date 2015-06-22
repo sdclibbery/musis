@@ -73,67 +73,36 @@
   <script type="text/javascript">
 
 /*
-x 1.3: authentic cadence
- x require t-s-d-t motion; final t must really be tonic
-x add trigger for 'fi'
- x and also colours and note frequencies etc
- x also position the trigger
- x and give it a different shape
- x add triggers for 'le' and 'te'
-  x and also colours and note frequencies etc
-x Drawing tweaks
- x recolor sharp and flat solfeges
- x subdom terrain should wrap round as if a tunnel
-x 1.5: secondary dominant
- x need to implement analysis.harmony.quality somehow
-x ditch score: theres no point
-x both hint and title text should highlight names of functions in appropriate colours
-x game rename to tutorial.harmony.diatonic
-x new tutorial.harmony.chromatic, gets the sec.dom. level
-x move makeTriggers
-x menu adapter for drawing menus and responding to clicks on them
-x new menu object that acts like a game
- x click callback for menu items
- x mouse over highlight for menu items
- x action to switch from menu to a game
-x button to return to home menu
-x menus
- x harmony tutorial
-  x 1: diatonic (all existing except sec.dom.)
-  x 2: chromatic (sec.dom.)
- x free play
- x settings (12tet vs ji)
-x refactor: tutorial.diatonic etc should only contain level defs, not the actual begin() etc etc function
-x error reporting when web audio or webgl is missing
-x refactor: use 'predominant' not 'subdominant' for analysis function names and cadence string
-x default to 12-tet tuning for now
+* Remove menus and tutorials
+* Remove terrain and stars
+* Change colours: suggest blue tonic, green dom, red sub
+* Triggers become a grid
+ * Switch back to 2d canvas
+ * Select triggers in a line only
+ * Can only select triggers if they makes at least a triad
+* Queue of harmonies to play
+ * Start with four tonic chords
+ * New harmonies are added to queue
+ * Game over if queue runs out
+* Score
+ * For every new harmony played from the queue, add to score
+ ? ?Multiplier increases with every repeated harmony up to 4..?
+* Pick a random rhythm on each game start
+* Bass player
+* Rythm with arpeggios
+* Lead..?
 * voicing
  * property based tests
  * voice leading goes a bit mad on T-D-S-T...
  * score against parallel fifths/octaves
  * score to encourage tritone resolution
-* better feedback when you do good stuff
- * refactor: big starburst should NOT be triggered on a return value :-)
- * backgrounds/skys
- * visual indication of authentic cadence
- * more...
 * explore functional just intonation
  * tune notes by function in current harmony
   * eg D in GBD is 2 fifths up from C. But D in DFA is 2 fifths down and then 1 third up..!
-* More levels:
- * 1: minor chords and their functions
- * 1: deceptive cadence
- * 1: 7th chords
- * 1: sus2/sus4 chords
- * 2: using sec dom in a cadence
- * 2: use of diminished chord on fi
-* issue with terrain rendering on chrome on the win7 desktop
+  * better feedback when you do good stuff
 * Modulation
  * detect modulations
  * indicate key with a small border around the triggers: blue if in tonic key, red for dominant etc
-* more tutorials
- * 3: minor
- * 4: modulation
 ** Rhythm
 * ux for defining tempo and rhythm
 ** Melody
@@ -147,10 +116,8 @@ x default to 12-tet tuning for now
 * Allow choosing mode from supermode
  * And this informs scale for melody and available notes for harmony
 ** Other
-* tick sound when select a trigger?
 * Try getting motion blur by using alpha rect instead of clearing the back buffer (still need to clear z)
 * Instruments from FFTs: http://www.sitepoint.com/using-fourier-transforms-web-audio-api/
-* Show selected triggers and current touch linked up with glowing, pulsing, smooth lines
 ! loadVertexAttrib sucks; DONT create and discard a new vertex buffer every frame unless you need to!!
 */
 
