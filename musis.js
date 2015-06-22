@@ -19,7 +19,7 @@ musis.begin = function () {
   metronome = new musis.metronome();
   music = new musis.music();
   terrain = new musis.terrain();
-  this.changeGame(musis.menus);
+  this.changeGame(musis.freeplay);
 };
 
 musis.changeGame = function (next) {
