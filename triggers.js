@@ -31,8 +31,15 @@ var sqrDistToSegment = function(p, v, w) {
   return dist2(p, { x: v.x + t*(w.x - v.x), y: v.y + t*(w.y - v.y) });
 };
 
+var isNeighbouringThird = function (l, r) {
+  // NEEDS DOING PROPERLY in the music domain. Must handle non diatonic too; eg 'me' etc
+  var nextThird = { do: 'mi', mi: 'sol', sol: 'ti', ti: 're', re: 'fa', fa: 'la', la: 'do' };
+  return nextThird[l] === r || nextThird[r] === l;
+};
+
 trigger.prototype.touch = function (sel, s, e) {
   if (this.selected) { return; }
+  if (sel.length > 0 && !isNeighbouringThird(this.value, sel[sel.length-1])) { return; }
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
