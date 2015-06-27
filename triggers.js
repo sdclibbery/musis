@@ -43,11 +43,11 @@ trigger.prototype.touch = function (sel, s, e) {
 
 //////
 
-var static = function (x, y) {
+var dropIn = function (x, y) {
   return function (t) {
     return {
       x: x,
-      y: y
+      y: y + Math.max(1+y+x/5-t*2, 0)
     };
   };
 }
@@ -62,7 +62,7 @@ musis.triggers = function (infos, type) {
   for (var y=0; y<=5; y++) {
     for (var x=-5; x<=5; x++) {
       var i = infos[Math.floor(Math.random()*infos.length)];
-      var motion = static(x/7, y/7);
+      var motion = dropIn(x/7, y/7);
       self.triggers.push( new trigger(i.value, motion, i.acc) );
     }
   }

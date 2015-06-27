@@ -20,12 +20,12 @@ var flat = function (col) {
 
 var grey = [0.3, 0.3, 0.3];
 var blue = [0.0, 0.1, 1.0];
-var green = [0.0, 0.8, 0.0];
-var red = [0.9, 0.0, 0.0];
+var green = [0.0, 0.8, 0.2];
+var red = [0.8, 0.0, 0.2];
 var yellow = [0.8, 0.7, 0.0];
 var orange = [0.9, 0.4, 0.0];
-var cyan = [0.0, 0.5, 0.9];
-var purple = [0.6, 0.0, 0.9];
+var cyan = [0.0, 0.6, 0.8];
+var purple = [0.6, 0.0, 0.7];
 musis.draw.prototype.colours = {
   solfege: {
     none: grey,
