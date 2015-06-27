@@ -2,21 +2,13 @@
 
 // Domain
 
-var trigger = function (value, motion, size) {
+var trigger = function (value, motion, acc) {
   this.value = value;
   this.motion = motion;
   this.selected = false;
   this.p = { x: 0, y: 0 };
-  this.size = size;
+  this.accidental = acc;
 };
-
-var small = function (value, motion) {
-  return new trigger(value, motion, 0.115);
-}
-
-var large = function (value, motion) {
-  return new trigger(value, motion, 0.13);
-}
 
 trigger.prototype.update = function (t) {
   this.p = this.motion(t);
@@ -24,7 +16,7 @@ trigger.prototype.update = function (t) {
 
 trigger.prototype.render = function (draw, type) {
   var state = this.selected ? 'selected' : 'none'
-  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, state, this.accidental);
+  draw.trigger(this.p.x, this.p.y, this.value, type, state, this.accidental);
 };
 
 var sqr = function(x) { return x * x };
@@ -70,9 +62,7 @@ musis.triggers = function (infos, type) {
   var self = this;
   infos.map(function (i, idx) {
     var motion = expanding((idx-1)/num*6.28);
-    var trigger = large(i.value, motion);
-    trigger.accidental = i.acc;
-    self.triggers.push(trigger);
+    self.triggers.push( new trigger(i.value, motion, i.acc) );
   });
 };
 
