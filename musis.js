@@ -67,22 +67,17 @@ musis.frame = function (t, dt, gl, cw, ch) {
 };
 
 var createSolfegeTriggers = function () {
-console.log(game.solfegeTriggers);
   if (!game.solfegeTriggers) { return new musis.triggers([]); }
   var enabled = game.solfegeTriggers();
-  var info = [
-    [ null,                            { value: 'do', size: 'large', disabled: true },  null,                             ],
-    [ { value: 'me', disabled: true }, { value: 'mi', size: 'small', disabled: true },  null,                             ],
-    [ null,                            { value: 'sol', size: 'large', disabled: true }, null,                             ],
-    [ { value: 'te', disabled: true }, { value: 'ti', size: 'small', disabled: true },  null,                             ],
-    [ null,                            { value: 're', size: 'small', disabled: true },  null,                             ],
-    [ null,                            { value: 'fa', size: 'large', disabled: true },  { value: 'fi', disabled: true },  ],
-    [ { value: 'le', disabled: true }, { value: 'la', size: 'small', disabled: true },  null,                             ]
-  ].map(function (a) {
-    return a.map(function (t) {
-      if (t && enabled.indexOf(t.value) >= 0) { t.disabled = false; }
-      return t;
-    });
+  var info = [                    { value: 'do', acc: 'nat' },
+    { value: 'me', acc: 'flat' }, { value: 'mi', acc: 'nat' },
+                                  { value: 'sol', acc: 'nat' },
+    { value: 'te', acc: 'flat' }, { value: 'ti', acc: 'nat' },
+                                  { value: 're', acc: 'nat' },
+                                  { value: 'fa', acc: 'nat' },  { value: 'fi', acc: 'sharp' },
+    { value: 'le', acc: 'flat' }, { value: 'la', acc: 'nat' }
+  ].filter(function (t) {
+    return true;//enabled.indexOf(t) >= 0;
   });
   return new musis.triggers(info, "solfege");
 };

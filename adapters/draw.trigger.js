@@ -80,7 +80,8 @@ musis.draw.prototype.trigger = function (x, y, size, value, type, state, acciden
   var col = this.colours[type][value];
   this.gl.uniform4f(colUnif, col[0], col[1], col[2], 1);
 
-  this.gl.uniform1i(accUnif, accidental);
+  var acc = { flat: 0, nat: 1, sharp: 2 };
+  this.gl.uniform1i(accUnif, acc[accidental]);
 
   this.gl.uniform1i(selUnif, state === 'selected');
   this.gl.uniform1i(disUnif, state === 'disabled');

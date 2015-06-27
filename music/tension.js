@@ -13,7 +13,7 @@ var tensions = {
   fi: 5,
   sol: 1,
   la: 3,
-  le: 3,
+  le: 5,
   ti: 6,
   te: 6
 };
