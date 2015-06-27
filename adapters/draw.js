@@ -19,13 +19,13 @@ var flat = function (col) {
 };
 
 var grey = [0.3, 0.3, 0.3];
-var blue = [2/255, 110/255, 255/255];
-var green = [12/255, 139/255, 0/255];
-var red = [239/255, 0/255, 17/255];
-var yellow = [148/255, 114/255, 0/255];
-var orange = [193/255, 89/255, 0/255];
-var cyan = [0/255, 132/255, 137/255];
-var purple = [192/255, 0/255, 255/255];
+var blue = [0.0, 0.1, 1.0];
+var green = [0.0, 0.8, 0.0];
+var red = [0.9, 0.0, 0.0];
+var yellow = [0.8, 0.7, 0.0];
+var orange = [0.9, 0.4, 0.0];
+var cyan = [0.0, 0.5, 0.9];
+var purple = [0.6, 0.0, 0.9];
 musis.draw.prototype.colours = {
   solfege: {
     none: grey,

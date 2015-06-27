@@ -77,7 +77,7 @@ var createSolfegeTriggers = function () {
                                   { value: 'fa', acc: 'nat' },  { value: 'fi', acc: 'sharp' },
     { value: 'le', acc: 'flat' }, { value: 'la', acc: 'nat' }
   ].filter(function (t) {
-    return true;//enabled.indexOf(t) >= 0;
+    return enabled.indexOf(t.value) >= 0;
   });
   return new musis.triggers(info, "solfege");
 };

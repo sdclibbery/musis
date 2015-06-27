@@ -8,6 +8,7 @@ var trigger = function (value, motion, acc) {
   this.selected = false;
   this.p = { x: 0, y: 0 };
   this.accidental = acc;
+  this.size = 0.13;
 };
 
 trigger.prototype.update = function (t) {
@@ -16,7 +17,7 @@ trigger.prototype.update = function (t) {
 
 trigger.prototype.render = function (draw, type) {
   var state = this.selected ? 'selected' : 'none'
-  draw.trigger(this.p.x, this.p.y, this.value, type, state, this.accidental);
+  draw.trigger(this.p.x, this.p.y, this.size, this.value, type, state, this.accidental);
 };
 
 var sqr = function(x) { return x * x };
@@ -42,13 +43,11 @@ trigger.prototype.touch = function (sel, s, e) {
 
 //////
 
-var expanding = function (a) {
-  var scale = 1/3;
+var static = function (x, y) {
   return function (t) {
-    var time = Math.min(Math.pow(t/3, 0.3), 2);
     return {
-      x: time*Math.sin(a)*scale,
-      y: time*Math.cos(a)*scale
+      x: x,
+      y: y
     };
   };
 }
@@ -60,10 +59,13 @@ musis.triggers = function (infos, type) {
   this.type = type;
   var num = infos.length;
   var self = this;
-  infos.map(function (i, idx) {
-    var motion = expanding((idx-1)/num*6.28);
-    self.triggers.push( new trigger(i.value, motion, i.acc) );
-  });
+  for (var y=0; y<=5; y++) {
+    for (var x=-5; x<=5; x++) {
+      var i = infos[Math.floor(Math.random()*infos.length)];
+      var motion = static(x/7, y/7);
+      self.triggers.push( new trigger(i.value, motion, i.acc) );
+    }
+  }
 };
 
 musis.triggers.prototype.update = function (dt) {

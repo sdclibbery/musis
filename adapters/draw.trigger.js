@@ -55,7 +55,7 @@ var posBuf = null;
 var texBuf = null;
 
 
-musis.draw.prototype.trigger = function (x, y, value, type, state, accidental) {
+musis.draw.prototype.trigger = function (x, y, size, value, type, state, accidental) {
   if (!program) {
     program = this.loadProgram([
       this.loadShader(vtxShader2d, this.gl.VERTEX_SHADER),
@@ -73,7 +73,7 @@ musis.draw.prototype.trigger = function (x, y, value, type, state, accidental) {
 
   this.gl.useProgram(program);
 
-  var vtxData = this.squareVtxs(x, y, 0.13);
+  var vtxData = this.squareVtxs(x, y, size);
   this.loadVertexAttrib(posBuf, posAttr, vtxData.vtx, 2);
   this.loadVertexAttrib(texBuf, texAttr, vtxData.tex, 2);
 
