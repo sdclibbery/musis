@@ -21,30 +21,32 @@ trigger.prototype.render = function (draw, type) {
 };
 
 var sqr = function(x) { return x * x };
-var dist2 = function(v, w) { return sqr(v.x - w.x) + sqr(v.y - w.y) };
+var sqrDist = function(v, w) { return sqr(v.x - w.x) + sqr(v.y - w.y) };
 var sqrDistToSegment = function(p, v, w) {
-  var l2 = dist2(v, w);
-  if (l2 == 0) return dist2(p, v);
+  var l2 = sqrDist(v, w);
+  if (l2 == 0) return sqrDist(p, v);
   var t = ((p.x - v.x) * (w.x - v.x) + (p.y - v.y) * (w.y - v.y)) / l2;
-  if (t < 0) return dist2(p, v);
-  if (t > 1) return dist2(p, w);
-  return dist2(p, { x: v.x + t*(w.x - v.x), y: v.y + t*(w.y - v.y) });
+  if (t < 0) return sqrDist(p, v);
+  if (t > 1) return sqrDist(p, w);
+  return sqrDist(p, { x: v.x + t*(w.x - v.x), y: v.y + t*(w.y - v.y) });
 };
-
+var isNeighbouringLocation = function (l, r, size) {
+  return sqrDist(l, r) <= sqr(size*1.1);
+};
 var isNeighbouringThird = function (l, r) {
   // NEEDS DOING PROPERLY in the music domain. Must handle non diatonic too; eg 'me' etc
   var nextThird = { do: 'mi', mi: 'sol', sol: 'ti', ti: 're', re: 'fa', fa: 'la', la: 'do' };
   return nextThird[l] === r || nextThird[r] === l;
 };
-
 trigger.prototype.touch = function (sel, s, e) {
   if (this.selected) { return; }
-  if (sel.length > 0 && !isNeighbouringThird(this.value, sel[sel.length-1])) { return; }
+  if (sel.length > 0 && !isNeighbouringThird(this.value, sel[sel.length-1].value)) { return; }
+  if (sel.length > 0 && !isNeighbouringLocation(this.p, sel[sel.length-1].p, this.size)) { return; }
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
     this.selected = true;
-    sel.push(this.value);
+    sel.push(this);
   }
 };
 
@@ -92,7 +94,9 @@ musis.triggers.prototype.touch = function (tx, ty) {
 };
 
 musis.triggers.prototype.nextHarmony = function () {
-  return this.selected;
+  return this.selected.map(function (t) {
+    return t.value;
+  });
 };
 
 })();
