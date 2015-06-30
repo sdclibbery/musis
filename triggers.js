@@ -40,8 +40,11 @@ var isNeighbouringThird = function (l, r) {
 };
 trigger.prototype.touch = function (sel, s, e) {
   if (this.selected) { return; }
-  if (sel.length > 0 && !isNeighbouringThird(this.value, sel[sel.length-1].value)) { return; }
-  if (sel.length > 0 && !isNeighbouringLocation(this.p, sel[sel.length-1].p, this.size)) { return; }
+  var self = this;
+  var last = sel[sel.length-1];
+  if (sel.length > 0 && !isNeighbouringThird(this.value, last.value)) { return; }
+  if (sel.length > 0 && !isNeighbouringLocation(self.p, last.p, self.size)) { return; }
+  if (sel.some(function (t) { return self.value === t.value;})) { return; }
   var p = { x: this.p.x, y: this.p.y };
   var sqrDist = sqrDistToSegment(p, s, e);
   if (sqrDist <= sqr(this.size*0.8)) {
