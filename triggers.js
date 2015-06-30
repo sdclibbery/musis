@@ -97,6 +97,11 @@ musis.triggers.prototype.touch = function (tx, ty) {
 };
 
 musis.triggers.prototype.nextHarmony = function () {
+  if (this.selected.length < 3) {
+    this.triggers.map(function(t) { t.selected = false; });
+    this.selected = [];
+    return;
+  }
   return this.selected.map(function (t) {
     return t.value;
   });

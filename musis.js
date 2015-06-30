@@ -41,11 +41,12 @@ musis.touchmove = function (x, y) {
 };
 
 musis.touchend = function () {
+  s = null;
   var nextHarmony = triggers.nextHarmony();
+  if (!nextHarmony) { return; }
   if (nextHarmony.length > 0) {
     toNextHarmony(nextHarmony);
   }
-  s = null;
 };
 
 musis.frame = function (t, dt, gl, cw, ch) {
